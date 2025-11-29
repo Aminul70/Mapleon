@@ -60,6 +60,16 @@ export function FeedPost({
       }
     });
   };
+
+  const handleVideoClick = () => {
+    setIsPlaying(!isPlaying);
+    
+    // Show pause animation when pausing
+    if (isPlaying) {
+      setShowPauseAnimation(true);
+      setTimeout(() => setShowPauseAnimation(false), 400);
+    }
+  };
   return <>
       <div className="relative h-screen w-full snap-start snap-always overflow-hidden">
         {/* Background Image */}
