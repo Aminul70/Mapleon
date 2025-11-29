@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SettingsIcon, GridIcon, HeartIcon, BookmarkIcon, PlusIcon, XIcon, UtensilsCrossed, Coffee, Dumbbell, Scissors, MapPin, Camera, Trash2, Award, TrendingUp, Share2, Edit2 } from 'lucide-react';
+import { SettingsIcon, PlusIcon, XIcon, MapPin, Camera, Trash2, Share2, Edit2, Heart, MessageCircle, Bookmark } from 'lucide-react';
 import { BottomNav } from '../components/BottomNav';
 export function Profile() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'posts' | 'liked' | 'saved'>('posts');
   const [showEditModal, setShowEditModal] = useState(false);
   const [showPhotoOptions, setShowPhotoOptions] = useState(false);
   const [profileImage, setProfileImage] = useState('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200');
