@@ -123,7 +123,11 @@ export function Explore() {
         </h2>
         <div className="flex gap-3 sm:gap-4 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0">
           {trendingItems.map((item, index) => (
-            <TrendingCard key={index} {...item} />
+            <TrendingCard 
+              key={index} 
+              {...item} 
+              onClick={() => navigate('/business/1')}
+            />
           ))}
         </div>
       </div>
