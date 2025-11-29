@@ -74,100 +74,151 @@ export function Profile() {
     setProfileImage('https://via.placeholder.com/200?text=No+Photo');
     setShowPhotoOptions(false);
   };
-  return <div className="min-h-screen bg-white pb-24">
-      {/* Header - Fixed positioning */}
-      <div className="px-4 sm:px-6 pt-4 pb-3 flex items-center justify-end">
-        <div className="flex items-center gap-2">
+  return <div className="min-h-screen bg-mapleon-gray pb-24">
+      {/* Cover Image Section */}
+      <div className="relative">
+        <div className="h-32 sm:h-40 bg-gradient-to-r from-mapleon-coral to-mapleon-pink overflow-hidden">
+          <img src={coverImage} alt="Cover" className="w-full h-full object-cover opacity-40" />
+        </div>
+        
+        {/* Header Icons - Absolute positioned on cover */}
+        <div className="absolute top-4 right-4 flex items-center gap-2">
           <button 
             onClick={() => alert('Create new post feature - Upload photos and share your experiences!')}
-            className="p-2 active:scale-95 transition-transform"
+            className="p-2 bg-white/20 backdrop-blur-md rounded-full active:scale-95 transition-transform"
           >
-            <PlusIcon size={24} className="text-mapleon-slate" />
+            <PlusIcon size={20} className="text-white" />
           </button>
-          <button onClick={() => navigate('/settings')} className="p-2 active:scale-95 transition-transform">
-            <SettingsIcon size={24} className="text-mapleon-slate" />
+          <button onClick={() => navigate('/settings')} className="p-2 bg-white/20 backdrop-blur-md rounded-full active:scale-95 transition-transform">
+            <SettingsIcon size={20} className="text-white" />
+          </button>
+        </div>
+
+        {/* Profile Picture - Overlapping cover */}
+        <div className="absolute -bottom-12 left-4 sm:left-6">
+          <button onClick={() => setShowPhotoOptions(true)} className="relative active:scale-95 transition-transform group">
+            <img src={profileImage} alt="Profile" className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-white shadow-lg" />
+            <div className="absolute inset-0 rounded-full bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+              <div className="w-8 h-8 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <Camera size={16} className="text-gray-700" />
+              </div>
+            </div>
           </button>
         </div>
       </div>
 
-      {/* Profile Info - Centered layout */}
-      <div className="px-4 sm:px-6 pb-6">
-        {/* Profile Picture and Stats Row */}
-        <div className="flex items-center gap-6 mb-4">
-          {/* Profile Picture */}
-          <div className="relative flex-shrink-0">
-            <button onClick={() => setShowPhotoOptions(true)} className="relative active:scale-95 transition-transform">
-              <img src={profileImage} alt="Profile" className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-2 border-gray-200" />
-              <div className="absolute inset-0 rounded-full bg-black/0 hover:bg-black/10 transition-colors flex items-center justify-center">
-                <Camera size={20} className="text-white opacity-0 hover:opacity-100 transition-opacity" />
-              </div>
-            </button>
-          </div>
-
-          {/* Stats */}
-          <div className="flex-1 flex justify-around">
-            <div className="text-center">
-              <div className="text-xl sm:text-2xl font-bold text-mapleon-slate">
-                42
-              </div>
-              <div className="text-xs sm:text-sm text-gray-500">Posts</div>
-            </div>
-            <button className="text-center active:scale-95 transition-transform">
-              <div className="text-xl sm:text-2xl font-bold text-mapleon-slate">
-                2.4K
-              </div>
-              <div className="text-xs sm:text-sm text-gray-500">Followers</div>
-            </button>
-            <button className="text-center active:scale-95 transition-transform">
-              <div className="text-xl sm:text-2xl font-bold text-mapleon-slate">
-                312
-              </div>
-              <div className="text-xs sm:text-sm text-gray-500">Following</div>
-            </button>
+      {/* Profile Info Section */}
+      <div className="px-4 sm:px-6 pt-16 pb-4">
+        {/* Username and Edit */}
+        <div className="flex items-start justify-between mb-2">
+          <div>
+            <h2 className="text-xl sm:text-2xl font-bold text-mapleon-slate mb-1">
+              {editForm.username}
+            </h2>
+            <p className="text-sm text-gray-600 flex items-center gap-1 mb-2">
+              <MapPin size={14} className="text-mapleon-coral" />
+              {editForm.location}
+            </p>
           </div>
         </div>
 
         {/* Bio */}
-        <div className="mb-4">
-          <h2 className="font-bold text-mapleon-slate mb-1 text-base">
-            {editForm.username}
-          </h2>
-          <p className="text-sm text-gray-600 mb-1">{editForm.bio}</p>
-          <p className="text-sm text-gray-600 flex items-center gap-1">
-            <MapPin size={14} className="text-gray-400" />
-            {editForm.location}
-          </p>
+        <p className="text-sm sm:text-base text-gray-700 mb-4 leading-relaxed">
+          {editForm.bio}
+        </p>
+
+        {/* Stats Row - More prominent */}
+        <div className="bg-white rounded-2xl p-4 mb-4 shadow-sm">
+          <div className="flex justify-around">
+            <div className="text-center">
+              <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-mapleon-coral to-mapleon-pink bg-clip-text text-transparent">
+                42
+              </div>
+              <div className="text-xs sm:text-sm text-gray-500 font-medium">Posts</div>
+            </div>
+            <div className="w-px bg-gray-200"></div>
+            <button className="text-center active:scale-95 transition-transform">
+              <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-mapleon-teal to-mapleon-aqua bg-clip-text text-transparent">
+                2.4K
+              </div>
+              <div className="text-xs sm:text-sm text-gray-500 font-medium">Followers</div>
+            </button>
+            <div className="w-px bg-gray-200"></div>
+            <button className="text-center active:scale-95 transition-transform">
+              <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+                312
+              </div>
+              <div className="text-xs sm:text-sm text-gray-500 font-medium">Following</div>
+            </button>
+          </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-2">
-          <button onClick={() => setShowEditModal(true)} className="flex-1 py-2.5 bg-mapleon-gray rounded-xl font-semibold text-mapleon-slate text-sm active:scale-95 transition-transform">
+        <div className="flex gap-2 mb-4">
+          <button onClick={() => setShowEditModal(true)} className="flex-1 py-3 bg-gradient-to-r from-mapleon-coral to-mapleon-pink text-white rounded-xl font-semibold text-sm active:scale-95 transition-transform shadow-md flex items-center justify-center gap-2">
+            <Edit2 size={16} />
             Edit Profile
           </button>
-          <button onClick={handleShareProfile} className="flex-1 py-2.5 bg-mapleon-gray rounded-xl font-semibold text-mapleon-slate text-sm active:scale-95 transition-transform">
-            Share Profile
+          <button onClick={handleShareProfile} className="flex-1 py-3 bg-white rounded-xl font-semibold text-mapleon-slate text-sm active:scale-95 transition-transform shadow-sm border border-gray-200 flex items-center justify-center gap-2">
+            <Share2 size={16} />
+            Share
           </button>
         </div>
-      </div>
 
-      {/* Interests Pills */}
-      <div className="px-4 sm:px-6 pb-4 flex gap-2 overflow-x-auto scrollbar-hide">
+        {/* Achievements/Badges */}
+        <div className="bg-white rounded-2xl p-4 mb-4 shadow-sm">
+          <h3 className="text-sm font-bold text-mapleon-slate mb-3 flex items-center gap-2">
+            <Award size={16} className="text-mapleon-coral" />
+            Achievements
+          </h3>
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            {achievements.map((achievement, index) => {
+              const IconComponent = achievement.icon;
+              return (
+                <div key={index} className="flex-shrink-0 px-3 py-2 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg flex items-center gap-2 border border-gray-200">
+                  <IconComponent size={14} style={{ color: achievement.color }} />
+                  <span className="text-xs font-medium text-gray-700 whitespace-nowrap">
+                    {achievement.label}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Interests with counts */}
+        <div className="bg-white rounded-2xl p-4 mb-4 shadow-sm">
+          <h3 className="text-sm font-bold text-mapleon-slate mb-3">My Interests</h3>
+          <div className="grid grid-cols-2 gap-2">
+            {interests.map(interest => {
+              const IconComponent = interest.icon;
+              return (
+                <button
+                  key={interest.label}
+                  onClick={() => navigate('/explore')}
+                  className="p-3 bg-gradient-to-br from-gray-50 to-white rounded-xl border border-gray-200 active:scale-95 transition-transform"
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <IconComponent size={16} style={{ color: interest.color }} />
+                    <span className="text-xs font-semibold text-mapleon-slate">
+                      {interest.label}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-500">{interest.count} places visited</p>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Saved Places Quick Access */}
         <button
           onClick={() => navigate('/favorites')}
-          className="px-4 py-2 bg-gradient-to-r from-mapleon-coral to-mapleon-pink text-white rounded-full text-xs font-medium whitespace-nowrap flex items-center gap-1.5 active:scale-95 transition-transform"
+          className="w-full p-4 bg-gradient-to-r from-mapleon-coral/10 to-mapleon-pink/10 border-2 border-mapleon-coral/20 rounded-2xl font-semibold text-mapleon-slate text-sm active:scale-95 transition-transform flex items-center justify-center gap-2 mb-4"
         >
-          <BookmarkIcon size={14} />
-          Saved Places
+          <BookmarkIcon size={18} className="text-mapleon-coral" />
+          View Saved Places (28)
         </button>
-        {interests.map(interest => {
-        const IconComponent = interest.icon;
-        return <div key={interest.label} className="px-4 py-2 bg-mapleon-gray rounded-full text-xs font-medium text-mapleon-slate whitespace-nowrap flex items-center gap-1.5">
-              <IconComponent size={14} style={{
-            color: interest.color
-          }} />
-              {interest.label}
-            </div>;
-      })}
       </div>
 
       {/* Tabs */}
