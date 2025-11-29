@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SettingsIcon, GridIcon, HeartIcon, BookmarkIcon, PlusIcon, XIcon, UtensilsCrossed, Coffee, Dumbbell, Scissors, MapPin, Camera, Trash2 } from 'lucide-react';
+import { SettingsIcon, GridIcon, HeartIcon, BookmarkIcon, PlusIcon, XIcon, UtensilsCrossed, Coffee, Dumbbell, Scissors, MapPin, Camera, Trash2, Award, TrendingUp, Share2, Edit2 } from 'lucide-react';
 import { BottomNav } from '../components/BottomNav';
 export function Profile() {
   const navigate = useNavigate();
@@ -8,29 +8,40 @@ export function Profile() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showPhotoOptions, setShowPhotoOptions] = useState(false);
   const [profileImage, setProfileImage] = useState('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200');
+  const [coverImage, setCoverImage] = useState('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800');
   const [editForm, setEditForm] = useState({
     username: 'Coffee_Lover92',
-    bio: 'Exploring the best coffee spots in NYC',
+    bio: 'Exploring the best coffee spots in NYC ☕ | Food enthusiast 🍝 | Sharing my local finds',
     location: 'New York City'
   });
   const mockPosts = ['https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400', 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400', 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400', 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400', 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400', 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400', 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400', 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=400', 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400'];
   const interests = [{
     icon: UtensilsCrossed,
     label: 'Restaurants',
-    color: '#FF7A57'
+    color: '#FF7A57',
+    count: 28
   }, {
     icon: Coffee,
     label: 'Coffee',
-    color: '#FF4D7A'
+    color: '#FF4D7A',
+    count: 35
   }, {
     icon: Dumbbell,
     label: 'Fitness',
-    color: '#1DA9A1'
+    color: '#1DA9A1',
+    count: 12
   }, {
     icon: Scissors,
     label: 'Beauty',
-    color: '#A54DFF'
+    color: '#A54DFF',
+    count: 8
   }];
+  
+  const achievements = [
+    { icon: Award, label: 'Top Reviewer', color: '#FFD700' },
+    { icon: TrendingUp, label: 'Local Explorer', color: '#FF7A57' },
+    { icon: Share2, label: 'Influencer', color: '#A54DFF' }
+  ];
   const handleSaveProfile = () => {
     setShowEditModal(false);
     alert('Profile updated successfully!');
