@@ -222,27 +222,41 @@ export function Profile() {
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-gray-200">
+      <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="flex">
-          <button onClick={() => setActiveTab('posts')} className={`flex-1 py-3 flex items-center justify-center gap-2 transition-colors relative ${activeTab === 'posts' ? 'text-mapleon-slate' : 'text-gray-400'}`}>
-            <GridIcon size={20} />
-            {activeTab === 'posts' && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-mapleon-slate" />}
+          <button onClick={() => setActiveTab('posts')} className={`flex-1 py-4 flex items-center justify-center gap-2 transition-all relative font-medium ${activeTab === 'posts' ? 'text-mapleon-slate' : 'text-gray-400'}`}>
+            <GridIcon size={20} strokeWidth={activeTab === 'posts' ? 2.5 : 2} />
+            <span className="text-sm">Posts</span>
+            {activeTab === 'posts' && <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-mapleon-coral to-mapleon-pink" />}
           </button>
-          <button onClick={() => setActiveTab('liked')} className={`flex-1 py-3 flex items-center justify-center gap-2 transition-colors relative ${activeTab === 'liked' ? 'text-mapleon-slate' : 'text-gray-400'}`}>
-            <HeartIcon size={20} />
-            {activeTab === 'liked' && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-mapleon-slate" />}
+          <button onClick={() => setActiveTab('liked')} className={`flex-1 py-4 flex items-center justify-center gap-2 transition-all relative font-medium ${activeTab === 'liked' ? 'text-mapleon-slate' : 'text-gray-400'}`}>
+            <HeartIcon size={20} strokeWidth={activeTab === 'liked' ? 2.5 : 2} />
+            <span className="text-sm">Liked</span>
+            {activeTab === 'liked' && <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-mapleon-coral to-mapleon-pink" />}
           </button>
-          <button onClick={() => setActiveTab('saved')} className={`flex-1 py-3 flex items-center justify-center gap-2 transition-colors relative ${activeTab === 'saved' ? 'text-mapleon-slate' : 'text-gray-400'}`}>
-            <BookmarkIcon size={20} />
-            {activeTab === 'saved' && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-mapleon-slate" />}
+          <button onClick={() => setActiveTab('saved')} className={`flex-1 py-4 flex items-center justify-center gap-2 transition-all relative font-medium ${activeTab === 'saved' ? 'text-mapleon-slate' : 'text-gray-400'}`}>
+            <BookmarkIcon size={20} strokeWidth={activeTab === 'saved' ? 2.5 : 2} />
+            <span className="text-sm">Saved</span>
+            {activeTab === 'saved' && <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-mapleon-coral to-mapleon-pink" />}
           </button>
         </div>
       </div>
 
       {/* Content Grid */}
-      <div className="grid grid-cols-3 gap-0.5 bg-gray-100">
-        {mockPosts.map((image, index) => <button key={index} className="aspect-square relative overflow-hidden bg-gray-200 active:opacity-80 transition-opacity">
+      <div className="grid grid-cols-3 gap-1 p-1 bg-mapleon-gray">
+        {mockPosts.map((image, index) => <button key={index} onClick={() => alert(`View post ${index + 1} in detail - Full screen view with comments and details`)} className="aspect-square relative overflow-hidden bg-gray-200 active:opacity-80 transition-all rounded-lg shadow-sm hover:shadow-md">
             <img src={image} alt={`Post ${index + 1}`} className="w-full h-full object-cover" />
+            {/* Hover overlay with stats */}
+            <div className="absolute inset-0 bg-black/0 hover:bg-black/40 transition-colors flex items-center justify-center opacity-0 hover:opacity-100">
+              <div className="flex items-center gap-3 text-white">
+                <div className="flex items-center gap-1">
+                  <HeartIcon size={18} className="fill-white" />
+                  <span className="text-sm font-semibold">
+                    {Math.floor(Math.random() * 500 + 100)}
+                  </span>
+                </div>
+              </div>
+            </div>
           </button>)}
       </div>
 
