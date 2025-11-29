@@ -1,0 +1,230 @@
+export interface Business {
+  id: string;
+  name: string;
+  category: 'restaurant' | 'gym' | 'salon' | 'cafe' | 'service';
+  image: string;
+  description: string;
+  rating: number;
+  reviews: number;
+  distance: number;
+  openNow: boolean;
+  location: {
+    lat: number;
+    lng: number;
+  };
+  profileImage?: string;
+}
+export interface Post {
+  id: string;
+  businessId: string;
+  businessName: string;
+  businessCategory: string;
+  image: string;
+  caption: string;
+  likes: number;
+  comments: number;
+  shares: number;
+  distance: number;
+  trending?: boolean;
+  profileImage: string;
+  username: string;
+}
+export interface Message {
+  id: string;
+  businessName: string;
+  businessCategory: string;
+  message: string;
+  timestamp: string;
+  unread: number;
+  profileImage: string;
+}
+export const mockBusinesses: Business[] = [{
+  id: '1',
+  name: 'BrewHaven Cafe',
+  category: 'cafe',
+  image: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800',
+  description: 'Your daily dose of warmth & wifi',
+  rating: 4.7,
+  reviews: 321,
+  distance: 1.2,
+  openNow: true,
+  location: {
+    lat: 40.7589,
+    lng: -73.9851
+  },
+  profileImage: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200'
+}, {
+  id: '2',
+  name: 'Urban Oasis Gym',
+  category: 'gym',
+  image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800',
+  description: 'Transform your body, elevate your mind',
+  rating: 4.9,
+  reviews: 567,
+  distance: 0.8,
+  openNow: true,
+  location: {
+    lat: 40.7614,
+    lng: -73.9776
+  },
+  profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200'
+}, {
+  id: '3',
+  name: 'Salon Bella Vista',
+  category: 'salon',
+  image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800',
+  description: 'Where style meets sophistication',
+  rating: 4.8,
+  reviews: 234,
+  distance: 2.1,
+  openNow: true,
+  location: {
+    lat: 40.7489,
+    lng: -73.968
+  },
+  profileImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200'
+}, {
+  id: '4',
+  name: 'Tuscany Grill',
+  category: 'restaurant',
+  image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800',
+  description: 'Authentic Italian cuisine',
+  rating: 4.6,
+  reviews: 892,
+  distance: 1.5,
+  openNow: true,
+  location: {
+    lat: 40.758,
+    lng: -73.9855
+  },
+  profileImage: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200'
+}, {
+  id: '5',
+  name: 'The Daily Brew',
+  category: 'cafe',
+  image: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800',
+  description: 'Coffee crafted with passion',
+  rating: 4.5,
+  reviews: 445,
+  distance: 0.5,
+  openNow: true,
+  location: {
+    lat: 40.7505,
+    lng: -73.9934
+  },
+  profileImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200'
+}];
+export const mockPosts: Post[] = [{
+  id: '1',
+  businessId: '1',
+  businessName: 'BrewHavenCafe',
+  businessCategory: 'Cafe',
+  image: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800',
+  caption: 'Cozy mornings & fresh brews! #localcafe #brunchspot',
+  likes: 2100,
+  comments: 350,
+  shares: 122,
+  distance: 1.2,
+  trending: true,
+  profileImage: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200',
+  username: 'Coffee_Lover92'
+}, {
+  id: '2',
+  businessId: '2',
+  businessName: 'UrbanOasisGym',
+  businessCategory: 'Fitness',
+  image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800',
+  caption: 'New HIIT classes starting Monday! Join us #fitness #transformation',
+  likes: 1850,
+  comments: 210,
+  shares: 95,
+  distance: 0.8,
+  profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200',
+  username: 'FitLife_Coach'
+}, {
+  id: '3',
+  businessId: '3',
+  businessName: 'SalonBellaVista',
+  businessCategory: 'Beauty',
+  image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800',
+  caption: 'Spring makeover season! Book your appointment #beauty #hairgoals',
+  likes: 1420,
+  comments: 180,
+  shares: 67,
+  distance: 2.1,
+  profileImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200',
+  username: 'StyleQueen_'
+}, {
+  id: '4',
+  businessId: '4',
+  businessName: 'TuscanyGrill',
+  businessCategory: 'Restaurant',
+  image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800',
+  caption: 'Fresh pasta made daily! Taste the difference #italianfood #pasta',
+  likes: 3200,
+  comments: 520,
+  shares: 245,
+  distance: 1.5,
+  trending: true,
+  profileImage: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200',
+  username: 'ChefMario_'
+}];
+export const mockMessages: Message[] = [{
+  id: '1',
+  businessName: 'The Daily Brew',
+  businessCategory: 'cafe',
+  message: 'Sounds good! See you at 7 PM.',
+  timestamp: '6:45 PM',
+  unread: 3,
+  profileImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200'
+}, {
+  id: '2',
+  businessName: 'Urban Oasis Gym',
+  businessCategory: 'gym',
+  message: 'Your new class schedule ready!',
+  timestamp: 'Yesterday',
+  unread: 0,
+  profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200'
+}, {
+  id: '3',
+  businessName: 'Salon Bella Vista',
+  businessCategory: 'salon',
+  message: 'Thank to a visit!',
+  timestamp: 'Yesterday',
+  unread: 1,
+  profileImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200'
+}, {
+  id: '4',
+  businessName: 'Burger Hub',
+  businessCategory: 'restaurant',
+  message: 'Your order is confirmed.',
+  timestamp: '3 days ago',
+  unread: 0,
+  profileImage: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200'
+}];
+export const categories = [{
+  id: 'restaurant',
+  name: 'Restaurants',
+  icon: 'UtensilsCrossed',
+  color: '#FF7A57'
+}, {
+  id: 'gym',
+  name: 'Gyms',
+  icon: 'Dumbbell',
+  color: '#1DA9A1'
+}, {
+  id: 'salon',
+  name: 'Salons',
+  icon: 'Scissors',
+  color: '#A54DFF'
+}, {
+  id: 'cafe',
+  name: 'Coffee',
+  icon: 'Coffee',
+  color: '#FF4D7A'
+}, {
+  id: 'service',
+  name: 'More',
+  icon: 'Sparkles',
+  color: '#3BE5A9'
+}];
