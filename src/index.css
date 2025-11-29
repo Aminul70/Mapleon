@@ -130,4 +130,51 @@
       transform: scale(1);
     }
   }
+
+  /* Smooth icon transitions for reel pause/resume */
+  .icon-transition {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .icon-transition-fast {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .icon-bg-transition {
+    transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+  }
+
+  .icon-content-transition {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .icon-number-enter {
+    animation: numberSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .icon-number-exit {
+    animation: numberSlideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes numberSlideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes numberSlideOut {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+  }
 }
