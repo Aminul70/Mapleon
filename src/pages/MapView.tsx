@@ -1,5 +1,5 @@
-import React, { useEffect, useState, Component } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { SearchIcon, NavigationIcon } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -46,14 +46,31 @@ function MapController({
 }
 export function MapView() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [selectedBusiness, setSelectedBusiness] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState('restaurant');
+  const [searchQuery, setSearchQuery] = useState('');
   // Get target location from navigation state
   const targetLocation = location.state?.targetLocation;
   const businessName = location.state?.businessName;
   // NYC default location
   const nycCenter: [number, number] = [40.7589, -73.9851];
   const mapCenter: [number, number] = targetLocation ? [targetLocation.lat, targetLocation.lng] : nycCenter;
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      alert(`Searching for: ${searchQuery}`);
+    }
+  };
+
+  const handleNearMe = () => {
+    // In a real app, this would use geolocation
+    alert('Recentering map to your location...');
+    // navigator.geolocation.getCurrentPosition((position) => {
+    //   const { latitude, longitude } = position.coords;
+    //   // Update map center
+    // });
+  };
   return <div className="h-screen w-full relative">
       {/* Leaflet Map */}
       <MapContainer center={mapCenter} zoom={targetLocation ? 16 : 14} style={{
@@ -97,7 +114,14 @@ export function MapView() {
       <div className="absolute top-6 left-4 right-4 sm:left-6 sm:right-6 z-[1000]">
         <div className="relative">
           <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-          <input type="text" placeholder="Search on map..." className="w-full pl-12 pr-4 py-3.5 sm:py-4 rounded-2xl bg-white shadow-lg border-none focus:outline-none focus:ring-2 focus:ring-mapleon-coral/30 transition-all" />
+          <input 
+            type="text" 
+            placeholder="Search on map..." 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+            className="w-full pl-12 pr-4 py-3.5 sm:py-4 rounded-2xl bg-white shadow-lg border-none focus:outline-none focus:ring-2 focus:ring-mapleon-coral/30 transition-all" 
+          />
         </div>
       </div>
       {/* Category Filter Pills */}
@@ -112,12 +136,18 @@ export function MapView() {
         </div>
       </div>
       {/* "Near Me" Floating Button */}
-      <button className="absolute bottom-32 right-4 sm:right-6 z-[1000] bg-gradient-to-br from-mapleon-teal to-mapleon-aqua text-white p-4 sm:p-5 rounded-full shadow-xl active:scale-95 transition-transform">
+      <button 
+        onClick={handleNearMe}
+        className="absolute bottom-32 right-4 sm:right-6 z-[1000] bg-gradient-to-br from-mapleon-teal to-mapleon-aqua text-white p-4 sm:p-5 rounded-full shadow-xl active:scale-95 transition-transform"
+      >
         <NavigationIcon size={24} className="sm:w-7 sm:h-7" />
       </button>
       {/* Selected Business Card */}
       {selectedBusiness && <div className="absolute bottom-28 left-4 right-4 sm:left-6 sm:right-6 z-[1000] animate-slide-up">
-          <BusinessCard business={mockBusinesses.find(b => b.id === selectedBusiness)!} onViewDetails={() => {}} />
+          <BusinessCard 
+            business={mockBusinesses.find(b => b.id === selectedBusiness)!} 
+            onViewDetails={() => navigate(`/business/${selectedBusiness}`)} 
+          />
         </div>}
       <BottomNav />
     </div>;
