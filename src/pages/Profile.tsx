@@ -13,33 +13,44 @@ export function Profile() {
     bio: 'Exploring the best coffee spots in NYC ☕ | Food enthusiast 🍝 | Sharing my local finds',
     location: 'New York City'
   });
-  const mockPosts = ['https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400', 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400', 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400', 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400', 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400', 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400', 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400', 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=400', 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400'];
-  const interests = [{
-    icon: UtensilsCrossed,
-    label: 'Restaurants',
-    color: '#FF7A57',
-    count: 28
-  }, {
-    icon: Coffee,
-    label: 'Coffee',
-    color: '#FF4D7A',
-    count: 35
-  }, {
-    icon: Dumbbell,
-    label: 'Fitness',
-    color: '#1DA9A1',
-    count: 12
-  }, {
-    icon: Scissors,
-    label: 'Beauty',
-    color: '#A54DFF',
-    count: 8
-  }];
-  
-  const achievements = [
-    { icon: Award, label: 'Top Reviewer', color: '#FFD700' },
-    { icon: TrendingUp, label: 'Local Explorer', color: '#FF7A57' },
-    { icon: Share2, label: 'Influencer', color: '#A54DFF' }
+  // Mock posts with full post data for feed layout
+  const mockPosts = [
+    {
+      id: 1,
+      image: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800',
+      caption: 'Amazing coffee experience at this hidden gem! The atmosphere is cozy and the latte art is incredible. Highly recommend trying their signature blend.',
+      location: 'Brooklyn, NY',
+      likes: 342,
+      comments: 28,
+      timestamp: '2 hours ago'
+    },
+    {
+      id: 2,
+      image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800',
+      caption: 'Best brunch spot in the city! The avocado toast is to die for and the service is exceptional.',
+      location: 'Manhattan, NY',
+      likes: 521,
+      comments: 45,
+      timestamp: '5 hours ago'
+    },
+    {
+      id: 3,
+      image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800',
+      caption: 'Perfect place to work remotely. Great wifi, delicious food, and amazing vibes!',
+      location: 'Queens, NY',
+      likes: 198,
+      comments: 12,
+      timestamp: '1 day ago'
+    },
+    {
+      id: 4,
+      image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800',
+      caption: 'Friday night vibes! The cocktails here are absolutely perfect. Great atmosphere for a night out.',
+      location: 'Manhattan, NY',
+      likes: 687,
+      comments: 54,
+      timestamp: '2 days ago'
+    }
   ];
   const handleSaveProfile = () => {
     setShowEditModal(false);
