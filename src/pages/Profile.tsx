@@ -141,6 +141,13 @@ export function Profile() {
 
       {/* Interests Pills */}
       <div className="px-4 sm:px-6 pb-4 flex gap-2 overflow-x-auto scrollbar-hide">
+        <button
+          onClick={() => navigate('/favorites')}
+          className="px-4 py-2 bg-gradient-to-r from-mapleon-coral to-mapleon-pink text-white rounded-full text-xs font-medium whitespace-nowrap flex items-center gap-1.5 active:scale-95 transition-transform"
+        >
+          <BookmarkIcon size={14} />
+          Saved Places
+        </button>
         {interests.map(interest => {
         const IconComponent = interest.icon;
         return <div key={interest.label} className="px-4 py-2 bg-mapleon-gray rounded-full text-xs font-medium text-mapleon-slate whitespace-nowrap flex items-center gap-1.5">
