@@ -16,13 +16,13 @@ export function Settings() {
   const handleMenuItemClick = (label: string) => {
     switch (label) {
       case 'Privacy & Security':
-        alert('Privacy & Security settings - Manage your privacy preferences and security options.');
+        navigate('/privacy');
         break;
       case 'Help Center':
-        alert('Help Center - Visit our help center for FAQs and support.');
+        navigate('/help');
         break;
       case 'Terms of Service':
-        alert('Terms of Service - View our terms and conditions.');
+        navigate('/terms');
         break;
       default:
         break;
