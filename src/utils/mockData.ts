@@ -189,7 +189,7 @@ export const mockMessages: Message[] = [{
   id: '3',
   businessName: 'Salon Bella Vista',
   businessCategory: 'salon',
-  message: 'Thank to a visit!',
+  message: 'Thanks for your visit!',
   timestamp: 'Yesterday',
   unread: 1,
   profileImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200'
