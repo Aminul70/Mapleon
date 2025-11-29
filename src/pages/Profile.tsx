@@ -1,4 +1,4 @@
-import React, { useState, Component } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SettingsIcon, GridIcon, HeartIcon, BookmarkIcon, PlusIcon, XIcon, UtensilsCrossed, Coffee, Dumbbell, Scissors, MapPin, Camera, Trash2 } from 'lucide-react';
 import { BottomNav } from '../components/BottomNav';
@@ -67,7 +67,10 @@ export function Profile() {
       {/* Header - Fixed positioning */}
       <div className="px-4 sm:px-6 pt-4 pb-3 flex items-center justify-end">
         <div className="flex items-center gap-2">
-          <button className="p-2 active:scale-95 transition-transform">
+          <button 
+            onClick={() => alert('Create new post feature - Upload photos and share your experiences!')}
+            className="p-2 active:scale-95 transition-transform"
+          >
             <PlusIcon size={24} className="text-mapleon-slate" />
           </button>
           <button onClick={() => navigate('/settings')} className="p-2 active:scale-95 transition-transform">
