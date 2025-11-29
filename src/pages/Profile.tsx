@@ -298,7 +298,7 @@ export function Profile() {
       {showEditModal && <div className="fixed inset-0 z-[60] flex items-end sm:items-center sm:justify-center">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowEditModal(false)} />
 
-          <div className="relative w-full sm:max-w-lg bg-white rounded-t-3xl sm:rounded-3xl p-6 animate-slide-up">
+          <div className="relative w-full sm:max-w-lg bg-white rounded-t-3xl sm:rounded-3xl p-6 animate-slide-up max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-mapleon-slate">
                 Edit Profile
@@ -309,6 +309,19 @@ export function Profile() {
             </div>
 
             <div className="space-y-4">
+              {/* Profile Photo Preview */}
+              <div className="flex justify-center">
+                <div className="relative">
+                  <img src={profileImage} alt="Profile Preview" className="w-24 h-24 rounded-full object-cover border-4 border-gray-200" />
+                  <button 
+                    onClick={() => setShowPhotoOptions(true)}
+                    className="absolute bottom-0 right-0 p-2 bg-gradient-to-r from-mapleon-coral to-mapleon-pink rounded-full shadow-lg active:scale-95 transition-transform"
+                  >
+                    <Camera size={16} className="text-white" />
+                  </button>
+                </div>
+              </div>
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Username
@@ -316,7 +329,7 @@ export function Profile() {
                 <input type="text" value={editForm.username} onChange={e => setEditForm({
               ...editForm,
               username: e.target.value
-            })} className="w-full px-4 py-3 bg-mapleon-gray rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-mapleon-coral/30" />
+            })} className="w-full px-4 py-3 bg-mapleon-gray rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-mapleon-coral/30" placeholder="Your username" />
               </div>
 
               <div>
@@ -326,17 +339,21 @@ export function Profile() {
                 <textarea value={editForm.bio} onChange={e => setEditForm({
               ...editForm,
               bio: e.target.value
-            })} rows={3} className="w-full px-4 py-3 bg-mapleon-gray rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-mapleon-coral/30 resize-none" />
+            })} rows={4} className="w-full px-4 py-3 bg-mapleon-gray rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-mapleon-coral/30 resize-none" placeholder="Tell us about yourself..." />
+                <p className="text-xs text-gray-500 mt-1">{editForm.bio.length}/150 characters</p>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Location
                 </label>
-                <input type="text" value={editForm.location} onChange={e => setEditForm({
+                <div className="relative">
+                  <MapPin size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                  <input type="text" value={editForm.location} onChange={e => setEditForm({
               ...editForm,
               location: e.target.value
-            })} className="w-full px-4 py-3 bg-mapleon-gray rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-mapleon-coral/30" />
+            })} className="w-full pl-10 pr-4 py-3 bg-mapleon-gray rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-mapleon-coral/30" placeholder="City, State" />
+                </div>
               </div>
             </div>
 
@@ -344,7 +361,7 @@ export function Profile() {
               <button onClick={() => setShowEditModal(false)} className="flex-1 py-3 bg-gray-200 text-gray-700 rounded-2xl font-semibold active:scale-95 transition-transform">
                 Cancel
               </button>
-              <button onClick={handleSaveProfile} className="flex-1 py-3 bg-gradient-to-r from-mapleon-coral to-mapleon-pink text-white rounded-2xl font-semibold active:scale-95 transition-transform">
+              <button onClick={handleSaveProfile} className="flex-1 py-3 bg-gradient-to-r from-mapleon-coral to-mapleon-pink text-white rounded-2xl font-semibold active:scale-95 transition-transform shadow-lg">
                 Save Changes
               </button>
             </div>
