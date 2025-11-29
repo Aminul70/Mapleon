@@ -72,16 +72,12 @@ export function Explore() {
 
   const handleSearch = () => {
     if (searchQuery.trim()) {
-      // Navigate to search results or filter content
-      alert(`Searching for: ${searchQuery}`);
-      // In a real app, this would navigate to a search results page
-      // navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
     }
   };
 
   const handleCameraSearch = () => {
-    alert('Camera search feature - Upload an image to search for similar places!');
-    // In a real app, this would open camera or file picker
+    alert('Camera search feature coming soon! Upload an image to search for similar places.');
   };
 
   return (
