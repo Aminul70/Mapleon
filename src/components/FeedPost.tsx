@@ -174,15 +174,15 @@ export function FeedPost({
               e.stopPropagation();
               handleDirections();
             }} 
-            className="transition-transform active:scale-95"
+            className="active:scale-95 icon-transition-fast"
           >
             {isPlaying ? (
-              <div className="bg-white/20 backdrop-blur-md p-3 rounded-full shadow-lg">
-                <MapPinIcon size={24} className="text-white" />
+              <div className="bg-white/20 backdrop-blur-md p-3 rounded-full shadow-lg icon-transition icon-bg-transition">
+                <MapPinIcon size={24} className="text-white icon-content-transition" />
               </div>
             ) : (
-              <div className="bg-gray-800/90 backdrop-blur-sm px-5 py-2.5 sm:px-6 sm:py-3 rounded-full shadow-lg">
-                <span className="text-white text-sm sm:text-base font-semibold">
+              <div className="bg-gray-800/90 backdrop-blur-sm px-5 py-2.5 sm:px-6 sm:py-3 rounded-full shadow-lg icon-transition icon-bg-transition">
+                <span className="text-white text-sm sm:text-base font-semibold icon-number-enter">
                   Directions
                 </span>
               </div>
