@@ -110,22 +110,38 @@ export function Settings() {
             <div className="bg-white rounded-3xl overflow-hidden shadow-lg">
               {section.items.map((item, index) => {
             const Icon = item.icon;
-            return <div key={item.label} className={`flex items-center justify-between p-3 sm:p-4 ${index !== section.items.length - 1 ? 'border-b border-gray-100' : ''}`}>
+            return <button 
+                    key={item.label} 
+                    onClick={() => !item.toggle && item.onClick && item.onClick()}
+                    disabled={item.toggle}
+                    className={`w-full flex items-center justify-between p-3 sm:p-4 ${index !== section.items.length - 1 ? 'border-b border-gray-100' : ''} ${!item.toggle ? 'active:bg-gray-50 transition-colors cursor-pointer' : 'cursor-default'}`}
+                  >
                     <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
                       <Icon size={18} className="text-mapleon-coral flex-shrink-0 sm:w-5 sm:h-5" />
                       <span className="font-medium text-mapleon-slate text-sm sm:text-base truncate">
                         {item.label}
                       </span>
                     </div>
-                    {item.toggle ? <button onClick={() => item.onChange && item.onChange(!item.value)} className={`w-11 h-6 sm:w-12 sm:h-6 rounded-full transition-colors relative flex-shrink-0 ${item.value ? 'bg-gradient-to-r from-mapleon-coral to-mapleon-pink' : 'bg-gray-300'}`}>
+                    {item.toggle ? <button onClick={(e) => {
+                        e.stopPropagation();
+                        item.onChange && item.onChange(!item.value);
+                      }} className={`w-11 h-6 sm:w-12 sm:h-6 rounded-full transition-colors relative flex-shrink-0 ${item.value ? 'bg-gradient-to-r from-mapleon-coral to-mapleon-pink' : 'bg-gray-300'}`}>
                         <div className={`absolute top-0.5 w-5 h-5 bg-white rounded-full transition-transform ${item.value ? 'translate-x-5 sm:translate-x-6' : 'translate-x-0.5'}`} />
                       </button> : <span className="text-gray-400 flex-shrink-0">›</span>}
-                  </div>;
+                  </button>;
           })}
             </div>
           </div>)}
         {/* Logout Button */}
-        <button className="w-full bg-white rounded-3xl p-3 sm:p-4 flex items-center justify-center gap-2 text-red-600 font-semibold shadow-lg active:scale-95 transition-transform">
+        <button 
+          onClick={() => {
+            if (window.confirm('Are you sure you want to log out?')) {
+              alert('Logged out successfully!');
+              navigate('/');
+            }
+          }}
+          className="w-full bg-white rounded-3xl p-3 sm:p-4 flex items-center justify-center gap-2 text-red-600 font-semibold shadow-lg active:scale-95 transition-transform"
+        >
           <LogOutIcon size={18} className="sm:w-5 sm:h-5" />
           <span className="text-sm sm:text-base">Log Out</span>
         </button>
