@@ -17,6 +17,7 @@ import { SearchResults } from './pages/SearchResults';
 import { Help } from './pages/Help';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { TermsOfService } from './pages/TermsOfService';
+import { DesignSystem } from './pages/DesignSystem';
 
 export function App() {
   return <BrowserRouter>
@@ -38,6 +39,7 @@ export function App() {
         <Route path="/help" element={<Help />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsOfService />} />
+        <Route path="/design-system" element={<DesignSystem />} />
       </Routes>
     </BrowserRouter>;
 }
