@@ -120,7 +120,10 @@ export function FeedPost({
             </div>
 
             {/* Smaller Book a Table Button */}
-            <button className="bg-white text-gray-800 font-semibold px-6 py-2.5 sm:px-7 sm:py-3 rounded-full mb-3 active:scale-95 transition-all shadow-lg text-sm sm:text-base">
+            <button 
+              onClick={() => navigate('/bookings')}
+              className="bg-white text-gray-800 font-semibold px-6 py-2.5 sm:px-7 sm:py-3 rounded-full mb-3 active:scale-95 transition-all shadow-lg text-sm sm:text-base"
+            >
               Book a Table
             </button>
 
