@@ -13,6 +13,22 @@ export function Settings() {
     email: 'coffee.lover@email.com',
     bio: 'Coffee Enthusiast'
   });
+  const handleMenuItemClick = (label: string) => {
+    switch (label) {
+      case 'Privacy & Security':
+        alert('Privacy & Security settings - Manage your privacy preferences and security options.');
+        break;
+      case 'Help Center':
+        alert('Help Center - Visit our help center for FAQs and support.');
+        break;
+      case 'Terms of Service':
+        alert('Terms of Service - View our terms and conditions.');
+        break;
+      default:
+        break;
+    }
+  };
+
   const settingsSections = [{
     title: 'Account',
     items: [{
@@ -36,18 +52,21 @@ export function Settings() {
     }, {
       icon: LockIcon,
       label: 'Privacy & Security',
-      toggle: false
+      toggle: false,
+      onClick: () => handleMenuItemClick('Privacy & Security')
     }]
   }, {
     title: 'Support',
     items: [{
       icon: HelpCircleIcon,
       label: 'Help Center',
-      toggle: false
+      toggle: false,
+      onClick: () => handleMenuItemClick('Help Center')
     }, {
       icon: ShieldIcon,
       label: 'Terms of Service',
-      toggle: false
+      toggle: false,
+      onClick: () => handleMenuItemClick('Terms of Service')
     }]
   }];
   const handleSaveProfile = () => {
