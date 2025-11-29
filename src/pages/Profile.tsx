@@ -175,99 +175,78 @@ export function Profile() {
           </button>
         </div>
 
-        {/* Achievements/Badges */}
-        <div className="bg-white rounded-2xl p-4 mb-4 shadow-sm">
-          <h3 className="text-sm font-bold text-mapleon-slate mb-3 flex items-center gap-2">
-            <Award size={16} className="text-mapleon-coral" />
-            Achievements
-          </h3>
-          <div className="flex gap-2 overflow-x-auto pb-1">
-            {achievements.map((achievement, index) => {
-              const IconComponent = achievement.icon;
-              return (
-                <div key={index} className="flex-shrink-0 px-3 py-2 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg flex items-center gap-2 border border-gray-200">
-                  <IconComponent size={14} style={{ color: achievement.color }} />
-                  <span className="text-xs font-medium text-gray-700 whitespace-nowrap">
-                    {achievement.label}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
+      </div>
+
+      {/* Posts Feed - Twitter/Facebook Style */}
+      <div className="bg-white">
+        <div className="border-b border-gray-200 py-4 px-4">
+          <h3 className="text-lg font-bold text-mapleon-slate">Posts</h3>
         </div>
 
-        {/* Interests with counts */}
-        <div className="bg-white rounded-2xl p-4 mb-4 shadow-sm">
-          <h3 className="text-sm font-bold text-mapleon-slate mb-3">My Interests</h3>
-          <div className="grid grid-cols-2 gap-2">
-            {interests.map(interest => {
-              const IconComponent = interest.icon;
-              return (
-                <button
-                  key={interest.label}
-                  onClick={() => navigate('/explore')}
-                  className="p-3 bg-gradient-to-br from-gray-50 to-white rounded-xl border border-gray-200 active:scale-95 transition-transform"
-                >
-                  <div className="flex items-center gap-2 mb-1">
-                    <IconComponent size={16} style={{ color: interest.color }} />
-                    <span className="text-xs font-semibold text-mapleon-slate">
-                      {interest.label}
-                    </span>
+        {/* Feed Posts */}
+        <div className="divide-y divide-gray-200">
+          {mockPosts.map((post) => (
+            <div key={post.id} className="p-4 bg-white">
+              {/* Post Header */}
+              <div className="flex items-center gap-3 mb-3">
+                <img 
+                  src={profileImage} 
+                  alt="Profile" 
+                  className="w-10 h-10 rounded-full object-cover"
+                />
+                <div className="flex-1">
+                  <h4 className="font-semibold text-mapleon-slate text-sm">
+                    {editForm.username}
+                  </h4>
+                  <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <span>{post.timestamp}</span>
+                    <span>•</span>
+                    <div className="flex items-center gap-1">
+                      <MapPin size={12} />
+                      <span>{post.location}</span>
+                    </div>
                   </div>
-                  <p className="text-xs text-gray-500">{interest.count} places visited</p>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Saved Places Quick Access */}
-        <button
-          onClick={() => navigate('/favorites')}
-          className="w-full p-4 bg-gradient-to-r from-mapleon-coral/10 to-mapleon-pink/10 border-2 border-mapleon-coral/20 rounded-2xl font-semibold text-mapleon-slate text-sm active:scale-95 transition-transform flex items-center justify-center gap-2 mb-4"
-        >
-          <BookmarkIcon size={18} className="text-mapleon-coral" />
-          View Saved Places (28)
-        </button>
-      </div>
-
-      {/* Tabs */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="flex">
-          <button onClick={() => setActiveTab('posts')} className={`flex-1 py-4 flex items-center justify-center gap-2 transition-all relative font-medium ${activeTab === 'posts' ? 'text-mapleon-slate' : 'text-gray-400'}`}>
-            <GridIcon size={20} strokeWidth={activeTab === 'posts' ? 2.5 : 2} />
-            <span className="text-sm">Posts</span>
-            {activeTab === 'posts' && <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-mapleon-coral to-mapleon-pink" />}
-          </button>
-          <button onClick={() => setActiveTab('liked')} className={`flex-1 py-4 flex items-center justify-center gap-2 transition-all relative font-medium ${activeTab === 'liked' ? 'text-mapleon-slate' : 'text-gray-400'}`}>
-            <HeartIcon size={20} strokeWidth={activeTab === 'liked' ? 2.5 : 2} />
-            <span className="text-sm">Liked</span>
-            {activeTab === 'liked' && <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-mapleon-coral to-mapleon-pink" />}
-          </button>
-          <button onClick={() => setActiveTab('saved')} className={`flex-1 py-4 flex items-center justify-center gap-2 transition-all relative font-medium ${activeTab === 'saved' ? 'text-mapleon-slate' : 'text-gray-400'}`}>
-            <BookmarkIcon size={20} strokeWidth={activeTab === 'saved' ? 2.5 : 2} />
-            <span className="text-sm">Saved</span>
-            {activeTab === 'saved' && <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-mapleon-coral to-mapleon-pink" />}
-          </button>
-        </div>
-      </div>
-
-      {/* Content Grid */}
-      <div className="grid grid-cols-3 gap-1 p-1 bg-mapleon-gray">
-        {mockPosts.map((image, index) => <button key={index} onClick={() => alert(`View post ${index + 1} in detail - Full screen view with comments and details`)} className="aspect-square relative overflow-hidden bg-gray-200 active:opacity-80 transition-all rounded-lg shadow-sm hover:shadow-md">
-            <img src={image} alt={`Post ${index + 1}`} className="w-full h-full object-cover" />
-            {/* Hover overlay with stats */}
-            <div className="absolute inset-0 bg-black/0 hover:bg-black/40 transition-colors flex items-center justify-center opacity-0 hover:opacity-100">
-              <div className="flex items-center gap-3 text-white">
-                <div className="flex items-center gap-1">
-                  <HeartIcon size={18} className="fill-white" />
-                  <span className="text-sm font-semibold">
-                    {Math.floor(Math.random() * 500 + 100)}
-                  </span>
                 </div>
               </div>
+
+              {/* Post Caption */}
+              <p className="text-sm text-gray-800 mb-3 leading-relaxed">
+                {post.caption}
+              </p>
+
+              {/* Post Image */}
+              <div className="rounded-2xl overflow-hidden mb-3 bg-gray-100">
+                <img 
+                  src={post.image} 
+                  alt="Post" 
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+
+              {/* Engagement Stats */}
+              <div className="flex items-center justify-between text-xs text-gray-500 mb-3 px-1">
+                <span>{post.likes} likes</span>
+                <span>{post.comments} comments</span>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex items-center gap-4 pt-2 border-t border-gray-100">
+                <button className="flex items-center gap-2 flex-1 justify-center py-2 rounded-lg hover:bg-gray-50 active:bg-gray-100 transition-colors">
+                  <Heart size={18} className="text-gray-600" />
+                  <span className="text-sm font-medium text-gray-700">Like</span>
+                </button>
+                <button className="flex items-center gap-2 flex-1 justify-center py-2 rounded-lg hover:bg-gray-50 active:bg-gray-100 transition-colors">
+                  <MessageCircle size={18} className="text-gray-600" />
+                  <span className="text-sm font-medium text-gray-700">Comment</span>
+                </button>
+                <button className="flex items-center gap-2 flex-1 justify-center py-2 rounded-lg hover:bg-gray-50 active:bg-gray-100 transition-colors">
+                  <Bookmark size={18} className="text-gray-600" />
+                  <span className="text-sm font-medium text-gray-700">Save</span>
+                </button>
+              </div>
             </div>
-          </button>)}
+          ))}
+        </div>
       </div>
 
       {/* Photo Options Modal */}
