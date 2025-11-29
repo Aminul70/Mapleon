@@ -72,42 +72,121 @@ export function FeedPost({
   };
   return <>
       <div className="relative h-screen w-full snap-start snap-always overflow-hidden">
-        {/* Background Image */}
-        <img src={post.image} alt={post.businessName} className="absolute inset-0 w-full h-full object-cover" />
+        {/* Background Image - Clickable for play/pause */}
+        <div 
+          ref={videoContainerRef}
+          onClick={handleVideoClick}
+          className="absolute inset-0 cursor-pointer"
+        >
+          <img src={post.image} alt={post.businessName} className="absolute inset-0 w-full h-full object-cover" />
+          
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/90 pointer-events-none" />
+          
+          {/* Center Play Button - Only shown when paused */}
+          {!isPlaying && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="bg-black/50 backdrop-blur-sm rounded-full p-6 animate-fade-in">
+                <PlayIcon size={48} className="text-white fill-white" />
+              </div>
+            </div>
+          )}
 
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/90" />
+          {/* Pause Animation - Brief animation when pausing */}
+          {showPauseAnimation && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="bg-black/50 backdrop-blur-sm rounded-full p-6 animate-pulse-once">
+                <PauseIcon size={48} className="text-white fill-white" />
+              </div>
+            </div>
+          )}
+        </div>
 
-        {/* Right Side Actions - Improved tap areas and alignment */}
+        {/* Right Side Actions - Show numbers only when paused, just icons when playing */}
         <div className="absolute right-2 bottom-[240px] sm:right-3 sm:bottom-[260px] flex flex-col gap-3 sm:gap-4 z-30">
-          <button onClick={() => setLiked(!liked)} className="flex flex-col items-center gap-1 transition-transform active:scale-95 p-1">
-            <div className="bg-gray-200/90 backdrop-blur-sm px-4 py-2.5 sm:px-5 sm:py-3 rounded-full flex items-center gap-2 shadow-lg">
-              <HeartIcon size={20} className={`sm:w-6 sm:h-6 transition-colors ${liked ? 'fill-red-500 text-red-500' : 'text-gray-800'}`} />
-              <span className="text-gray-800 text-sm sm:text-base font-semibold">
-                {formatNumber(post.likes)}
-              </span>
-            </div>
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              setLiked(!liked);
+            }} 
+            className="flex flex-col items-center gap-1 transition-transform active:scale-95 p-1"
+          >
+            {isPlaying ? (
+              // Playing: Icon only
+              <div className="bg-white/20 backdrop-blur-md p-3 rounded-full shadow-lg">
+                <HeartIcon size={24} className={`transition-colors ${liked ? 'fill-white text-white' : 'text-white'}`} />
+              </div>
+            ) : (
+              // Paused: Icon with number
+              <div className="bg-gray-200/90 backdrop-blur-sm px-4 py-2.5 sm:px-5 sm:py-3 rounded-full flex items-center gap-2 shadow-lg">
+                <HeartIcon size={20} className={`sm:w-6 sm:h-6 transition-colors ${liked ? 'fill-red-500 text-red-500' : 'text-gray-800'}`} />
+                <span className="text-gray-800 text-sm sm:text-base font-semibold">
+                  {formatNumber(post.likes)}
+                </span>
+              </div>
+            )}
           </button>
-          <button onClick={() => setShowComments(true)} className="flex flex-col items-center gap-1 transition-transform active:scale-95 p-1">
-            <div className="bg-gray-200/90 backdrop-blur-sm px-4 py-2.5 sm:px-5 sm:py-3 rounded-full flex items-center gap-2 shadow-lg">
-              <MessageCircleIcon size={20} className="sm:w-6 sm:h-6 text-gray-800" />
-              <span className="text-gray-800 text-sm sm:text-base font-semibold">
-                {post.comments}
-              </span>
-            </div>
+
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowComments(true);
+            }} 
+            className="flex flex-col items-center gap-1 transition-transform active:scale-95 p-1"
+          >
+            {isPlaying ? (
+              <div className="bg-white/20 backdrop-blur-md p-3 rounded-full shadow-lg">
+                <MessageCircleIcon size={24} className="text-white" />
+              </div>
+            ) : (
+              <div className="bg-gray-200/90 backdrop-blur-sm px-4 py-2.5 sm:px-5 sm:py-3 rounded-full flex items-center gap-2 shadow-lg">
+                <MessageCircleIcon size={20} className="sm:w-6 sm:h-6 text-gray-800" />
+                <span className="text-gray-800 text-sm sm:text-base font-semibold">
+                  {post.comments}
+                </span>
+              </div>
+            )}
           </button>
-          <button onClick={() => setShowShare(true)} className="flex flex-col items-center gap-1 transition-transform active:scale-95 p-1">
-            <div className="bg-gray-200/90 backdrop-blur-sm px-4 py-2.5 sm:px-5 sm:py-3 rounded-full flex items-center gap-2 shadow-lg">
-              <Share2Icon size={20} className="sm:w-6 sm:h-6 text-gray-800" />
-              <span className="text-gray-800 text-sm sm:text-base font-semibold">
-                {formatNumber(post.shares)}
-              </span>
-            </div>
+
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowShare(true);
+            }} 
+            className="flex flex-col items-center gap-1 transition-transform active:scale-95 p-1"
+          >
+            {isPlaying ? (
+              <div className="bg-white/20 backdrop-blur-md p-3 rounded-full shadow-lg">
+                <Share2Icon size={24} className="text-white" />
+              </div>
+            ) : (
+              <div className="bg-gray-200/90 backdrop-blur-sm px-4 py-2.5 sm:px-5 sm:py-3 rounded-full flex items-center gap-2 shadow-lg">
+                <Share2Icon size={20} className="sm:w-6 sm:h-6 text-gray-800" />
+                <span className="text-gray-800 text-sm sm:text-base font-semibold">
+                  {formatNumber(post.shares)}
+                </span>
+              </div>
+            )}
           </button>
-          <button onClick={handleDirections} className="bg-gray-800/90 backdrop-blur-sm px-5 py-2.5 sm:px-6 sm:py-3 rounded-full transition-transform active:scale-95 shadow-lg">
-            <span className="text-white text-sm sm:text-base font-semibold">
-              Directions
-            </span>
+
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDirections();
+            }} 
+            className="transition-transform active:scale-95"
+          >
+            {isPlaying ? (
+              <div className="bg-white/20 backdrop-blur-md p-3 rounded-full shadow-lg">
+                <MapPinIcon size={24} className="text-white" />
+              </div>
+            ) : (
+              <div className="bg-gray-800/90 backdrop-blur-sm px-5 py-2.5 sm:px-6 sm:py-3 rounded-full shadow-lg">
+                <span className="text-white text-sm sm:text-base font-semibold">
+                  Directions
+                </span>
+              </div>
+            )}
           </button>
         </div>
 
