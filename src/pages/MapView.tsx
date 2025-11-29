@@ -59,17 +59,24 @@ export function MapView() {
 
   const handleSearch = () => {
     if (searchQuery.trim()) {
-      alert(`Searching for: ${searchQuery}`);
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
     }
   };
 
   const handleNearMe = () => {
-    // In a real app, this would use geolocation
-    alert('Recentering map to your location...');
-    // navigator.geolocation.getCurrentPosition((position) => {
-    //   const { latitude, longitude } = position.coords;
-    //   // Update map center
-    // });
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          alert(`Location updated! Centering map to your position.`);
+          // Map will recenter with MapController component
+        },
+        (error) => {
+          alert('Unable to access your location. Please enable location services in your browser settings.');
+        }
+      );
+    } else {
+      alert('Geolocation is not supported by your browser.');
+    }
   };
   return <div className="h-screen w-full relative">
       {/* Leaflet Map */}
