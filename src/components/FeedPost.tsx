@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HeartIcon, MessageCircleIcon, Share2Icon, MapPinIcon, MoreVerticalIcon } from 'lucide-react';
+import { HeartIcon, MessageCircleIcon, Share2Icon, MapPinIcon, MoreVerticalIcon, PlayIcon, PauseIcon } from 'lucide-react';
 import { Post } from '../utils/mockData';
 import { CommentsModal } from './CommentsModal';
 import { ShareSheet } from './ShareSheet';
@@ -17,7 +17,10 @@ export function FeedPost({
   const [captionExpanded, setCaptionExpanded] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [showShare, setShowShare] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true); // Video is playing by default
+  const [showPauseAnimation, setShowPauseAnimation] = useState(false);
   const captionRef = useRef<HTMLDivElement>(null);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
   const formatNumber = (num: number) => {
     if (num >= 1000) {
       return (num / 1000).toFixed(1) + 'K';
