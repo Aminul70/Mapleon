@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { HomeIcon, MapPinIcon, CalendarIcon, MessageCircleIcon, UserIcon, PlusCircle } from 'lucide-react';
+import { HomeIcon, MapPinIcon, CalendarIcon, MessageCircleIcon, UserIcon, PlusCircle, Compass } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavBar } from '../contexts/NavBarContext';
 
@@ -22,6 +22,12 @@ export function BottomNav() {
       label: 'Near Me',
       icon: MapPinIcon,
       path: '/map'
+    },
+    {
+      id: 'explore',
+      label: 'Explore',
+      icon: Compass,
+      path: '/explore'
     }
   ];
 
