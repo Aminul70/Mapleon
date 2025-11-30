@@ -2,11 +2,13 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { HomeIcon, MapPinIcon, CalendarIcon, MessageCircleIcon, UserIcon, PlusCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavBar } from '../contexts/NavBarContext';
 
 export function BottomNav() {
   const navigate = useNavigate();
   const location = useLocation();
   const { isBusinessAccount } = useAuth();
+  const { isNavBarVisible } = useNavBar();
 
   const baseTabs = [
     {
