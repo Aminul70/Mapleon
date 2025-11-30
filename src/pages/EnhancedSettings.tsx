@@ -18,6 +18,7 @@ import {
   Volume2,
   Search,
   ChevronRight,
+  ChevronDown,
 } from 'lucide-react';
 import { ToggleSwitchField } from '../components/form/ToggleSwitchField';
 import { SelectField } from '../components/form/SelectField';
@@ -26,10 +27,11 @@ import { BottomNav } from '../components/BottomNav';
 import { saveSettings, loadSettings, clearAllData } from '../utils/localStorage';
 import { useAuth } from '../contexts/AuthContext';
 
-export function EnhancedSettings() {
+export function Settings() {
   const navigate = useNavigate();
   const { isBusinessAccount } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
+  const [expandedSections, setExpandedSections] = useState<string[]>([]);
 
   // Load settings from localStorage
   const [settings, setSettings] = useState(() => {
