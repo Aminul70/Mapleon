@@ -95,36 +95,38 @@ export function FeedPost({
     const now = Date.now();
     const timeSinceLastTap = now - lastTapRef.current;
 
-    // Double tap detection (within 250ms for better responsiveness)
-    if (timeSinceLastTap < 250 && timeSinceLastTap > 50) {
-      // Double tap - like
+    // Double tap detection (within 300ms)
+    if (timeSinceLastTap < 300 && timeSinceLastTap > 0 && lastTapRef.current !== 0) {
+      // Double tap - ONLY like, don't pause video
       e.preventDefault();
       e.stopPropagation();
+      
       if (!liked) {
         setLiked(true);
       }
-      // Show heart burst animation regardless of like state for better feedback
+      
+      // Show heart burst animation
       setShowHeartBurst(true);
       setTimeout(() => setShowHeartBurst(false), 800);
-      lastTapRef.current = 0; // Reset to prevent triple tap issues
-      return;
+      
+      // Reset tap timer to prevent any pause action
+      lastTapRef.current = 0;
+      return; // Exit early - don't pause/play
     }
 
-    // Single tap - play/pause (with slight delay to detect double tap)
-    if (timeSinceLastTap > 250 || lastTapRef.current === 0) {
-      setTimeout(() => {
-        const timeSinceTap = Date.now() - now;
-        // Only toggle play/pause if no second tap occurred
-        if (timeSinceTap >= 250) {
-          setIsPlaying(!isPlaying);
-          
-          if (isPlaying) {
-            setShowPauseAnimation(true);
-            setTimeout(() => setShowPauseAnimation(false), 400);
-          }
+    // Single tap - toggle play/pause
+    // But wait a moment to see if a second tap is coming
+    const tapTimer = setTimeout(() => {
+      // Only toggle if this wasn't part of a double tap
+      if (lastTapRef.current !== 0) {
+        setIsPlaying(!isPlaying);
+        
+        if (isPlaying) {
+          setShowPauseAnimation(true);
+          setTimeout(() => setShowPauseAnimation(false), 400);
         }
-      }, 250);
-    }
+      }
+    }, 300);
 
     lastTapRef.current = now;
   };
