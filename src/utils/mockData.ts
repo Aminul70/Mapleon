@@ -295,3 +295,118 @@ export const categories = [{
   icon: 'Sparkles',
   color: '#3BE5A9'
 }];
+
+export const mockUsers: User[] = [
+  {
+    id: 'u1',
+    username: 'johndoe',
+    name: 'John Doe',
+    bio: 'Food enthusiast | Traveler | Coffee addict ☕',
+    profileImage: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200',
+    accountType: 'user',
+    stats: {
+      saved: 234,
+      followers: 1234,
+      following: 890,
+    },
+    interests: ['restaurant', 'cafe'],
+    memberSince: '2024',
+    verified: false,
+  },
+  {
+    id: 'b1',
+    username: 'brewhavencafe',
+    name: 'BrewHaven Cafe',
+    bio: 'Your daily dose of warmth & wifi | Est. 2020',
+    profileImage: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200',
+    coverImage: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1200',
+    accountType: 'business',
+    stats: {
+      posts: 45,
+      saved: 0,
+      followers: 3200,
+      following: 120,
+    },
+    memberSince: '2020',
+    verified: true,
+  },
+];
+
+export const mockReviews: Review[] = [
+  {
+    id: 'r1',
+    businessId: '1',
+    userId: 'u1',
+    userName: 'John Doe',
+    userImage: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200',
+    rating: 5,
+    comment: 'Amazing coffee and cozy atmosphere! The baristas are super friendly and the wifi is great for working.',
+    date: '2024-11-25',
+    photos: ['https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400'],
+  },
+  {
+    id: 'r2',
+    businessId: '1',
+    userId: 'u2',
+    userName: 'Sarah Smith',
+    userImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200',
+    rating: 4,
+    comment: 'Great coffee spot! A bit crowded during morning rush but totally worth it.',
+    date: '2024-11-20',
+  },
+];
+
+export const mockNotifications: Notification[] = [
+  {
+    id: 'n1',
+    type: 'like',
+    userId: 'u2',
+    userName: 'Sarah Smith',
+    userImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200',
+    message: 'liked your comment',
+    timestamp: '2 minutes ago',
+    read: false,
+  },
+  {
+    id: 'n2',
+    type: 'business_post',
+    userId: 'b1',
+    userName: 'BrewHaven Cafe',
+    userImage: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200',
+    message: 'posted a new video',
+    timestamp: '1 hour ago',
+    read: false,
+  },
+  {
+    id: 'n3',
+    type: 'follow',
+    userId: 'u3',
+    userName: 'Mike Johnson',
+    userImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200',
+    message: 'started following you',
+    timestamp: 'Yesterday',
+    read: true,
+  },
+];
+
+export const mockBookings: Booking[] = [
+  {
+    id: 'bk1',
+    businessId: '1',
+    businessName: 'BrewHaven Cafe',
+    date: '2024-12-15',
+    time: '14:00',
+    partySize: 2,
+    status: 'confirmed',
+  },
+  {
+    id: 'bk2',
+    businessId: '4',
+    businessName: 'Tuscany Grill',
+    date: '2024-12-20',
+    time: '19:00',
+    partySize: 4,
+    status: 'pending',
+    specialRequests: 'Window seat please',
+  },
+];
