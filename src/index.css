@@ -250,6 +250,38 @@
     }
   }
 
+  /* Navbar slide animations */
+  @keyframes navSlideDown {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(120%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes navSlideUp {
+    from {
+      transform: translateY(120%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .navbar-hide {
+    animation: navSlideDown 0.3s ease-in-out forwards;
+  }
+
+  .navbar-show {
+    animation: navSlideUp 0.3s ease-in-out forwards;
+  }
+  }
+
   @keyframes slideUp {
     from {
       opacity: 0;
