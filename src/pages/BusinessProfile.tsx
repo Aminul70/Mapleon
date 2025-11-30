@@ -103,6 +103,18 @@ export function BusinessProfile() {
           {/* Description */}
           <p className="text-neutral-700 mb-4">{business.description}</p>
 
+          {/* Edit Profile Button */}
+          <div className="mb-4">
+            <Button 
+              variant="primary" 
+              size="md" 
+              fullWidth 
+              onClick={() => navigate('/business-profile-edit')}
+            >
+              Edit Profile
+            </Button>
+          </div>
+
           {/* Action Buttons */}
           <div className="flex gap-2 mb-6">
             <a href={`tel:${business.phone}`} className="flex-1">
