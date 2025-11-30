@@ -64,6 +64,17 @@ export function FeedPost({
     onModalStateChange?.(isAnyModalOpen);
   }, [showComments, showShare, onModalStateChange]);
 
+  // Handle video play/pause state
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.play().catch(err => console.log('Play failed:', err));
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isPlaying]);
+
   // Handle click outside to collapse caption
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
