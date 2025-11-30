@@ -203,13 +203,21 @@ export function Settings() {
       <div className="p-4 max-w-2xl mx-auto space-y-4">
         {/* Account Section */}
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-          <div className="px-4 py-3 border-b border-gray-100">
-            <div className="flex items-center gap-2">
+          <button
+            onClick={() => toggleSection('account')}
+            className="w-full px-4 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+          >
+            <div className="flex items-center gap-3">
               <User size={20} className="text-primary-brand" />
               <h2 className="font-semibold text-neutral-900">Account</h2>
             </div>
-          </div>
-          <div className="p-4">
+            <ChevronDown 
+              size={20} 
+              className={`text-gray-400 transition-transform ${isSectionExpanded('account') ? 'rotate-180' : ''}`}
+            />
+          </button>
+          {isSectionExpanded('account') && (
+          <div className="p-4 border-t border-gray-100">
             <button
               onClick={() => navigate(isBusinessAccount ? '/business-profile-edit' : '/user-profile-edit')}
               className="w-full flex items-center justify-between py-3 hover:bg-gray-50 rounded-lg px-3 transition-colors"
@@ -239,6 +247,7 @@ export function Settings() {
               <ChevronRight size={18} className="text-gray-400" />
             </button>
           </div>
+          )}
         </div>
 
         {/* Notification Settings */}
