@@ -58,8 +58,8 @@ export function UserProfile() {
           </div>
 
           {/* Name and Username */}
-          <h1 className="text-xl font-bold text-neutral-900 mb-1">{user.name}</h1>
-          <p className="text-neutral-600 mb-3">@{user.username}</p>
+          <h1 className="text-lg sm:text-xl font-bold text-neutral-900 mb-1 break-words">{user.name}</h1>
+          <p className="text-sm sm:text-base text-neutral-600 mb-3 break-all">@{user.username}</p>
 
           {/* Bio */}
           {user.bio && <p className="text-neutral-700 mb-4">{user.bio}</p>}
