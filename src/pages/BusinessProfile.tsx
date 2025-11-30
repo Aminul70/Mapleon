@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Share2, Phone, MapPin, Globe, Star, ChevronRight, Clock } from 'lucide-react';
+import { ArrowLeft, Share2, Phone, MapPin, Globe, Star, ChevronRight, Clock, Settings, BarChart2, Users } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 import { mockBusinesses, mockReviews, mockPosts } from '../utils/mockData';
 import { Button } from '../components/Button';
 import { Badge } from '../components/Badge';
 import { ReviewCard } from '../components/ReviewCard';
+import { AccountSwitcher } from '../components/AccountSwitcher';
 import { BottomNav } from '../components/BottomNav';
 
 export function BusinessProfile() {
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
   const [activeTab, setActiveTab] = useState<'about' | 'posts' | 'photos' | 'reviews'>('about');
   const [showHours, setShowHours] = useState(false);
+  const [showAccountSwitcher, setShowAccountSwitcher] = useState(false);
   
   const business = mockBusinesses[0]; // Using first business as example
   const reviews = mockReviews.filter(r => r.businessId === business.id);
