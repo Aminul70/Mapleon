@@ -52,7 +52,7 @@ export function UserProfile() {
               alt={user.name}
               className="w-20 h-20 rounded-full object-cover"
             />
-            <Button variant="secondary" size="md" onClick={() => navigate('/settings')}>
+            <Button variant="secondary" size="md" onClick={() => navigate('/user-profile-edit')}>
               Edit Profile
             </Button>
           </div>
