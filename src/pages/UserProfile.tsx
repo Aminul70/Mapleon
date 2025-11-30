@@ -46,14 +46,14 @@ export function UserProfile() {
 
         <div className="px-4 pb-4">
           {/* Avatar */}
-          <div className="flex items-center gap-4 mb-4">
+          <div className="flex items-center gap-3 sm:gap-4 mb-4">
             <img
               src={user.profileImage}
               alt={user.name}
-              className="w-20 h-20 rounded-full object-cover"
+              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover flex-shrink-0"
             />
             <Button variant="secondary" size="md" onClick={() => navigate('/user-profile-edit')}>
-              Edit Profile
+              <span className="text-xs sm:text-sm">Edit Profile</span>
             </Button>
           </div>
 
