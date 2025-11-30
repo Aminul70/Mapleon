@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 import { Onboarding } from './pages/Onboarding';
+import { Login } from './pages/Login';
 import { InterestSelection } from './pages/InterestSelection';
 import { HomeFeed } from './pages/HomeFeed';
 import { Explore } from './pages/Explore';
@@ -24,26 +26,35 @@ import { TermsOfService } from './pages/TermsOfService';
 import { DesignSystem } from './pages/DesignSystem';
 
 export function App() {
-  return <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Onboarding />} />
-        <Route path="/interests" element={<InterestSelection />} />
-        <Route path="/home" element={<HomeFeed />} />
-        <Route path="/explore" element={<Explore />} />
-        <Route path="/map" element={<MapView />} />
-        <Route path="/bookings" element={<Bookings />} />
-        <Route path="/messages" element={<Messages />} />
-        <Route path="/chat" element={<ChatView />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/business/:id" element={<BusinessDetail />} />
-        <Route path="/notifications" element={<Notifications />} />
-        <Route path="/favorites" element={<Favorites />} />
-        <Route path="/search" element={<SearchResults />} />
-        <Route path="/help" element={<Help />} />
-        <Route path="/privacy" element={<PrivacyPolicy />} />
-        <Route path="/terms" element={<TermsOfService />} />
-        <Route path="/design-system" element={<DesignSystem />} />
-      </Routes>
-    </BrowserRouter>;
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Onboarding />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/interests" element={<InterestSelection />} />
+          <Route path="/home" element={<HomeFeed />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/map" element={<MapView />} />
+          <Route path="/bookings" element={<Bookings />} />
+          <Route path="/messages" element={<Messages />} />
+          <Route path="/chat" element={<ChatView />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/business-profile" element={<BusinessProfile />} />
+          <Route path="/user-profile" element={<UserProfile />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/analytics" element={<AnalyticsDashboard />} />
+          <Route path="/business/:id" element={<BusinessDetail />} />
+          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/enhanced-notifications" element={<EnhancedNotifications />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/search" element={<SearchResults />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/design-system" element={<DesignSystem />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
+  );
 }
