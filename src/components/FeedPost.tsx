@@ -1,37 +1,67 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HeartIcon, MessageCircleIcon, Share2Icon, MapPinIcon, MoreVerticalIcon, PlayIcon, PauseIcon } from 'lucide-react';
+import { HeartIcon, MessageCircleIcon, Share2Icon, MapPinIcon, MoreVerticalIcon, PlayIcon, PauseIcon, BookmarkIcon, Star } from 'lucide-react';
 import { Post } from '../utils/mockData';
 import { CommentsModal } from './CommentsModal';
 import { ShareSheet } from './ShareSheet';
+import { Badge } from './Badge';
+
 interface FeedPostProps {
   post: Post;
   onModalStateChange?: (isOpen: boolean) => void;
 }
+
 export function FeedPost({
   post,
   onModalStateChange
 }: FeedPostProps) {
   const navigate = useNavigate();
   const [liked, setLiked] = useState(false);
+  const [saved, setSaved] = useState(() => {
+    // Load saved state from localStorage
+    const savedPosts = JSON.parse(localStorage.getItem('savedPosts') || '[]');
+    return savedPosts.includes(post.id);
+  });
   const [captionExpanded, setCaptionExpanded] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [showShare, setShowShare] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(true); // Video is playing by default
+  const [isPlaying, setIsPlaying] = useState(true);
   const [showPauseAnimation, setShowPauseAnimation] = useState(false);
+  const [showHeartBurst, setShowHeartBurst] = useState(false);
   const captionRef = useRef<HTMLDivElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
+  const lastTapRef = useRef<number>(0);
+
   const formatNumber = (num: number) => {
     if (num >= 1000) {
       return (num / 1000).toFixed(1) + 'K';
     }
     return num.toString();
   };
+
+  // Handle save/unsave with localStorage persistence
+  const handleSaveToggle = () => {
+    const savedPosts = JSON.parse(localStorage.getItem('savedPosts') || '[]');
+    let updatedSavedPosts;
+    
+    if (saved) {
+      // Remove from saved
+      updatedSavedPosts = savedPosts.filter((id: string) => id !== post.id);
+    } else {
+      // Add to saved
+      updatedSavedPosts = [...savedPosts, post.id];
+    }
+    
+    localStorage.setItem('savedPosts', JSON.stringify(updatedSavedPosts));
+    setSaved(!saved);
+  };
+
   // Notify parent when modal state changes
   useEffect(() => {
     const isAnyModalOpen = showComments || showShare;
     onModalStateChange?.(isAnyModalOpen);
   }, [showComments, showShare, onModalStateChange]);
+
   // Handle click outside to collapse caption
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -48,8 +78,8 @@ export function FeedPost({
       document.removeEventListener('touchstart', handleClickOutside as any);
     };
   }, [captionExpanded]);
+
   const handleDirections = () => {
-    // Navigate to map with post location
     navigate('/map', {
       state: {
         targetLocation: {
@@ -61,18 +91,55 @@ export function FeedPost({
     });
   };
 
-  const handleVideoClick = () => {
-    setIsPlaying(!isPlaying);
-    
-    // Show pause animation when pausing
-    if (isPlaying) {
-      setShowPauseAnimation(true);
-      setTimeout(() => setShowPauseAnimation(false), 400);
+  const handleVideoClick = (e: React.MouseEvent) => {
+    const now = Date.now();
+    const timeSinceLastTap = now - lastTapRef.current;
+
+    // Double tap detection (within 300ms)
+    if (timeSinceLastTap < 300 && timeSinceLastTap > 0) {
+      // Double tap - like
+      e.preventDefault();
+      if (!liked) {
+        setLiked(true);
+        setShowHeartBurst(true);
+        setTimeout(() => setShowHeartBurst(false), 1000);
+      }
+    } else {
+      // Single tap - play/pause
+      setIsPlaying(!isPlaying);
+      
+      if (isPlaying) {
+        setShowPauseAnimation(true);
+        setTimeout(() => setShowPauseAnimation(false), 400);
+      }
     }
+
+    lastTapRef.current = now;
   };
-  return <>
+
+  // Render rating stars
+  const renderStars = (rating: number) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(<Star key={`full-${i}`} size={12} className="fill-yellow-400 text-yellow-400" />);
+    }
+    if (hasHalfStar) {
+      stars.push(<Star key="half" size={12} className="fill-yellow-400 text-yellow-400" style={{ clipPath: 'inset(0 50% 0 0)' }} />);
+    }
+    const emptyStars = 5 - Math.ceil(rating);
+    for (let i = 0; i < emptyStars; i++) {
+      stars.push(<Star key={`empty-${i}`} size={12} className="text-gray-400" />);
+    }
+    return stars;
+  };
+
+  return (
+    <>
       <div className="relative h-screen w-full snap-start snap-always overflow-hidden">
-        {/* Background Image - Clickable for play/pause */}
+        {/* Background Image - Clickable for play/pause and double-tap like */}
         <div 
           ref={videoContainerRef}
           onClick={handleVideoClick}
@@ -100,10 +167,19 @@ export function FeedPost({
               </div>
             </div>
           )}
+
+          {/* Heart Burst Animation - Double tap like */}
+          {showHeartBurst && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="animate-heart-burst">
+                <HeartIcon size={120} className="text-white fill-white drop-shadow-2xl" />
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Right Side Actions - Show numbers only when paused, just icons when playing */}
-        <div className="absolute right-2 bottom-[240px] sm:right-3 sm:bottom-[260px] flex flex-col gap-3 sm:gap-4 z-30">
+        <div className="absolute right-2 bottom-[280px] sm:right-3 sm:bottom-[300px] flex flex-col gap-3 sm:gap-4 z-30">
           <button 
             onClick={(e) => {
               e.stopPropagation();
@@ -112,12 +188,10 @@ export function FeedPost({
             className="flex flex-col items-center gap-1 active:scale-95 p-1 icon-transition-fast"
           >
             {isPlaying ? (
-              // Playing: Icon only
               <div className="bg-white/20 backdrop-blur-md p-3 rounded-full shadow-lg icon-transition icon-bg-transition">
                 <HeartIcon size={24} className={`icon-content-transition ${liked ? 'fill-white text-white' : 'text-white'}`} />
               </div>
             ) : (
-              // Paused: Icon with number
               <div className="bg-gray-200/90 backdrop-blur-sm px-4 py-2.5 sm:px-5 sm:py-3 rounded-full flex items-center gap-2 shadow-lg icon-transition icon-bg-transition">
                 <HeartIcon size={20} className={`sm:w-6 sm:h-6 icon-content-transition ${liked ? 'fill-red-500 text-red-500' : 'text-gray-800'}`} />
                 <span className="text-gray-800 text-sm sm:text-base font-semibold icon-number-enter">
@@ -169,6 +243,28 @@ export function FeedPost({
             )}
           </button>
 
+          {/* NEW: Save/Bookmark Button */}
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              handleSaveToggle();
+            }} 
+            className="flex flex-col items-center gap-1 active:scale-95 p-1 icon-transition-fast"
+          >
+            {isPlaying ? (
+              <div className="bg-white/20 backdrop-blur-md p-3 rounded-full shadow-lg icon-transition icon-bg-transition">
+                <BookmarkIcon size={24} className={`icon-content-transition transition-all ${saved ? 'fill-white text-white' : 'text-white'}`} />
+              </div>
+            ) : (
+              <div className="bg-gray-200/90 backdrop-blur-sm px-4 py-2.5 sm:px-5 sm:py-3 rounded-full flex items-center gap-2 shadow-lg icon-transition icon-bg-transition">
+                <BookmarkIcon size={20} className={`sm:w-6 sm:h-6 icon-content-transition transition-all ${saved ? 'fill-yellow-500 text-yellow-500' : 'text-gray-800'}`} />
+                <span className="text-gray-800 text-sm sm:text-base font-semibold icon-number-enter">
+                  {saved ? 'Saved' : 'Save'}
+                </span>
+              </div>
+            )}
+          </button>
+
           <button 
             onClick={(e) => {
               e.stopPropagation();
@@ -190,48 +286,89 @@ export function FeedPost({
           </button>
         </div>
 
-        {/* Bottom Info Section */}
+        {/* Bottom Info Section - REDESIGNED */}
         <div className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none">
-          <div className="bg-gradient-to-t from-black/95 via-black/80 to-transparent px-4 sm:px-6 pt-8 pb-24 pointer-events-auto">
+          <div className="bg-gradient-to-t from-black/95 via-black/85 to-transparent px-4 sm:px-6 pt-8 pb-24 pointer-events-auto">
+            {/* Business Profile Header */}
             <div className="flex items-start justify-between mb-3">
-              <div className="flex items-center gap-3">
-                <img src={post.profileImage} alt={post.businessName} className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border-2 border-white/30 object-cover" />
-                <div>
-                  <h3 className="text-white font-bold text-base sm:text-lg">
-                    {post.businessName}
-                  </h3>
+              <div className="flex items-center gap-3 flex-1">
+                <img 
+                  src={post.profileImage} 
+                  alt={post.businessName} 
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-white/30 object-cover" 
+                />
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-white font-bold text-base sm:text-lg truncate">
+                      {post.businessName}
+                    </h3>
+                    {/* Business Badge */}
+                    {post.isBusiness && post.verified && (
+                      <Badge type="business" icon="crown" size="sm" className="flex-shrink-0">
+                        Business
+                      </Badge>
+                    )}
+                  </div>
                   <p className="text-white/70 text-xs sm:text-sm">
                     {post.businessCategory}
                   </p>
                 </div>
               </div>
 
-              <button className="text-white p-2 -mr-2 active:scale-95 transition-transform">
+              <button className="text-white p-2 -mr-2 active:scale-95 transition-transform flex-shrink-0">
                 <MoreVerticalIcon size={22} />
               </button>
             </div>
 
-            {/* Smaller Book a Table Button */}
+            {/* Rating, Reviews, and Distance */}
+            <div className="flex items-center gap-3 mb-3">
+              <div className="flex items-center gap-1">
+                {renderStars(post.rating)}
+                <span className="text-white font-semibold text-sm ml-1">
+                  {post.rating.toFixed(1)}
+                </span>
+              </div>
+              <span className="text-white/60 text-sm">
+                ({post.reviews} reviews)
+              </span>
+              <span className="text-white/60 text-sm">•</span>
+              <span className="text-white/60 text-sm">
+                {post.distance}km away
+              </span>
+            </div>
+
+            {/* Book a Table Button - Updated styling */}
             <button 
               onClick={() => navigate('/bookings')}
-              className="bg-white text-gray-800 font-semibold px-6 py-2.5 sm:px-7 sm:py-3 rounded-full mb-3 active:scale-95 transition-all shadow-lg text-sm sm:text-base"
+              className="bg-primary-brand hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-full mb-3 active:scale-95 transition-all shadow-lg text-sm sm:text-base"
             >
               Book a Table
             </button>
 
             {/* Collapsible Caption */}
             <div ref={captionRef} className="relative">
-              <p onClick={() => setCaptionExpanded(!captionExpanded)} className={`text-white text-sm sm:text-base leading-relaxed cursor-pointer transition-all duration-300 ${captionExpanded ? 'line-clamp-none' : 'line-clamp-2'}`}>
+              <p 
+                onClick={() => setCaptionExpanded(!captionExpanded)} 
+                className={`text-white text-sm sm:text-base leading-relaxed cursor-pointer transition-all duration-300 ${
+                  captionExpanded ? 'line-clamp-none' : 'line-clamp-2'
+                }`}
+              >
                 {post.caption}
               </p>
-              {!captionExpanded && post.caption.length > 100 && <button onClick={() => setCaptionExpanded(true)} className="text-white/70 text-sm mt-1 font-medium">
+              {!captionExpanded && post.caption.length > 100 && (
+                <button 
+                  onClick={() => setCaptionExpanded(true)} 
+                  className="text-white/70 text-sm mt-1 font-medium hover:text-white transition-colors"
+                >
                   more
-                </button>}
+                </button>
+              )}
             </div>
           </div>
         </div>
       </div>
       <CommentsModal post={post} isOpen={showComments} onClose={() => setShowComments(false)} />
       <ShareSheet post={post} isOpen={showShare} onClose={() => setShowShare(false)} />
-    </>;
+    </>
+  );
 }
