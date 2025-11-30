@@ -59,13 +59,16 @@ export function CommentsModal({
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      hideNavBar();
     } else {
       document.body.style.overflow = 'unset';
+      showNavBar();
     }
     return () => {
       document.body.style.overflow = 'unset';
+      showNavBar();
     };
-  }, [isOpen]);
+  }, [isOpen, hideNavBar, showNavBar]);
   const toggleReplies = (commentId: string) => {
     const newExpanded = new Set(expandedReplies);
     if (newExpanded.has(commentId)) {
