@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronDown, X } from 'lucide-react';
 import { categories } from '../utils/mockData';
+import { useNavBar } from '../contexts/NavBarContext';
 
 interface CategoryFilterProps {
   onSelectCategory: (categoryId: string | null) => void;
@@ -9,6 +10,15 @@ interface CategoryFilterProps {
 
 export function CategoryFilter({ onSelectCategory, selectedCategory }: CategoryFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const { hideNavBar, showNavBar } = useNavBar();
+
+  useEffect(() => {
+    if (isOpen) {
+      hideNavBar();
+    } else {
+      showNavBar();
+    }
+  }, [isOpen, hideNavBar, showNavBar]);
 
   const handleSelect = (categoryId: string | null) => {
     onSelectCategory(categoryId);
