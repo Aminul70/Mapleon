@@ -26,6 +26,48 @@ export interface Business {
   photos?: string[];
   isBusiness?: boolean;
   verified?: boolean;
+  // New fields for enhanced business profile
+  tagline?: string;
+  operatingHours?: {
+    [day: string]: { open: string; close: string; closed: boolean };
+  };
+  specialHours?: { date: string; open: string; close: string; note?: string }[];
+  customAmenities?: string[];
+  certifications?: string[];
+  socialMedia?: {
+    instagram?: string;
+    facebook?: string;
+    twitter?: string;
+    tiktok?: string;
+    linkedin?: string;
+    youtube?: string;
+  };
+  services?: Array<{
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    image?: string;
+    category?: string;
+  }>;
+  responseRate?: number;
+  responseTime?: string;
+  analytics?: {
+    views: number;
+    profileVisits: number;
+    bookings: number;
+    weeklyViews?: number;
+    monthlyViews?: number;
+  };
+  is24x7?: boolean;
+  temporarilyClosed?: boolean;
+  serviceRadius?: number;
+  multipleLocations?: Array<{
+    id: string;
+    name: string;
+    address: string;
+    location: { lat: number; lng: number };
+  }>;
 }
 
 export interface User {
