@@ -64,11 +64,11 @@ export function Onboarding() {
           {[0, 1, 2, 3, 4].map(i => <div key={i} className={`h-2 rounded-full transition-all duration-300 ${i === 0 ? 'w-8 bg-mapleon-pink' : 'w-2 bg-gray-300'}`} />)}
         </div>
 
-        <Button variant="primary" size="lg" fullWidth onClick={() => navigate('/interests')}>
-          Allow Location Access
+        <Button variant="primary" size="lg" fullWidth onClick={() => navigate('/login')}>
+          Get Started
         </Button>
 
-        <button onClick={() => navigate('/interests')} className="mt-4 text-mapleon-slate/60 text-sm">
+        <button onClick={() => navigate('/login')} className="mt-4 text-mapleon-slate/60 text-sm">
           Skip for now
         </button>
       </div>
