@@ -265,6 +265,11 @@ export function BusinessProfile() {
         )}
       </div>
 
+      {/* Account Switcher Modal */}
+      {showAccountSwitcher && (
+        <AccountSwitcher onClose={() => setShowAccountSwitcher(false)} />
+      )}
+
       <BottomNav />
     </div>
   );
