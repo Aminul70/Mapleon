@@ -1,8 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SettingsIcon, PlusIcon, XIcon, MapPin, Camera, Trash2, Share2, Edit2, Heart, MessageCircle, Bookmark } from 'lucide-react';
-import { BottomNav } from '../components/BottomNav';
+import { useAuth } from '../contexts/AuthContext';
+import { BusinessProfile } from './BusinessProfile';
+import { UserProfile } from './UserProfile';
+import { Login } from './Login';
+
 export function Profile() {
+  const { currentUser, isBusinessAccount } = useAuth();
+  
+  // If not logged in, show login page
+  if (!currentUser) {
+    return <Login />;
+  }
+  
+  // Auto-detect and show correct profile
+  if (isBusinessAccount) {
+    return <BusinessProfile />;
+  }
+  
+  return <UserProfile />;
+}
+
+// Keep the old Profile component as a legacy fallback
+export function LegacyProfile() {
   const navigate = useNavigate();
   const [showEditModal, setShowEditModal] = useState(false);
   const [showPhotoOptions, setShowPhotoOptions] = useState(false);
