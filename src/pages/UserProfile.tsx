@@ -62,7 +62,7 @@ export function UserProfile() {
           <p className="text-sm sm:text-base text-neutral-600 mb-3 break-all">@{user.username}</p>
 
           {/* Bio */}
-          {user.bio && <p className="text-neutral-700 mb-4">{user.bio}</p>}
+          {user.bio && <p className="text-sm sm:text-base text-neutral-700 mb-4 break-words">{user.bio}</p>}
 
           {/* Stats */}
           <div className="flex items-center gap-6 mb-4">
