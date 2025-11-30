@@ -31,6 +31,7 @@ export function FeedPost({
   const captionRef = useRef<HTMLDivElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const lastTapRef = useRef<number>(0);
+  const tapTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const formatNumber = (num: number) => {
     if (num >= 1000) {
