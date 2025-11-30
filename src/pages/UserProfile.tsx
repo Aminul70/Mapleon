@@ -151,6 +151,11 @@ export function UserProfile() {
         )}
       </div>
 
+      {/* Account Switcher Modal */}
+      {showAccountSwitcher && (
+        <AccountSwitcher onClose={() => setShowAccountSwitcher(false)} />
+      )}
+
       <BottomNav />
     </div>
   );
