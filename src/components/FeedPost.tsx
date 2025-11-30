@@ -5,6 +5,7 @@ import { Post } from '../utils/mockData';
 import { CommentsModal } from './CommentsModal';
 import { ShareSheet } from './ShareSheet';
 import { Badge } from './Badge';
+import { LoadingSpinner } from './LoadingSpinner';
 
 interface FeedPostProps {
   post: Post;
