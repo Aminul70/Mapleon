@@ -13,6 +13,73 @@ export interface Business {
     lng: number;
   };
   profileImage?: string;
+  coverImage?: string;
+  phone?: string;
+  email?: string;
+  website?: string;
+  address?: string;
+  priceRange?: '$' | '$$' | '$$$' | '$$$$';
+  hours?: {
+    [key: string]: string;
+  };
+  amenities?: string[];
+  photos?: string[];
+  isBusiness?: boolean;
+  verified?: boolean;
+}
+
+export interface User {
+  id: string;
+  username: string;
+  name: string;
+  bio?: string;
+  profileImage: string;
+  coverImage?: string;
+  accountType: 'business' | 'user';
+  stats: {
+    posts?: number;
+    saved: number;
+    followers: number;
+    following: number;
+  };
+  interests?: string[];
+  memberSince: string;
+  verified?: boolean;
+}
+
+export interface Review {
+  id: string;
+  businessId: string;
+  userId: string;
+  userName: string;
+  userImage: string;
+  rating: number;
+  comment: string;
+  date: string;
+  photos?: string[];
+}
+
+export interface Notification {
+  id: string;
+  type: 'like' | 'comment' | 'follow' | 'mention' | 'business_post' | 'booking';
+  userId: string;
+  userName: string;
+  userImage: string;
+  message: string;
+  timestamp: string;
+  read: boolean;
+  relatedId?: string;
+}
+
+export interface Booking {
+  id: string;
+  businessId: string;
+  businessName: string;
+  date: string;
+  time: string;
+  partySize: number;
+  status: 'confirmed' | 'pending' | 'cancelled';
+  specialRequests?: string;
 }
 export interface Post {
   id: string;
