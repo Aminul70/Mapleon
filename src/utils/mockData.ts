@@ -81,6 +81,7 @@ export interface Booking {
   status: 'confirmed' | 'pending' | 'cancelled';
   specialRequests?: string;
 }
+
 export interface Post {
   id: string;
   businessId: string;
@@ -92,10 +93,15 @@ export interface Post {
   comments: number;
   shares: number;
   distance: number;
+  rating: number;
+  reviews: number;
   trending?: boolean;
   profileImage: string;
   username: string;
+  isBusiness?: boolean;
+  verified?: boolean;
 }
+
 export interface Message {
   id: string;
   businessName: string;
@@ -105,6 +111,7 @@ export interface Message {
   unread: number;
   profileImage: string;
 }
+
 export const mockBusinesses: Business[] = [{
   id: '1',
   name: 'BrewHaven Cafe',
@@ -157,7 +164,9 @@ export const mockBusinesses: Business[] = [{
     lat: 40.7614,
     lng: -73.9776
   },
-  profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200'
+  profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200',
+  isBusiness: true,
+  verified: true,
 }, {
   id: '3',
   name: 'Salon Bella Vista',
@@ -172,7 +181,9 @@ export const mockBusinesses: Business[] = [{
     lat: 40.7489,
     lng: -73.968
   },
-  profileImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200'
+  profileImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200',
+  isBusiness: true,
+  verified: false,
 }, {
   id: '4',
   name: 'Tuscany Grill',
@@ -187,7 +198,9 @@ export const mockBusinesses: Business[] = [{
     lat: 40.758,
     lng: -73.9855
   },
-  profileImage: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200'
+  profileImage: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200',
+  isBusiness: true,
+  verified: true,
 }, {
   id: '5',
   name: 'The Daily Brew',
@@ -202,63 +215,83 @@ export const mockBusinesses: Business[] = [{
     lat: 40.7505,
     lng: -73.9934
   },
-  profileImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200'
+  profileImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200',
+  isBusiness: true,
+  verified: false,
 }];
+
 export const mockPosts: Post[] = [{
   id: '1',
   businessId: '1',
-  businessName: 'BrewHavenCafe',
-  businessCategory: 'Cafe',
+  businessName: 'BrewHaven Cafe',
+  businessCategory: 'cafe',
   image: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800',
-  caption: 'Cozy mornings & fresh brews! #localcafe #brunchspot',
+  caption: 'Cozy mornings & fresh brews! Start your day with our signature latte and homemade pastries. Come experience the perfect blend of comfort and quality. #localcafe #brunchspot',
   likes: 2100,
   comments: 350,
   shares: 122,
   distance: 1.2,
+  rating: 4.7,
+  reviews: 321,
   trending: true,
   profileImage: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200',
-  username: 'Coffee_Lover92'
+  username: 'brewhavencafe',
+  isBusiness: true,
+  verified: true,
 }, {
   id: '2',
   businessId: '2',
-  businessName: 'UrbanOasisGym',
-  businessCategory: 'Fitness',
+  businessName: 'Urban Oasis Gym',
+  businessCategory: 'gym',
   image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800',
-  caption: 'New HIIT classes starting Monday! Join us #fitness #transformation',
+  caption: 'New HIIT classes starting Monday! Join our community of fitness enthusiasts and transform your body. State-of-the-art equipment and expert trainers ready to help you reach your goals. #fitness #transformation',
   likes: 1850,
   comments: 210,
   shares: 95,
   distance: 0.8,
+  rating: 4.9,
+  reviews: 567,
   profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200',
-  username: 'FitLife_Coach'
+  username: 'urbanoasisgym',
+  isBusiness: true,
+  verified: true,
 }, {
   id: '3',
   businessId: '3',
-  businessName: 'SalonBellaVista',
-  businessCategory: 'Beauty',
+  businessName: 'Salon Bella Vista',
+  businessCategory: 'salon',
   image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800',
-  caption: 'Spring makeover season! Book your appointment #beauty #hairgoals',
+  caption: 'Spring makeover season! Transform your look with our expert stylists. From cuts to color, we bring your vision to life. Book your appointment today! #beauty #hairgoals',
   likes: 1420,
   comments: 180,
   shares: 67,
   distance: 2.1,
+  rating: 4.8,
+  reviews: 234,
   profileImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200',
-  username: 'StyleQueen_'
+  username: 'bellavistasalon',
+  isBusiness: true,
+  verified: false,
 }, {
   id: '4',
   businessId: '4',
-  businessName: 'TuscanyGrill',
-  businessCategory: 'Restaurant',
+  businessName: 'Tuscany Grill',
+  businessCategory: 'restaurant',
   image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800',
-  caption: 'Fresh pasta made daily! Taste the difference #italianfood #pasta',
+  caption: 'Fresh pasta made daily! Taste the authentic flavors of Italy with our chef\'s special recipes. From classic carbonara to innovative modern dishes. Reserve your table now! #italianfood #pasta',
   likes: 3200,
   comments: 520,
   shares: 245,
   distance: 1.5,
+  rating: 4.6,
+  reviews: 892,
   trending: true,
   profileImage: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200',
-  username: 'ChefMario_'
+  username: 'tuscanygrill',
+  isBusiness: true,
+  verified: true,
 }];
+
 export const mockMessages: Message[] = [{
   id: '1',
   businessName: 'The Daily Brew',
@@ -292,7 +325,13 @@ export const mockMessages: Message[] = [{
   unread: 0,
   profileImage: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200'
 }];
+
 export const categories = [{
+  id: 'all',
+  name: 'All',
+  icon: 'Sparkles',
+  color: '#FF6B35'
+}, {
   id: 'restaurant',
   name: 'Restaurants',
   icon: 'UtensilsCrossed',
