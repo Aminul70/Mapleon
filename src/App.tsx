@@ -27,6 +27,7 @@ import { Help } from './pages/Help';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { TermsOfService } from './pages/TermsOfService';
 import { DesignSystem } from './pages/DesignSystem';
+import { CreatePost } from './pages/CreatePost';
 
 export function App() {
   return (
