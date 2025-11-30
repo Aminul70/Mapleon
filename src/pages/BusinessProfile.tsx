@@ -73,8 +73,8 @@ export function BusinessProfile() {
           </div>
 
           {/* Name and Badge */}
-          <div className="flex items-center gap-2 mb-1">
-            <h1 className="text-2xl font-bold text-neutral-900">{business.name}</h1>
+          <div className="flex items-center gap-2 mb-1 flex-wrap">
+            <h1 className="text-xl sm:text-2xl font-bold text-neutral-900 break-words">{business.name}</h1>
             {business.verified && (
               <Badge type="business" icon="crown" size="md">
                 Business
