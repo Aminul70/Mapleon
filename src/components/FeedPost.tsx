@@ -30,6 +30,7 @@ export function FeedPost({
   const [showHeartBurst, setShowHeartBurst] = useState(false);
   const captionRef = useRef<HTMLDivElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const lastTapRef = useRef<number>(0);
   const tapTimerRef = useRef<NodeJS.Timeout | null>(null);
 
