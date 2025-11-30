@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { XIcon, LinkIcon, FlagIcon, MessageCircleIcon, MailIcon, Share2Icon, BookmarkIcon } from 'lucide-react';
 import { Post } from '../utils/mockData';
+import { useNavBar } from '../contexts/NavBarContext';
 interface ShareSheetProps {
   post: Post;
   isOpen: boolean;
@@ -12,16 +13,21 @@ export function ShareSheet({
   onClose
 }: ShareSheetProps) {
   const sheetRef = useRef<HTMLDivElement>(null);
+  const { hideNavBar, showNavBar } = useNavBar();
+  
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      hideNavBar();
     } else {
       document.body.style.overflow = 'unset';
+      showNavBar();
     }
     return () => {
       document.body.style.overflow = 'unset';
+      showNavBar();
     };
-  }, [isOpen]);
+  }, [isOpen, hideNavBar, showNavBar]);
   const handleCopyLink = () => {
     navigator.clipboard.writeText(`https://mapleon.app/post/${post.id}`);
     alert('Link copied to clipboard!');
