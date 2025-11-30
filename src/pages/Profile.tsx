@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SettingsIcon, PlusIcon, XIcon, MapPin, Camera, Trash2, Share2, Edit2, Heart, MessageCircle, Bookmark } from 'lucide-react';
 import { BottomNav } from '../components/BottomNav';
