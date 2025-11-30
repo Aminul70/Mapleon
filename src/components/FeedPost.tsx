@@ -176,13 +176,25 @@ export function FeedPost({
   return (
     <>
       <div className="relative h-screen w-full snap-start snap-always overflow-hidden">
-        {/* Background Image - Clickable for play/pause and double-tap like */}
+        {/* Background Media - Clickable for play/pause and double-tap like */}
         <div 
           ref={videoContainerRef}
           onClick={handleVideoClick}
           className="absolute inset-0 cursor-pointer"
         >
-          <img src={post.image} alt={post.businessName} className="absolute inset-0 w-full h-full object-cover" />
+          {post.video ? (
+            <video
+              ref={videoRef}
+              src={post.video}
+              className="absolute inset-0 w-full h-full object-cover"
+              loop
+              muted
+              playsInline
+              autoPlay
+            />
+          ) : (
+            <img src={post.image} alt={post.businessName} className="absolute inset-0 w-full h-full object-cover" />
+          )}
           
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/90 pointer-events-none" />
