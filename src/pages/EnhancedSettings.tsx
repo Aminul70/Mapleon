@@ -391,6 +391,7 @@ export function Settings() {
               description="Allow others to find you by email/phone"
             />
           </div>
+          )}
         </div>
 
         {/* Content Preferences */}
