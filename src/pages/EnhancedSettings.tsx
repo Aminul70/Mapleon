@@ -336,6 +336,7 @@ export function Settings() {
               description="Show notification badge"
             />
           </div>
+          )}
         </div>
 
         {/* Privacy Settings */}
