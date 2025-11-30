@@ -77,11 +77,19 @@ export function Settings() {
   return <div className="min-h-screen bg-mapleon-gray pb-24">
       {/* Header */}
       <div className="bg-gradient-to-r from-mapleon-teal to-mapleon-aqua p-4 sm:p-6 sticky top-0 z-10">
-        <div className="flex items-center gap-3">
-          <button onClick={() => navigate('/profile')} className="p-2 -ml-2 text-white active:scale-95 transition-transform">
-            <ArrowLeftIcon size={22} className="sm:w-6 sm:h-6" />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <button onClick={() => navigate('/profile')} className="p-2 -ml-2 text-white active:scale-95 transition-transform">
+              <ArrowLeftIcon size={22} className="sm:w-6 sm:h-6" />
+            </button>
+            <h1 className="text-xl sm:text-2xl font-bold text-white">Settings</h1>
+          </div>
+          <button 
+            onClick={() => navigate('/enhanced-settings')} 
+            className="px-4 py-2 bg-white/20 backdrop-blur-md rounded-xl text-white text-sm font-medium hover:bg-white/30 transition-colors"
+          >
+            Enhanced
           </button>
-          <h1 className="text-xl sm:text-2xl font-bold text-white">Settings</h1>
         </div>
       </div>
       <div className="px-3 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-6">
