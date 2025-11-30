@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { XIcon, HeartIcon, SendIcon, SmileIcon } from 'lucide-react';
 import { Post } from '../utils/mockData';
+import { useNavBar } from '../contexts/NavBarContext';
 interface Comment {
   id: string;
   username: string;
@@ -20,6 +21,7 @@ export function CommentsModal({
   isOpen,
   onClose
 }: CommentsModalProps) {
+  const { hideNavBar, showNavBar } = useNavBar();
   const [comments, setComments] = useState<Comment[]>([{
     id: '1',
     username: 'foodie_adventures',
