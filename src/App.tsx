@@ -60,6 +60,7 @@ export function App() {
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfService />} />
           <Route path="/design-system" element={<DesignSystem />} />
+          <Route path="/create-post" element={<CreatePost />} />
         </Routes>
         </NavBarProvider>
       </AuthProvider>
