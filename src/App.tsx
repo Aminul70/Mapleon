@@ -49,7 +49,6 @@ export function App() {
           <Route path="/user-profile" element={<UserProfile />} />
           <Route path="/user-profile-edit" element={<UserProfileEdit />} />
           <Route path="/settings" element={<Settings />} />
-          <Route path="/enhanced-settings" element={<EnhancedSettings />} />
           <Route path="/analytics" element={<AnalyticsDashboard />} />
           <Route path="/business/:id" element={<BusinessDetail />} />
           <Route path="/notifications" element={<Notifications />} />
