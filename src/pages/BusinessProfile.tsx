@@ -175,17 +175,17 @@ export function BusinessProfile() {
 
             {/* Contact Info */}
             <div className="space-y-3">
-              <div className="flex items-center gap-3 text-sm">
-                <Phone size={18} className="text-neutral-600" />
-                <span className="text-neutral-900">{business.phone}</span>
+              <div className="flex items-center gap-3 text-xs sm:text-sm">
+                <Phone size={18} className="text-neutral-600 flex-shrink-0" />
+                <span className="text-neutral-900 break-all">{business.phone}</span>
               </div>
-              <div className="flex items-center gap-3 text-sm">
-                <Globe size={18} className="text-neutral-600" />
-                <span className="text-neutral-900">{business.email}</span>
+              <div className="flex items-center gap-3 text-xs sm:text-sm">
+                <Globe size={18} className="text-neutral-600 flex-shrink-0" />
+                <span className="text-neutral-900 break-all">{business.email}</span>
               </div>
-              <div className="flex items-center gap-3 text-sm">
-                <MapPin size={18} className="text-neutral-600" />
-                <span className="text-neutral-900">{business.address}</span>
+              <div className="flex items-start gap-3 text-xs sm:text-sm">
+                <MapPin size={18} className="text-neutral-600 flex-shrink-0 mt-0.5" />
+                <span className="text-neutral-900 break-words">{business.address}</span>
               </div>
             </div>
 
