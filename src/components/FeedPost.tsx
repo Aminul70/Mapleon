@@ -98,9 +98,15 @@ export function FeedPost({
 
     // Double tap detection (within 300ms)
     if (timeSinceLastTap < 300 && timeSinceLastTap > 0 && lastTapRef.current !== 0) {
-      // Double tap - ONLY like, don't pause video
+      // Double tap detected - ONLY like, don't pause video
       e.preventDefault();
       e.stopPropagation();
+      
+      // Cancel the pending single tap action
+      if (tapTimerRef.current) {
+        clearTimeout(tapTimerRef.current);
+        tapTimerRef.current = null;
+      }
       
       if (!liked) {
         setLiked(true);
@@ -115,18 +121,22 @@ export function FeedPost({
       return; // Exit early - don't pause/play
     }
 
-    // Single tap - toggle play/pause
-    // But wait a moment to see if a second tap is coming
-    const tapTimer = setTimeout(() => {
-      // Only toggle if this wasn't part of a double tap
-      if (lastTapRef.current !== 0) {
-        setIsPlaying(!isPlaying);
-        
-        if (isPlaying) {
-          setShowPauseAnimation(true);
-          setTimeout(() => setShowPauseAnimation(false), 400);
-        }
+    // Single tap - schedule play/pause toggle
+    // But wait to see if a second tap is coming (for double tap)
+    if (tapTimerRef.current) {
+      clearTimeout(tapTimerRef.current);
+    }
+    
+    tapTimerRef.current = setTimeout(() => {
+      // Toggle play/pause
+      setIsPlaying(prev => !prev);
+      
+      if (isPlaying) {
+        setShowPauseAnimation(true);
+        setTimeout(() => setShowPauseAnimation(false), 400);
       }
+      
+      tapTimerRef.current = null;
     }, 300);
 
     lastTapRef.current = now;
