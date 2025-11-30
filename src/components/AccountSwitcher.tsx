@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Check, Plus, X } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavBar } from '../contexts/NavBarContext';
 import { Avatar } from './Avatar';
 import { Badge } from './Badge';
 
@@ -10,6 +11,15 @@ interface AccountSwitcherProps {
 
 export function AccountSwitcher({ onClose }: AccountSwitcherProps) {
   const { currentUser, allAccounts, switchAccount } = useAuth();
+  const { hideNavBar, showNavBar } = useNavBar();
+
+  // Hide navbar when modal opens
+  useEffect(() => {
+    hideNavBar();
+    return () => {
+      showNavBar();
+    };
+  }, [hideNavBar, showNavBar]);
 
   const handleSwitch = (userId: string) => {
     switchAccount(userId);
