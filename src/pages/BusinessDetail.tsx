@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
 import { ArrowLeftIcon, HeartIcon, Share2Icon, StarIcon, MapPinIcon, ClockIcon, PhoneIcon } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { BottomNav } from '../components/BottomNav';
 import { Button } from '../components/Button';
+import { mockBusinesses } from '../utils/mockData';
 
 export function BusinessDetail() {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [activeTab, setActiveTab] = useState('info');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
+  
+  // Find the business by ID
+  const business = mockBusinesses.find(b => b.id === id);
+  
+  // If business not found, redirect back
+  if (!business) {
+    navigate(-1);
+    return null;
+  }
 
   const images = [
     'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800',
