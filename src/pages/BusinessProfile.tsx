@@ -90,14 +90,14 @@ export function BusinessProfile() {
           </div>
 
           {/* Rating */}
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2 mb-4 flex-wrap">
             <div className="flex items-center gap-1">
               <Star size={16} className="fill-yellow-400 text-yellow-400" />
               <span className="font-semibold text-neutral-900">{business.rating}</span>
             </div>
-            <span className="text-sm text-neutral-600">({business.reviews} reviews)</span>
+            <span className="text-xs sm:text-sm text-neutral-600">({business.reviews} reviews)</span>
             <span className="text-neutral-400">•</span>
-            <span className="text-sm text-neutral-600">{business.distance}km away</span>
+            <span className="text-xs sm:text-sm text-neutral-600">{business.distance}km away</span>
           </div>
 
           {/* Description */}
