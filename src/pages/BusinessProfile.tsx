@@ -101,7 +101,7 @@ export function BusinessProfile() {
           </div>
 
           {/* Description */}
-          <p className="text-neutral-700 mb-4">{business.description}</p>
+          <p className="text-sm sm:text-base text-neutral-700 mb-4 break-words">{business.description}</p>
 
           {/* Edit Profile Button */}
           <div className="mb-4">
