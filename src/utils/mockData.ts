@@ -87,6 +87,41 @@ export interface User {
   interests?: string[];
   memberSince: string;
   verified?: boolean;
+  // New fields for enhanced user profile
+  email?: string;
+  phone?: string;
+  location?: string;
+  privacySettings?: {
+    profileVisibility: 'public' | 'private' | 'friends';
+    showActivity: boolean;
+    showLocation: boolean;
+    allowSearch: boolean;
+  };
+  notificationSettings?: {
+    push: {
+      likes: boolean;
+      comments: boolean;
+      followers: boolean;
+      messages: boolean;
+      bookings: boolean;
+      nearbyEvents: boolean;
+    };
+    email: {
+      digest: boolean;
+      promotional: boolean;
+      important: boolean;
+    };
+    inApp: {
+      sound: boolean;
+      badge: boolean;
+    };
+  };
+  preferences?: {
+    language: string;
+    measurementUnit: 'miles' | 'km';
+    currency: string;
+    defaultMapView: 'standard' | 'satellite' | 'hybrid';
+  };
 }
 
 export interface Review {
