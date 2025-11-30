@@ -88,6 +88,16 @@ export function Settings() {
     }));
   };
 
+  const toggleSection = (section: string) => {
+    setExpandedSections(prev => 
+      prev.includes(section) 
+        ? prev.filter(s => s !== section)
+        : [...prev, section]
+    );
+  };
+
+  const isSectionExpanded = (section: string) => expandedSections.includes(section);
+
   const handleLogout = () => {
     if (window.confirm('Are you sure you want to log out?')) {
       // Clear auth and navigate to login
