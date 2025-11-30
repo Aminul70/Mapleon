@@ -300,7 +300,7 @@ export function FeedPost({
 
         {/* Bottom Info Section - REDESIGNED */}
         <div className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none">
-          <div className="bg-gradient-to-t from-black/95 via-black/85 to-transparent px-4 sm:px-6 pt-8 pb-24 pointer-events-auto">
+          <div className="bg-gradient-to-t from-black/95 via-black/80 to-transparent px-4 sm:px-6 pt-6 pb-24 pointer-events-auto">
             {/* Business Profile Header */}
             <div className="flex items-start justify-between mb-3">
               <div className="flex items-center gap-3 flex-1">
