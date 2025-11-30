@@ -419,12 +419,12 @@ export function FeedPost({
               </button>
             </div>
 
-            {/* Book a Table Button - Updated styling */}
+            {/* Book Button */}
             <button 
               onClick={() => navigate('/bookings')}
-              className="bg-primary-brand hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-full mb-3 active:scale-95 transition-all shadow-lg text-sm sm:text-base"
+              className="bg-primary-brand hover:bg-primary-dark text-white font-bold px-8 py-3 rounded-full mb-3 active:scale-95 transition-all shadow-lg text-sm sm:text-base"
             >
-              Book a Table
+              Book!
             </button>
 
             {/* Collapsible Caption */}
