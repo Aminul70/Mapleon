@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Save } from 'lucide-react';
+import { ArrowLeft, Save, Camera, Mail, Phone, MapPin, Heart, CheckCircle2, User as UserIcon } from 'lucide-react';
 import { ImageUploadField } from '../components/form/ImageUploadField';
 import { TextInputField } from '../components/form/TextInputField';
 import { TextareaField } from '../components/form/TextareaField';
@@ -89,21 +89,24 @@ export function UserProfileEdit() {
   const interestOptions = ['restaurant', 'cafe', 'gym', 'salon', 'service'];
 
   return (
-    <div className="min-h-screen bg-neutral-50 pb-24">
-      {/* Header */}
-      <div className="sticky top-0 z-20 bg-white border-b border-gray-200 shadow-sm">
-        <div className="flex items-center justify-between px-4 py-3">
+    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-neutral-50 to-primary-brand/5 pb-24">
+      {/* Header with Gradient */}
+      <div className="sticky top-0 z-20 bg-gradient-to-r from-primary-brand to-primary-dark shadow-lg">
+        <div className="flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-3">
             <button
               onClick={handleCancel}
-              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              className="p-2 hover:bg-white/20 rounded-full transition-colors"
             >
-              <ArrowLeft size={24} />
+              <ArrowLeft size={24} className="text-white" />
             </button>
             <div>
-              <h1 className="text-lg font-bold text-neutral-900">Edit Profile</h1>
+              <h1 className="text-lg font-bold text-white">Edit Profile</h1>
               {hasUnsavedChanges && (
-                <p className="text-xs text-orange-600">Unsaved changes</p>
+                <p className="text-xs text-white/80 flex items-center gap-1">
+                  <div className="w-1.5 h-1.5 bg-yellow-300 rounded-full animate-pulse" />
+                  Unsaved changes
+                </p>
               )}
             </div>
           </div>
@@ -112,6 +115,7 @@ export function UserProfileEdit() {
             size="sm"
             onClick={handleSave}
             disabled={isSaving}
+            className="bg-white text-primary-brand hover:bg-white/90"
           >
             <Save size={16} />
             <span>{isSaving ? 'Saving...' : 'Save'}</span>
@@ -120,107 +124,149 @@ export function UserProfileEdit() {
       </div>
 
       {/* Content - Single Scrollable Page */}
-      <div className="p-4 max-w-2xl mx-auto space-y-6">
-        {/* Images Section */}
-        <div className="bg-white rounded-xl p-6 shadow-sm space-y-4">
-          <h2 className="text-lg font-bold text-neutral-900">Profile Images</h2>
-          
-          <ImageUploadField
-            label="Profile Picture"
-            value={formData.profileImage}
-            onChange={(value) => updateField('profileImage', value)}
-            aspectRatio="square"
-            maxSizeMB={5}
-          />
+      <div className="p-4 max-w-3xl mx-auto space-y-5">
+        {/* Profile Images Card with Modern Design */}
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+          <div className="bg-gradient-to-r from-primary-brand/10 to-primary-dark/10 px-6 py-4 border-b border-gray-100">
+            <div className="flex items-center gap-2">
+              <Camera size={20} className="text-primary-brand" />
+              <h2 className="text-lg font-bold text-neutral-900">Profile Images</h2>
+            </div>
+            <p className="text-sm text-gray-600 mt-1">Make a great first impression</p>
+          </div>
+          <div className="p-6 space-y-5">
+            <ImageUploadField
+              label="Profile Picture"
+              value={formData.profileImage}
+              onChange={(value) => updateField('profileImage', value)}
+              aspectRatio="square"
+              maxSizeMB={5}
+            />
 
-          <ImageUploadField
-            label="Cover Photo"
-            value={formData.coverImage || ''}
-            onChange={(value) => updateField('coverImage', value)}
-            aspectRatio="cover"
-            maxSizeMB={5}
-          />
+            <ImageUploadField
+              label="Cover Photo"
+              value={formData.coverImage || ''}
+              onChange={(value) => updateField('coverImage', value)}
+              aspectRatio="cover"
+              maxSizeMB={5}
+            />
+          </div>
         </div>
 
-        {/* Basic Info Section */}
-        <div className="bg-white rounded-xl p-6 shadow-sm space-y-4">
-          <h2 className="text-lg font-bold text-neutral-900">Basic Information</h2>
+        {/* Basic Info Card */}
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4 border-b border-gray-100">
+            <div className="flex items-center gap-2">
+              <UserIcon size={20} className="text-blue-600" />
+              <h2 className="text-lg font-bold text-neutral-900">Basic Information</h2>
+            </div>
+            <p className="text-sm text-gray-600 mt-1">Tell others about yourself</p>
+          </div>
+          <div className="p-6 space-y-4">
+            <TextInputField
+              label="Display Name"
+              value={formData.name}
+              onChange={(value) => updateField('name', value)}
+              placeholder="Your name"
+              maxLength={50}
+              required
+            />
 
-          <TextInputField
-            label="Display Name"
-            value={formData.name}
-            onChange={(value) => updateField('name', value)}
-            placeholder="Your name"
-            maxLength={50}
-            required
-          />
+            <TextInputField
+              label="Username"
+              value={formData.username}
+              onChange={(value) => updateField('username', value)}
+              placeholder="username"
+              maxLength={30}
+              required
+            />
 
-          <TextInputField
-            label="Username"
-            value={formData.username}
-            onChange={(value) => updateField('username', value)}
-            placeholder="username"
-            maxLength={30}
-            required
-          />
+            <TextareaField
+              label="Bio"
+              value={formData.bio || ''}
+              onChange={(value) => updateField('bio', value)}
+              placeholder="Tell us about yourself..."
+              maxLength={150}
+              rows={3}
+            />
 
-          <TextareaField
-            label="Bio"
-            value={formData.bio || ''}
-            onChange={(value) => updateField('bio', value)}
-            placeholder="Tell us about yourself..."
-            maxLength={150}
-            rows={3}
-          />
-
-          <TextInputField
-            label="Location"
-            value={formData.location || ''}
-            onChange={(value) => updateField('location', value)}
-            placeholder="City, State"
-            maxLength={50}
-          />
+            <div className="flex items-start gap-2">
+              <MapPin size={18} className="text-gray-400 mt-3 flex-shrink-0" />
+              <TextInputField
+                label="Location"
+                value={formData.location || ''}
+                onChange={(value) => updateField('location', value)}
+                placeholder="City, State"
+                maxLength={50}
+              />
+            </div>
+          </div>
         </div>
 
-        {/* Contact Section */}
-        <div className="bg-white rounded-xl p-6 shadow-sm space-y-4">
-          <h2 className="text-lg font-bold text-neutral-900">Contact</h2>
+        {/* Contact Card */}
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 px-6 py-4 border-b border-gray-100">
+            <div className="flex items-center gap-2">
+              <Mail size={20} className="text-green-600" />
+              <h2 className="text-lg font-bold text-neutral-900">Contact Information</h2>
+            </div>
+            <p className="text-sm text-gray-600 mt-1">How can people reach you?</p>
+          </div>
+          <div className="p-6 space-y-4">
+            <div className="flex items-start gap-2">
+              <Mail size={18} className="text-gray-400 mt-3 flex-shrink-0" />
+              <TextInputField
+                label="Email"
+                value={formData.email || ''}
+                onChange={(value) => updateField('email', value)}
+                placeholder="email@example.com"
+                type="email"
+              />
+            </div>
 
-          <TextInputField
-            label="Email"
-            value={formData.email || ''}
-            onChange={(value) => updateField('email', value)}
-            placeholder="email@example.com"
-            type="email"
-          />
-
-          <TextInputField
-            label="Phone (Optional)"
-            value={formData.phone || ''}
-            onChange={(value) => updateField('phone', value)}
-            placeholder="+1 (555) 123-4567"
-            type="tel"
-          />
+            <div className="flex items-start gap-2">
+              <Phone size={18} className="text-gray-400 mt-3 flex-shrink-0" />
+              <TextInputField
+                label="Phone (Optional)"
+                value={formData.phone || ''}
+                onChange={(value) => updateField('phone', value)}
+                placeholder="+1 (555) 123-4567"
+                type="tel"
+              />
+            </div>
+          </div>
         </div>
 
-        {/* Interests Section */}
-        <div className="bg-white rounded-xl p-6 shadow-sm space-y-4">
-          <h2 className="text-lg font-bold text-neutral-900">Interests</h2>
-          
-          <MultiSelectField
-            label="Select your interests"
-            selectedValues={formData.interests || []}
-            onChange={(values) => updateField('interests', values)}
-            options={interestOptions}
-            maxSelections={5}
-          />
+        {/* Interests Card */}
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 px-6 py-4 border-b border-gray-100">
+            <div className="flex items-center gap-2">
+              <Heart size={20} className="text-purple-600" />
+              <h2 className="text-lg font-bold text-neutral-900">Your Interests</h2>
+            </div>
+            <p className="text-sm text-gray-600 mt-1">What are you passionate about?</p>
+          </div>
+          <div className="p-6">
+            <MultiSelectField
+              label="Select your interests"
+              selectedValues={formData.interests || []}
+              onChange={(values) => updateField('interests', values)}
+              options={interestOptions}
+              maxSelections={5}
+            />
+          </div>
         </div>
 
-        {/* Privacy Settings Section */}
-        <div className="bg-white rounded-xl p-6 shadow-sm space-y-4">
-          <h2 className="text-lg font-bold text-neutral-900">Privacy Settings</h2>
-
-          <div className="space-y-1">
+        {/* Privacy Settings Card */}
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+          <div className="bg-gradient-to-r from-orange-50 to-amber-50 px-6 py-4 border-b border-gray-100">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 size={20} className="text-orange-600" />
+              <h2 className="text-lg font-bold text-neutral-900">Privacy Settings</h2>
+            </div>
+            <p className="text-sm text-gray-600 mt-1">Control your visibility</p>
+          </div>
+          <div className="p-6 space-y-2">
             <ToggleSwitchField
               label="Public Profile"
               value={formData.privacySettings?.profileVisibility === 'public'}
@@ -251,30 +297,32 @@ export function UserProfileEdit() {
           </div>
         </div>
 
-        {/* Stats Display (Read-Only) */}
-        <div className="bg-white rounded-xl p-6 shadow-sm">
-          <h2 className="text-lg font-bold text-neutral-900 mb-4">Your Stats</h2>
-          <div className="grid grid-cols-3 gap-4 text-center">
-            <div>
-              <div className="text-2xl font-bold text-primary-brand">{formData.stats.saved}</div>
-              <div className="text-sm text-gray-600">Saved</div>
+        {/* Stats Card */}
+        <div className="bg-gradient-to-br from-primary-brand to-primary-dark rounded-2xl shadow-lg overflow-hidden border border-primary-dark">
+          <div className="p-6">
+            <h2 className="text-lg font-bold text-white mb-4">Your Stats</h2>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                <div className="text-2xl font-bold text-white">{formData.stats.saved}</div>
+                <div className="text-sm text-white/80 mt-1">Saved</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                <div className="text-2xl font-bold text-white">{formData.stats.followers}</div>
+                <div className="text-sm text-white/80 mt-1">Followers</div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
+                <div className="text-2xl font-bold text-white">{formData.stats.following}</div>
+                <div className="text-sm text-white/80 mt-1">Following</div>
+              </div>
             </div>
-            <div>
-              <div className="text-2xl font-bold text-primary-brand">{formData.stats.followers}</div>
-              <div className="text-sm text-gray-600">Followers</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-primary-brand">{formData.stats.following}</div>
-              <div className="text-sm text-gray-600">Following</div>
-            </div>
+            <p className="text-sm text-white/70 text-center mt-4">
+              Member since {formData.memberSince}
+            </p>
           </div>
-          <p className="text-xs text-gray-500 text-center mt-4">
-            Member since {formData.memberSince}
-          </p>
         </div>
 
-        {/* Save Button - Always Visible at Bottom */}
-        <div className="sticky bottom-4 bg-white rounded-xl p-4 shadow-lg border border-gray-200">
+        {/* Action Buttons - Sticky at Bottom */}
+        <div className="sticky bottom-4 bg-white rounded-2xl p-4 shadow-2xl border border-gray-200">
           <div className="flex gap-3">
             <Button
               variant="secondary"
@@ -290,8 +338,9 @@ export function UserProfileEdit() {
               fullWidth
               onClick={handleSave}
               disabled={isSaving}
+              className="bg-gradient-to-r from-primary-brand to-primary-dark"
             >
-              {isSaving ? 'Saving...' : 'Save Changes'}
+              {isSaving ? 'Saving...' : '✓ Save Changes'}
             </Button>
           </div>
         </div>
