@@ -243,13 +243,21 @@ export function Settings() {
 
         {/* Notification Settings */}
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-          <div className="px-4 py-3 border-b border-gray-100">
-            <div className="flex items-center gap-2">
+          <button
+            onClick={() => toggleSection('notifications')}
+            className="w-full px-4 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+          >
+            <div className="flex items-center gap-3">
               <Bell size={20} className="text-primary-brand" />
               <h2 className="font-semibold text-neutral-900">Notifications</h2>
             </div>
-          </div>
-          <div className="p-4 space-y-1">
+            <ChevronDown 
+              size={20} 
+              className={`text-gray-400 transition-transform ${isSectionExpanded('notifications') ? 'rotate-180' : ''}`}
+            />
+          </button>
+          {isSectionExpanded('notifications') && (
+          <div className="p-4 space-y-1 border-t border-gray-100">
             <h3 className="text-xs font-semibold text-gray-500 uppercase mb-2">Push Notifications</h3>
             <ToggleSwitchField
               label="Likes"
