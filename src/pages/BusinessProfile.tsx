@@ -36,14 +36,23 @@ export function BusinessProfile() {
           {/* Header Actions */}
           <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
             <button
-              onClick={() => navigate(-1)}
+              onClick={() => setShowAccountSwitcher(true)}
               className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white"
             >
-              <ArrowLeft size={20} />
+              <Users size={20} />
             </button>
             <div className="flex items-center gap-2">
-              <button className="px-4 py-2 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-medium">
-                Edit Profile
+              <button
+                onClick={() => navigate('/analytics')}
+                className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white"
+              >
+                <BarChart2 size={20} />
+              </button>
+              <button
+                onClick={() => navigate('/settings')}
+                className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white"
+              >
+                <Settings size={20} />
               </button>
               <button className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white">
                 <Share2 size={20} />
