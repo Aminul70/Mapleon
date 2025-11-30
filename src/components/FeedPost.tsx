@@ -332,23 +332,6 @@ export function FeedPost({
               </button>
             </div>
 
-            {/* Rating, Reviews, and Distance */}
-            <div className="flex items-center gap-3 mb-3">
-              <div className="flex items-center gap-1">
-                {renderStars(post.rating)}
-                <span className="text-white font-semibold text-sm ml-1">
-                  {post.rating.toFixed(1)}
-                </span>
-              </div>
-              <span className="text-white/60 text-sm">
-                ({post.reviews} reviews)
-              </span>
-              <span className="text-white/60 text-sm">•</span>
-              <span className="text-white/60 text-sm">
-                {post.distance}km away
-              </span>
-            </div>
-
             {/* Book a Table Button - Updated styling */}
             <button 
               onClick={() => navigate('/bookings')}
