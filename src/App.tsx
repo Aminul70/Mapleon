@@ -30,7 +30,8 @@ export function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
+        <NavBarProvider>
+          <Routes>
           <Route path="/" element={<Onboarding />} />
           <Route path="/login" element={<Login />} />
           <Route path="/interests" element={<InterestSelection />} />
