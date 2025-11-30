@@ -479,6 +479,7 @@ export function Settings() {
               <ChevronRight size={18} className="text-gray-400" />
             </button>
           </div>
+          )}
         </div>
 
         {/* Business Tools (Only for Business Accounts) */}
