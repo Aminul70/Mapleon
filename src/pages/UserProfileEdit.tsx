@@ -1,0 +1,301 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft, Save } from 'lucide-react';
+import { ImageUploadField } from '../components/form/ImageUploadField';
+import { TextInputField } from '../components/form/TextInputField';
+import { TextareaField } from '../components/form/TextareaField';
+import { ToggleSwitchField } from '../components/form/ToggleSwitchField';
+import { MultiSelectField } from '../components/form/MultiSelectField';
+import { Button } from '../components/Button';
+import { saveUserProfile, loadUserProfile } from '../utils/localStorage';
+import { mockUsers } from '../utils/mockData';
+
+export function UserProfileEdit() {
+  const navigate = useNavigate();
+  const [isSaving, setIsSaving] = useState(false);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+
+  // Load saved data or use mock data
+  const [formData, setFormData] = useState(() => {
+    const saved = loadUserProfile();
+    return saved || {
+      ...mockUsers[0],
+      email: 'user@example.com',
+      phone: '',
+      location: 'New York City',
+      privacySettings: {
+        profileVisibility: 'public',
+        showActivity: true,
+        showLocation: true,
+        allowSearch: true,
+      },
+    };
+  });
+
+  // Track changes
+  useEffect(() => {
+    setHasUnsavedChanges(true);
+  }, [formData]);
+
+  const updateField = (field: string, value: any) => {
+    setFormData((prev: any) => ({ ...prev, [field]: value }));
+  };
+
+  const updatePrivacySetting = (field: string, value: any) => {
+    setFormData((prev: any) => ({
+      ...prev,
+      privacySettings: {
+        ...prev.privacySettings,
+        [field]: value,
+      },
+    }));
+  };
+
+  const handleSave = async () => {
+    // Validation
+    if (!formData.name || !formData.username) {
+      alert('Please fill in required fields (Name and Username)');
+      return;
+    }
+
+    setIsSaving(true);
+    
+    // Simulate save delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    const success = saveUserProfile(formData);
+    
+    setIsSaving(false);
+    
+    if (success) {
+      setHasUnsavedChanges(false);
+      alert('✅ Profile saved successfully!');
+      navigate('/user-profile');
+    } else {
+      alert('❌ Error saving profile. Please try again.');
+    }
+  };
+
+  const handleCancel = () => {
+    if (hasUnsavedChanges) {
+      if (window.confirm('You have unsaved changes. Are you sure you want to leave?')) {
+        navigate('/user-profile');
+      }
+    } else {
+      navigate('/user-profile');
+    }
+  };
+
+  const interestOptions = ['restaurant', 'cafe', 'gym', 'salon', 'service'];
+
+  return (
+    <div className="min-h-screen bg-neutral-50 pb-24">
+      {/* Header */}
+      <div className="sticky top-0 z-20 bg-white border-b border-gray-200 shadow-sm">
+        <div className="flex items-center justify-between px-4 py-3">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleCancel}
+              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            >
+              <ArrowLeft size={24} />
+            </button>
+            <div>
+              <h1 className="text-lg font-bold text-neutral-900">Edit Profile</h1>
+              {hasUnsavedChanges && (
+                <p className="text-xs text-orange-600">Unsaved changes</p>
+              )}
+            </div>
+          </div>
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={handleSave}
+            disabled={isSaving}
+          >
+            <Save size={16} />
+            <span>{isSaving ? 'Saving...' : 'Save'}</span>
+          </Button>
+        </div>
+      </div>
+
+      {/* Content - Single Scrollable Page */}
+      <div className="p-4 max-w-2xl mx-auto space-y-6">
+        {/* Images Section */}
+        <div className="bg-white rounded-xl p-6 shadow-sm space-y-4">
+          <h2 className="text-lg font-bold text-neutral-900">Profile Images</h2>
+          
+          <ImageUploadField
+            label="Profile Picture"
+            value={formData.profileImage}
+            onChange={(value) => updateField('profileImage', value)}
+            aspectRatio="square"
+            maxSizeMB={5}
+          />
+
+          <ImageUploadField
+            label="Cover Photo"
+            value={formData.coverImage || ''}
+            onChange={(value) => updateField('coverImage', value)}
+            aspectRatio="cover"
+            maxSizeMB={5}
+          />
+        </div>
+
+        {/* Basic Info Section */}
+        <div className="bg-white rounded-xl p-6 shadow-sm space-y-4">
+          <h2 className="text-lg font-bold text-neutral-900">Basic Information</h2>
+
+          <TextInputField
+            label="Display Name"
+            value={formData.name}
+            onChange={(value) => updateField('name', value)}
+            placeholder="Your name"
+            maxLength={50}
+            required
+          />
+
+          <TextInputField
+            label="Username"
+            value={formData.username}
+            onChange={(value) => updateField('username', value)}
+            placeholder="username"
+            maxLength={30}
+            required
+          />
+
+          <TextareaField
+            label="Bio"
+            value={formData.bio || ''}
+            onChange={(value) => updateField('bio', value)}
+            placeholder="Tell us about yourself..."
+            maxLength={150}
+            rows={3}
+          />
+
+          <TextInputField
+            label="Location"
+            value={formData.location || ''}
+            onChange={(value) => updateField('location', value)}
+            placeholder="City, State"
+            maxLength={50}
+          />
+        </div>
+
+        {/* Contact Section */}
+        <div className="bg-white rounded-xl p-6 shadow-sm space-y-4">
+          <h2 className="text-lg font-bold text-neutral-900">Contact</h2>
+
+          <TextInputField
+            label="Email"
+            value={formData.email || ''}
+            onChange={(value) => updateField('email', value)}
+            placeholder="email@example.com"
+            type="email"
+          />
+
+          <TextInputField
+            label="Phone (Optional)"
+            value={formData.phone || ''}
+            onChange={(value) => updateField('phone', value)}
+            placeholder="+1 (555) 123-4567"
+            type="tel"
+          />
+        </div>
+
+        {/* Interests Section */}
+        <div className="bg-white rounded-xl p-6 shadow-sm space-y-4">
+          <h2 className="text-lg font-bold text-neutral-900">Interests</h2>
+          
+          <MultiSelectField
+            label="Select your interests"
+            selectedValues={formData.interests || []}
+            onChange={(values) => updateField('interests', values)}
+            options={interestOptions}
+            maxSelections={5}
+          />
+        </div>
+
+        {/* Privacy Settings Section */}
+        <div className="bg-white rounded-xl p-6 shadow-sm space-y-4">
+          <h2 className="text-lg font-bold text-neutral-900">Privacy Settings</h2>
+
+          <div className="space-y-1">
+            <ToggleSwitchField
+              label="Public Profile"
+              value={formData.privacySettings?.profileVisibility === 'public'}
+              onChange={(value) => updatePrivacySetting('profileVisibility', value ? 'public' : 'private')}
+              description="Allow others to view your profile"
+            />
+
+            <ToggleSwitchField
+              label="Show Activity"
+              value={formData.privacySettings?.showActivity || false}
+              onChange={(value) => updatePrivacySetting('showActivity', value)}
+              description="Let others see your likes and comments"
+            />
+
+            <ToggleSwitchField
+              label="Show Location"
+              value={formData.privacySettings?.showLocation || false}
+              onChange={(value) => updatePrivacySetting('showLocation', value)}
+              description="Display your city on your profile"
+            />
+
+            <ToggleSwitchField
+              label="Allow Search"
+              value={formData.privacySettings?.allowSearch || false}
+              onChange={(value) => updatePrivacySetting('allowSearch', value)}
+              description="Let others find you by email or phone"
+            />
+          </div>
+        </div>
+
+        {/* Stats Display (Read-Only) */}
+        <div className="bg-white rounded-xl p-6 shadow-sm">
+          <h2 className="text-lg font-bold text-neutral-900 mb-4">Your Stats</h2>
+          <div className="grid grid-cols-3 gap-4 text-center">
+            <div>
+              <div className="text-2xl font-bold text-primary-brand">{formData.stats.saved}</div>
+              <div className="text-sm text-gray-600">Saved</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-primary-brand">{formData.stats.followers}</div>
+              <div className="text-sm text-gray-600">Followers</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-primary-brand">{formData.stats.following}</div>
+              <div className="text-sm text-gray-600">Following</div>
+            </div>
+          </div>
+          <p className="text-xs text-gray-500 text-center mt-4">
+            Member since {formData.memberSince}
+          </p>
+        </div>
+
+        {/* Save Button - Always Visible at Bottom */}
+        <div className="sticky bottom-4 bg-white rounded-xl p-4 shadow-lg border border-gray-200">
+          <div className="flex gap-3">
+            <Button
+              variant="secondary"
+              size="md"
+              fullWidth
+              onClick={handleCancel}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="primary"
+              size="md"
+              fullWidth
+              onClick={handleSave}
+              disabled={isSaving}
+            >
+              {isSaving ? 'Saving...' : 'Save Changes'}
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
