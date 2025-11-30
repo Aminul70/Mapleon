@@ -341,13 +341,21 @@ export function Settings() {
 
         {/* Privacy Settings */}
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-          <div className="px-4 py-3 border-b border-gray-100">
-            <div className="flex items-center gap-2">
+          <button
+            onClick={() => toggleSection('privacy')}
+            className="w-full px-4 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+          >
+            <div className="flex items-center gap-3">
               <Lock size={20} className="text-primary-brand" />
               <h2 className="font-semibold text-neutral-900">Privacy</h2>
             </div>
-          </div>
-          <div className="p-4 space-y-4">
+            <ChevronDown 
+              size={20} 
+              className={`text-gray-400 transition-transform ${isSectionExpanded('privacy') ? 'rotate-180' : ''}`}
+            />
+          </button>
+          {isSectionExpanded('privacy') && (
+          <div className="p-4 space-y-4 border-t border-gray-100">
             <SelectField
               label="Profile Visibility"
               value={settings.privacy.profileVisibility}
