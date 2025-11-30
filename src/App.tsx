@@ -56,6 +56,7 @@ export function App() {
           <Route path="/terms" element={<TermsOfService />} />
           <Route path="/design-system" element={<DesignSystem />} />
         </Routes>
+        </NavBarProvider>
       </AuthProvider>
     </BrowserRouter>
   );
