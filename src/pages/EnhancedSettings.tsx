@@ -494,13 +494,21 @@ export function Settings() {
         {/* Business Tools (Only for Business Accounts) */}
         {isBusinessAccount && (
           <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-            <div className="px-4 py-3 border-b border-gray-100">
-              <div className="flex items-center gap-2">
+            <button
+              onClick={() => toggleSection('businessTools')}
+              className="w-full px-4 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+            >
+              <div className="flex items-center gap-3">
                 <Briefcase size={20} className="text-primary-brand" />
                 <h2 className="font-semibold text-neutral-900">Business Tools</h2>
               </div>
-            </div>
-            <div className="p-4">
+              <ChevronDown 
+                size={20} 
+                className={`text-gray-400 transition-transform ${isSectionExpanded('businessTools') ? 'rotate-180' : ''}`}
+              />
+            </button>
+            {isSectionExpanded('businessTools') && (
+            <div className="p-4 border-t border-gray-100">
               <button
                 onClick={() => navigate('/analytics')}
                 className="w-full flex items-center justify-between py-3 hover:bg-gray-50 rounded-lg px-3 transition-colors"
@@ -523,6 +531,7 @@ export function Settings() {
                 <ChevronRight size={18} className="text-gray-400" />
               </button>
             </div>
+            )}
           </div>
         )}
 
