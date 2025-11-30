@@ -239,16 +239,16 @@ export function FeedPost({
               e.stopPropagation();
               setShowShare(true);
             }} 
-            className="flex flex-col items-center gap-1 active:scale-95 p-1 icon-transition-fast"
+            className="flex flex-col items-center gap-1 active:scale-95 transition-transform"
           >
             {isPlaying ? (
-              <div className="bg-white/20 backdrop-blur-md p-3 rounded-full shadow-lg icon-transition icon-bg-transition">
-                <Share2Icon size={24} className="text-white icon-content-transition" />
+              <div className="bg-white/15 backdrop-blur-md p-2.5 rounded-full shadow-lg transition-all duration-300">
+                <Share2Icon size={22} className="text-white transition-all duration-200" />
               </div>
             ) : (
-              <div className="bg-gray-200/90 backdrop-blur-sm px-4 py-2.5 sm:px-5 sm:py-3 rounded-full flex items-center gap-2 shadow-lg icon-transition icon-bg-transition">
-                <Share2Icon size={20} className="sm:w-6 sm:h-6 text-gray-800 icon-content-transition" />
-                <span className="text-gray-800 text-sm sm:text-base font-semibold icon-number-enter">
+              <div className="bg-gray-200/90 backdrop-blur-sm px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full flex items-center gap-2 shadow-lg transition-all duration-300">
+                <Share2Icon size={18} className="sm:w-5 sm:h-5 text-gray-800 transition-all duration-200" />
+                <span className="text-gray-800 text-xs sm:text-sm font-semibold">
                   {formatNumber(post.shares)}
                 </span>
               </div>
