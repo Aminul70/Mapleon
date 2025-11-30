@@ -10,6 +10,7 @@ export function BottomNav() {
   const { isBusinessAccount } = useAuth();
   const { isNavBarVisible } = useNavBar();
 
+  // Filter out explore tab for business accounts
   const baseTabs = [
     {
       id: 'home',
@@ -23,12 +24,12 @@ export function BottomNav() {
       icon: MapPinIcon,
       path: '/map'
     },
-    {
+    ...(!isBusinessAccount ? [{
       id: 'explore',
       label: 'Explore',
       icon: Compass,
       path: '/explore'
-    }
+    }] : [])
   ];
 
   const endTabs = [
