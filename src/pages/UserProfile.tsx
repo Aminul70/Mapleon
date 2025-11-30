@@ -65,27 +65,27 @@ export function UserProfile() {
           {user.bio && <p className="text-sm sm:text-base text-neutral-700 mb-4 break-words">{user.bio}</p>}
 
           {/* Stats */}
-          <div className="flex items-center gap-6 mb-4">
+          <div className="flex items-center gap-4 sm:gap-6 mb-4">
             <button
               onClick={() => setShowFollowersList('following')}
               className="text-center hover:opacity-70 transition-opacity"
             >
-              <div className="text-xl font-bold text-neutral-900">{user.stats.saved}</div>
-              <div className="text-sm text-neutral-600">Saved</div>
+              <div className="text-lg sm:text-xl font-bold text-neutral-900">{user.stats.saved}</div>
+              <div className="text-xs sm:text-sm text-neutral-600">Saved</div>
             </button>
             <button
               onClick={() => setShowFollowersList('following')}
               className="text-center hover:opacity-70 transition-opacity"
             >
-              <div className="text-xl font-bold text-neutral-900">{user.stats.following}</div>
-              <div className="text-sm text-neutral-600">Following</div>
+              <div className="text-lg sm:text-xl font-bold text-neutral-900">{user.stats.following}</div>
+              <div className="text-xs sm:text-sm text-neutral-600">Following</div>
             </button>
             <button
               onClick={() => setShowFollowersList('followers')}
               className="text-center hover:opacity-70 transition-opacity"
             >
-              <div className="text-xl font-bold text-neutral-900">{user.stats.followers}</div>
-              <div className="text-sm text-neutral-600">Followers</div>
+              <div className="text-lg sm:text-xl font-bold text-neutral-900">{user.stats.followers}</div>
+              <div className="text-xs sm:text-sm text-neutral-600">Followers</div>
             </button>
           </div>
 
