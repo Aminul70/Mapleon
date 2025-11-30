@@ -66,7 +66,7 @@ export function CategoryFilter({ onSelectCategory, selectedCategory }: CategoryF
 
               {/* Category List */}
               <div className="space-y-1">
-                {categories.map((category) => (
+                {categories.filter(c => c.id !== 'all').map((category) => (
                   <button
                     key={category.id}
                     onClick={() => handleSelect(category.id)}
