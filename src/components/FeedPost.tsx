@@ -95,23 +95,35 @@ export function FeedPost({
     const now = Date.now();
     const timeSinceLastTap = now - lastTapRef.current;
 
-    // Double tap detection (within 300ms)
-    if (timeSinceLastTap < 300 && timeSinceLastTap > 0) {
+    // Double tap detection (within 250ms for better responsiveness)
+    if (timeSinceLastTap < 250 && timeSinceLastTap > 50) {
       // Double tap - like
       e.preventDefault();
+      e.stopPropagation();
       if (!liked) {
         setLiked(true);
-        setShowHeartBurst(true);
-        setTimeout(() => setShowHeartBurst(false), 1000);
       }
-    } else {
-      // Single tap - play/pause
-      setIsPlaying(!isPlaying);
-      
-      if (isPlaying) {
-        setShowPauseAnimation(true);
-        setTimeout(() => setShowPauseAnimation(false), 400);
-      }
+      // Show heart burst animation regardless of like state for better feedback
+      setShowHeartBurst(true);
+      setTimeout(() => setShowHeartBurst(false), 800);
+      lastTapRef.current = 0; // Reset to prevent triple tap issues
+      return;
+    }
+
+    // Single tap - play/pause (with slight delay to detect double tap)
+    if (timeSinceLastTap > 250 || lastTapRef.current === 0) {
+      setTimeout(() => {
+        const timeSinceTap = Date.now() - now;
+        // Only toggle play/pause if no second tap occurred
+        if (timeSinceTap >= 250) {
+          setIsPlaying(!isPlaying);
+          
+          if (isPlaying) {
+            setShowPauseAnimation(true);
+            setTimeout(() => setShowPauseAnimation(false), 400);
+          }
+        }
+      }, 250);
     }
 
     lastTapRef.current = now;
