@@ -340,7 +340,13 @@ export function FeedPost({
           <div className="bg-gradient-to-t from-black/95 via-black/80 to-transparent px-4 sm:px-6 pt-6 pb-24 pointer-events-auto">
             {/* Business Profile Header */}
             <div className="flex items-start justify-between mb-3">
-              <div className="flex items-center gap-3 flex-1">
+              <div 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/business/${post.businessId}`);
+                }}
+                className="flex items-center gap-3 flex-1 cursor-pointer active:scale-95 transition-transform"
+              >
                 <img 
                   src={post.profileImage} 
                   alt={post.businessName} 
