@@ -43,7 +43,10 @@ export function BottomNav() {
   const isDarkPage = location.pathname === '/home';
 
   return (
-    <div className={`fixed bottom-0 left-0 right-0 ${isDarkPage ? 'bg-[#5A5A5A]/95 backdrop-blur-xl border-t border-white/10' : 'bg-white/95 backdrop-blur-xl border-t border-gray-200/50'} px-4 pb-safe z-[9999] transition-colors`}>
+    <div 
+      className={`fixed bottom-0 left-0 right-0 ${isDarkPage ? 'bg-[#5A5A5A]/95 backdrop-blur-xl border-t border-white/10' : 'bg-white/95 backdrop-blur-xl border-t border-gray-200/50'} px-4 pb-safe z-[9999] transition-colors ${isNavBarVisible ? 'navbar-show' : 'navbar-hide'}`}
+      style={{ pointerEvents: isNavBarVisible ? 'auto' : 'none' }}
+    >
       <div className="flex justify-around items-center h-20 max-w-2xl mx-auto">
         {/* First two tabs */}
         {baseTabs.map(tab => {
