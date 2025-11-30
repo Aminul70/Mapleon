@@ -79,8 +79,9 @@ export function BottomNav() {
         {/* Upload button (business only) */}
         {isBusinessAccount && (
           <button
-            onClick={() => alert('Upload video feature - Coming soon!\n\nBusiness accounts can upload and share videos to showcase their business.')}
+            onClick={() => navigate('/create-post')}
             className="flex flex-col items-center justify-center gap-1 min-w-[55px] transition-all relative active:scale-95"
+            data-testid="create-post-btn"
           >
             <div className="w-11 h-11 bg-gradient-to-br from-primary-brand to-primary-dark rounded-full flex items-center justify-center shadow-lg shadow-primary-brand/30 hover:shadow-xl hover:shadow-primary-brand/40 transition-all hover:scale-105">
               <PlusCircle size={24} className="text-white" strokeWidth={2.5} />
