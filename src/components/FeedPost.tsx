@@ -191,7 +191,7 @@ export function FeedPost({
         </div>
 
         {/* Right Side Actions - Show numbers only when paused, just icons when playing */}
-        <div className="absolute right-2 bottom-[280px] sm:right-3 sm:bottom-[300px] flex flex-col gap-3 sm:gap-4 z-30">
+        <div className="absolute right-2 bottom-[160px] sm:right-3 sm:bottom-[180px] flex flex-col gap-3 sm:gap-4 z-30">
           <button 
             onClick={(e) => {
               e.stopPropagation();
