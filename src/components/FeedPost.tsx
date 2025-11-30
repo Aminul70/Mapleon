@@ -186,24 +186,65 @@ export function FeedPost({
           className="absolute inset-0 cursor-pointer"
         >
           {post.video ? (
-            <video
-              ref={videoRef}
-              src={post.video}
-              className="absolute inset-0 w-full h-full object-cover"
-              loop
-              muted
-              playsInline
-              autoPlay
-            />
+            <>
+              <video
+                ref={videoRef}
+                src={post.video}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+                  videoLoading ? 'opacity-0' : 'opacity-100'
+                }`}
+                loop
+                muted
+                playsInline
+                autoPlay
+                onLoadStart={() => setVideoLoading(true)}
+                onLoadedData={() => {
+                  setVideoLoading(false);
+                  setVideoError(false);
+                }}
+                onCanPlay={() => setVideoLoading(false)}
+                onError={() => {
+                  setVideoLoading(false);
+                  setVideoError(true);
+                }}
+              />
+              
+              {/* Video Loading Spinner */}
+              {videoLoading && !videoError && (
+                <div className="absolute inset-0 bg-black flex items-center justify-center">
+                  <LoadingSpinner size="lg" message="Loading video..." />
+                </div>
+              )}
+              
+              {/* Video Error State */}
+              {videoError && (
+                <div className="absolute inset-0 bg-black flex items-center justify-center">
+                  <div className="text-center px-6">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-red-500/20 rounded-full flex items-center justify-center">
+                      <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </div>
+                    <p className="text-white text-lg font-semibold mb-2">Video unavailable</p>
+                    <p className="text-white/60 text-sm">Unable to load video content</p>
+                  </div>
+                </div>
+              )}
+            </>
           ) : (
-            <img src={post.image} alt={post.businessName} className="absolute inset-0 w-full h-full object-cover" />
+            <img 
+              src={post.image} 
+              alt={post.businessName} 
+              className="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+            />
           )}
           
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/90 pointer-events-none" />
           
-          {/* Center Play Button - Only shown when paused */}
-          {!isPlaying && (
+          {/* Center Play Button - Only shown when paused and video is loaded */}
+          {!isPlaying && !videoLoading && !videoError && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="bg-black/50 backdrop-blur-sm rounded-full p-6 animate-fade-in">
                 <PlayIcon size={48} className="text-white fill-white" />
