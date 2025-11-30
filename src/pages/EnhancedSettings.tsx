@@ -439,6 +439,7 @@ export function Settings() {
               options={mapViewOptions}
             />
           </div>
+          )}
         </div>
 
         {/* Data & Storage */}
