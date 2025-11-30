@@ -83,10 +83,10 @@ export function BusinessProfile() {
           </div>
 
           {/* Category and Location */}
-          <div className="flex items-center gap-2 text-neutral-600 mb-2">
-            <span className="text-sm font-medium capitalize">{business.category}</span>
+          <div className="flex items-center gap-2 text-neutral-600 mb-2 flex-wrap">
+            <span className="text-xs sm:text-sm font-medium capitalize">{business.category}</span>
             <span className="text-neutral-400">•</span>
-            <span className="text-sm">{business.address?.split(',')[0]}</span>
+            <span className="text-xs sm:text-sm truncate max-w-[200px]">{business.address?.split(',')[0]}</span>
           </div>
 
           {/* Rating */}
