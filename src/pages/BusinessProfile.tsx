@@ -116,23 +116,23 @@ export function BusinessProfile() {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-2 mb-6">
-            <a href={`tel:${business.phone}`} className="flex-1">
+          <div className="flex gap-2 mb-6 overflow-x-auto">
+            <a href={`tel:${business.phone}`} className="flex-1 min-w-[100px]">
               <Button variant="secondary" size="md" fullWidth>
                 <Phone size={18} />
-                <span>Call</span>
+                <span className="text-xs sm:text-sm">Call</span>
               </Button>
             </a>
-            <button onClick={() => navigate('/map')} className="flex-1">
+            <button onClick={() => navigate('/map')} className="flex-1 min-w-[100px]">
               <Button variant="secondary" size="md" fullWidth>
                 <MapPin size={18} />
-                <span>Directions</span>
+                <span className="text-xs sm:text-sm">Directions</span>
               </Button>
             </button>
-            <a href={business.website} target="_blank" rel="noopener noreferrer" className="flex-1">
+            <a href={business.website} target="_blank" rel="noopener noreferrer" className="flex-1 min-w-[100px]">
               <Button variant="secondary" size="md" fullWidth>
                 <Globe size={18} />
-                <span>Website</span>
+                <span className="text-xs sm:text-sm">Website</span>
               </Button>
             </a>
           </div>
