@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Share2, Settings } from 'lucide-react';
+import { ArrowLeft, Share2, Settings, Users } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 import { mockUsers, mockPosts } from '../utils/mockData';
 import { Button } from '../components/Button';
+import { AccountSwitcher } from '../components/AccountSwitcher';
 import { BottomNav } from '../components/BottomNav';
 import { FollowersList } from '../components/FollowersList';
 
 export function UserProfile() {
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
   const [activeTab, setActiveTab] = useState<'saved' | 'following' | 'activity'>('saved');
   const [showFollowersList, setShowFollowersList] = useState<'followers' | 'following' | null>(null);
+  const [showAccountSwitcher, setShowAccountSwitcher] = useState(false);
   
-  const user = mockUsers[0]; // Using first user as example
+  // Use currentUser or fallback to mock user
+  const user = currentUser || mockUsers[0];
   const savedPosts = mockPosts.slice(0, 6); // Mock saved posts
 
   if (showFollowersList) {
