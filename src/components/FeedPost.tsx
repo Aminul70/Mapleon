@@ -29,6 +29,8 @@ export function FeedPost({
   const [isPlaying, setIsPlaying] = useState(true);
   const [showPauseAnimation, setShowPauseAnimation] = useState(false);
   const [showHeartBurst, setShowHeartBurst] = useState(false);
+  const [videoLoading, setVideoLoading] = useState(post.video ? true : false);
+  const [videoError, setVideoError] = useState(false);
   const captionRef = useRef<HTMLDivElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
