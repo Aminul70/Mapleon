@@ -95,13 +95,13 @@ export function BottomNav() {
             <button
               key={tab.id}
               onClick={() => navigate(tab.path)}
-              className="flex flex-col items-center justify-center gap-1 min-w-[60px] transition-all relative active:scale-95"
+              className="flex flex-col items-center justify-center gap-1 min-w-[55px] transition-all relative active:scale-95"
             >
-              {isActive && <div className="absolute -top-1 w-12 h-12 bg-white/20 rounded-full blur-md animate-pulse" />}
+              {isActive && <div className="absolute -top-1 w-10 h-10 bg-white/20 rounded-full blur-md animate-pulse" />}
               <div className={`transition-all relative z-10 ${isDarkPage ? isActive ? 'text-white scale-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]' : 'text-white/60' : isActive ? 'text-gray-800 scale-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]' : 'text-gray-400'}`}>
-                <Icon size={22} strokeWidth={isActive ? 2.5 : 2} />
+                <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
               </div>
-              <span className={`text-xs font-medium relative z-10 transition-all ${isDarkPage ? isActive ? 'text-white' : 'text-white/60' : isActive ? 'text-gray-800' : 'text-gray-500'}`}>
+              <span className={`text-[10px] font-medium relative z-10 transition-all ${isDarkPage ? isActive ? 'text-white' : 'text-white/60' : isActive ? 'text-gray-800' : 'text-gray-500'}`}>
                 {tab.label}
               </span>
             </button>
