@@ -88,6 +88,7 @@ export interface Post {
   businessName: string;
   businessCategory: string;
   image: string;
+  video?: string;
   caption: string;
   likes: number;
   comments: number;
