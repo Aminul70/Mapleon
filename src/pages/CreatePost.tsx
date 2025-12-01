@@ -191,7 +191,7 @@ export function CreatePost() {
           <h1 className="text-lg font-bold text-neutral-900">Create Post</h1>
           <button
             onClick={handleSubmit}
-            disabled={isSubmitting || (!imageUrl && !videoUrl) || !caption.trim()}
+            disabled={isSubmitting || (!hasMedia) || !caption.trim()}
             className="px-6 py-2 bg-primary-brand text-white rounded-full font-semibold hover:bg-primary-dark disabled:opacity-40 disabled:cursor-not-allowed transition-all text-sm"
             data-testid="publish-post-btn"
           >
