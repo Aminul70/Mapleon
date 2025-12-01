@@ -27,32 +27,46 @@ export function UserProfile() {
     <div className="min-h-screen bg-neutral-50 pb-24">
       {/* Header */}
       <div className="bg-white border-b border-gray-200">
-        <div className="flex items-center justify-between px-4 py-3">
-          <button
-            onClick={() => setShowAccountSwitcher(true)}
-            className="p-2 hover:bg-gray-100 rounded-full"
-          >
-            <Users size={24} />
-          </button>
-          <div className="flex items-center gap-2">
-            <button onClick={() => navigate('/settings')} className="p-2 hover:bg-gray-100 rounded-full">
-              <Settings size={24} />
+        {/* Cover Photo */}
+        <div className="relative h-32 sm:h-40 bg-gradient-to-r from-primary-brand/20 via-secondary-teal/20 to-secondary-purple/20">
+          {user.coverImage ? (
+            <img
+              src={user.coverImage}
+              alt="Cover"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full" />
+          )}
+          
+          {/* Header Actions - Positioned over cover */}
+          <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-4 py-3">
+            <button
+              onClick={() => setShowAccountSwitcher(true)}
+              className="p-2 hover:bg-white/20 backdrop-blur-sm rounded-full bg-white/10"
+            >
+              <Users size={24} className={user.coverImage ? 'text-white' : 'text-gray-700'} />
             </button>
-            <button className="p-2 hover:bg-gray-100 rounded-full">
-              <Share2 size={24} />
-            </button>
+            <div className="flex items-center gap-2">
+              <button onClick={() => navigate('/settings')} className="p-2 hover:bg-white/20 backdrop-blur-sm rounded-full bg-white/10">
+                <Settings size={24} className={user.coverImage ? 'text-white' : 'text-gray-700'} />
+              </button>
+              <button className="p-2 hover:bg-white/20 backdrop-blur-sm rounded-full bg-white/10">
+                <Share2 size={24} className={user.coverImage ? 'text-white' : 'text-gray-700'} />
+              </button>
+            </div>
           </div>
         </div>
 
         <div className="px-4 pb-4">
-          {/* Avatar */}
-          <div className="flex items-center gap-3 sm:gap-4 mb-4">
+          {/* Avatar - Now positioned to overlap cover */}
+          <div className="flex items-center gap-3 sm:gap-4 mb-4 -mt-8 sm:-mt-10">
             <img
               src={user.profileImage}
               alt={user.name}
-              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover flex-shrink-0"
+              className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover flex-shrink-0 border-4 border-white shadow-lg"
             />
-            <Button variant="secondary" size="md" onClick={() => navigate('/user-profile-edit')}>
+            <Button variant="secondary" size="md" onClick={() => navigate('/user-profile-edit')} className="mt-8 sm:mt-10">
               <span className="text-xs sm:text-sm">Edit Profile</span>
             </Button>
           </div>
