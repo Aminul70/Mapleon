@@ -257,16 +257,21 @@ export function CreatePost() {
 
         {/* Submit Button */}
         <div className="sticky bottom-0 bg-neutral-50 pt-4 pb-8">
-          <Button
-            variant="primary"
-            size="lg"
-            fullWidth
+          <button
             onClick={handleSubmit}
             disabled={isSubmitting}
+            className="w-full py-4 bg-gradient-to-r from-primary-brand via-primary-dark to-secondary-teal text-white rounded-2xl font-bold text-lg hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
             data-testid="publish-post-btn"
           >
-            {isSubmitting ? 'Publishing...' : 'Publish Post'}
-          </Button>
+            {isSubmitting ? (
+              <span className="flex items-center justify-center gap-2">
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                Publishing...
+              </span>
+            ) : (
+              '✨ Publish Post'
+            )}
+          </button>
         </div>
       </div>
     </div>
