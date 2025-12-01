@@ -543,18 +543,18 @@ export function Login() {
 
         {/* Screen 4: Business Registration */}
         {currentScreen === 'register-business' && (
-          <div className="bg-neutral-800/50 backdrop-blur-lg border border-neutral-700 rounded-3xl p-8 animate-slide-up max-h-[90vh] overflow-y-auto hide-scrollbar">
+          <div className="bg-white/70 backdrop-blur-lg border-2 border-white/40 rounded-3xl p-8 animate-slide-up max-h-[90vh] overflow-y-auto hide-scrollbar shadow-lg">
             <button
               onClick={() => setCurrentScreen('login')}
-              className="flex items-center gap-2 text-white/60 hover:text-white mb-6 transition-colors"
+              className="flex items-center gap-2 text-mapleon-slate/60 hover:text-mapleon-slate mb-6 transition-colors"
               data-testid="back-to-login-business"
             >
               <ArrowLeft size={20} />
               <span className="text-sm">Back to Login</span>
             </button>
 
-            <h2 className="text-2xl font-bold text-white mb-2">Create Business Account</h2>
-            <p className="text-white/60 text-sm mb-6">Set up your business profile</p>
+            <h2 className="text-2xl font-bold text-mapleon-slate mb-2">Create Business Account</h2>
+            <p className="text-mapleon-slate/60 text-sm mb-6">Set up your business profile</p>
 
             <form onSubmit={handleBusinessRegister} className="space-y-4">
               {/* Business Name */}
