@@ -70,45 +70,6 @@ export function CreatePost() {
     }
   };
 
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = () => {
-    setIsDragging(false);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-    
-    const files = e.dataTransfer.files;
-    if (!videoUrl && images.length < 10) {
-      // Handle image drops
-      const remainingSlots = 10 - images.length;
-      const filesToProcess = Array.from(files).slice(0, remainingSlots);
-      
-      filesToProcess.forEach((file) => {
-        if (file.type.startsWith('image/')) {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            const result = reader.result as string;
-            setImages(prev => [...prev, result]);
-          };
-          reader.readAsDataURL(file);
-        }
-      });
-    } else if (!images.length && files[0]?.type.startsWith('video/')) {
-      // Handle video drop
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setVideoUrl(reader.result as string);
-      };
-      reader.readAsDataURL(files[0]);
-    }
-  };
-
   // Image reordering handlers
   const handleImageDragStart = (index: number) => {
     setDraggedIndex(index);
