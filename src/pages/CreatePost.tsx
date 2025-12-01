@@ -315,70 +315,56 @@ export function CreatePost() {
           </div>
         )}
 
-          {/* Location */}
-          <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-primary-brand/10 rounded-full">
-                <MapPin size={20} className="text-primary-brand" />
-              </div>
-              <input
-                type="text"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                placeholder="Add location"
-                className="flex-1 text-gray-900 placeholder-gray-400 focus:outline-none"
-                data-testid="location-input"
-              />
-            </div>
-          </div>
+        {/* Minimal Location Line */}
+        <div className="flex items-center gap-3 px-3 py-2.5 bg-white hover:bg-gray-50 rounded-xl mb-3 transition-all cursor-pointer">
+          <MapPin size={18} className="text-gray-400" />
+          <input
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="Add location"
+            className="flex-1 text-sm text-gray-900 placeholder-gray-400 focus:outline-none bg-transparent"
+            data-testid="location-input"
+          />
+        </div>
 
-          {/* Tags */}
-          <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-primary-brand/10 rounded-full flex-shrink-0">
-                <Hash size={20} className="text-primary-brand" />
+        {/* Lightweight Tags Row */}
+        <div className="flex items-start gap-3 px-3 py-2.5 bg-white rounded-xl transition-all">
+          <Hash size={18} className="text-gray-400 mt-0.5 flex-shrink-0" />
+          <div className="flex-1">
+            <input
+              type="text"
+              value={tagInput}
+              onChange={(e) => setTagInput(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleAddTag();
+                }
+              }}
+              placeholder="Add tags (press Enter)"
+              className="w-full text-sm text-gray-900 placeholder-gray-400 focus:outline-none bg-transparent"
+              data-testid="tag-input"
+            />
+            {tags.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mt-2">
+                {tags.map((tag, index) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center gap-1 px-2.5 py-1 bg-primary-brand/10 text-primary-brand rounded-full text-xs font-medium"
+                    data-testid={`tag-chip-${index}`}
+                  >
+                    #{tag}
+                    <button
+                      onClick={() => handleRemoveTag(tag)}
+                      className="hover:bg-primary-brand/20 rounded-full p-0.5 transition-colors"
+                      data-testid={`remove-tag-${index}-btn`}
+                    >
+                      <X size={12} />
+                    </button>
+                  </span>
+                ))}
               </div>
-              <div className="flex-1">
-                <input
-                  type="text"
-                  value={tagInput}
-                  onChange={(e) => setTagInput(e.target.value)}
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter') {
-                      e.preventDefault();
-                      handleAddTag();
-                    }
-                  }}
-                  placeholder="Add tags (press Enter)"
-                  className="w-full text-gray-900 placeholder-gray-400 focus:outline-none"
-                  data-testid="tag-input"
-                />
-                {tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    {tags.map((tag, index) => (
-                      <span
-                        key={tag}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-primary-brand/10 to-secondary-teal/10 text-primary-brand rounded-full text-sm font-medium transition-all hover:shadow-sm"
-                        data-testid={`tag-chip-${index}`}
-                      >
-                        #{tag}
-                        <button
-                          onClick={() => handleRemoveTag(tag)}
-                          className="hover:bg-primary-brand/20 rounded-full p-0.5 transition-colors"
-                          data-testid={`remove-tag-${index}-btn`}
-                        >
-                          <X size={14} />
-                        </button>
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-            {tags.length === 0 && (
-              <p className="text-xs text-gray-400 mt-2 ml-14">
-                Add hashtags to help people discover your post
-              </p>
             )}
           </div>
         </div>
