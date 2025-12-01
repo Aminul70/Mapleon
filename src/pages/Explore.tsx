@@ -150,35 +150,36 @@ export function Explore() {
       )}
 
       {/* Results Count */}
-      <div className="px-4 py-3 bg-white border-b border-gray-100">
-        <p className="text-sm text-gray-600">
+      <div className="px-3 sm:px-4 py-2 sm:py-3 bg-white border-b border-gray-100">
+        <p className="text-xs sm:text-sm text-gray-600">
           Found <span className="font-semibold text-gray-900">{filteredBusinesses.length}</span> businesses
         </p>
       </div>
 
       {/* Business List */}
-      <div className="p-4 space-y-3">
+      <div className="p-3 sm:p-4 space-y-3">
         {filteredBusinesses.length > 0 ? (
           filteredBusinesses.map(business => (
             <div
               key={business.id}
               onClick={() => handleBusinessClick(business.id)}
               className="bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-shadow cursor-pointer border border-gray-100"
+              data-testid={`business-card-${business.id}`}
             >
-              <div className="flex gap-4 p-4">
+              <div className="flex gap-3 sm:gap-4 p-3 sm:p-4">
                 {/* Business Image */}
                 <div className="flex-shrink-0">
                   <img
                     src={business.image}
                     alt={business.name}
-                    className="w-24 h-24 rounded-xl object-cover"
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover"
                   />
                 </div>
 
                 {/* Business Info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2 mb-1">
-                    <h3 className="font-bold text-neutral-900 text-base truncate">
+                    <h3 className="font-bold text-neutral-900 text-sm sm:text-base line-clamp-1">
                       {business.name}
                     </h3>
                     {business.openNow && (
@@ -189,27 +190,29 @@ export function Explore() {
                   </div>
 
                   {/* Rating */}
-                  <div className="flex items-center gap-1 mb-2">
-                    {renderStars(business.rating)}
-                    <span className="text-sm font-semibold text-gray-700 ml-1">
+                  <div className="flex items-center gap-1 mb-2 flex-wrap">
+                    <div className="flex items-center gap-0.5">
+                      {renderStars(business.rating)}
+                    </div>
+                    <span className="text-xs sm:text-sm font-semibold text-gray-700 ml-1">
                       {business.rating}
                     </span>
                     <span className="text-xs text-gray-500">
-                      ({business.reviews} reviews)
+                      ({business.reviews})
                     </span>
                   </div>
 
                   {/* Category & Distance */}
-                  <div className="flex items-center gap-3 text-xs text-gray-600 mb-2">
+                  <div className="flex items-center gap-2 sm:gap-3 text-xs text-gray-600 mb-2 flex-wrap">
                     <span className="capitalize font-medium">{business.category}</span>
-                    <span>•</span>
+                    <span className="hidden sm:inline">•</span>
                     <div className="flex items-center gap-1">
                       <MapPin size={12} />
                       <span>{business.distance} mi</span>
                     </div>
                     {business.priceRange && (
                       <>
-                        <span>•</span>
+                        <span className="hidden sm:inline">•</span>
                         <span className="font-semibold">{business.priceRange}</span>
                       </>
                     )}
@@ -222,21 +225,21 @@ export function Explore() {
                         e.stopPropagation();
                         navigate('/bookings');
                       }}
-                      className="flex-1 bg-primary-brand text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-primary-dark transition-colors active:scale-95"
+                      className="flex-1 bg-primary-brand text-white px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg text-xs font-semibold hover:bg-primary-dark transition-colors active:scale-95"
                     >
                       Book!
                     </button>
                     {business.phone && (
                       <button
                         onClick={(e) => handleCallBusiness(business.phone, e)}
-                        className="flex items-center justify-center gap-1 px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors active:scale-95"
+                        className="flex items-center justify-center gap-1 px-2 sm:px-3 py-1.5 sm:py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors active:scale-95"
                       >
                         <Phone size={14} />
                       </button>
                     )}
                     <button
                       onClick={(e) => handleGetDirections(business, e)}
-                      className="flex items-center justify-center gap-1 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors active:scale-95"
+                      className="flex items-center justify-center gap-1 px-2 sm:px-3 py-1.5 sm:py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors active:scale-95"
                     >
                       <Navigation size={14} />
                     </button>
@@ -246,12 +249,12 @@ export function Explore() {
             </div>
           ))
         ) : (
-          <div className="text-center py-16">
-            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <SearchIcon size={32} className="text-gray-400" />
+          <div className="text-center py-12 sm:py-16">
+            <div className="w-16 sm:w-20 h-16 sm:h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <SearchIcon size={28} className="sm:w-8 sm:h-8 text-gray-400" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No businesses found</h3>
-            <p className="text-sm text-gray-600">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">No businesses found</h3>
+            <p className="text-xs sm:text-sm text-gray-600">
               Try adjusting your search or filters
             </p>
           </div>
