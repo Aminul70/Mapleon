@@ -80,12 +80,19 @@ export function BottomNav() {
         {isBusinessAccount && (
           <button
             onClick={() => navigate('/create-post')}
-            className="flex flex-col items-center justify-center gap-1 min-w-[55px] transition-all relative active:scale-95"
+            className="flex flex-col items-center justify-center gap-1 min-w-[55px] transition-all relative active:scale-95 group"
             data-testid="create-post-btn"
           >
-            <div className="w-11 h-11 bg-gradient-to-br from-primary-brand to-primary-dark rounded-full flex items-center justify-center shadow-lg shadow-primary-brand/30 hover:shadow-xl hover:shadow-primary-brand/40 transition-all hover:scale-105">
-              <PlusCircle size={24} className="text-white" strokeWidth={2.5} />
+            {/* Animated glow ring */}
+            <div className="absolute w-16 h-16 bg-gradient-to-br from-primary-brand/30 to-secondary-teal/30 rounded-full blur-lg animate-pulse" />
+            
+            {/* Main button */}
+            <div className="relative w-14 h-14 bg-gradient-to-br from-primary-brand via-secondary-teal to-primary-dark rounded-full flex items-center justify-center shadow-2xl shadow-primary-brand/50 hover:shadow-primary-brand/70 transition-all hover:scale-110 group-hover:rotate-90 duration-300 ring-4 ring-white/20">
+              <PlusCircle size={28} className="text-white drop-shadow-lg" strokeWidth={2.5} />
             </div>
+            
+            {/* Label */}
+            <span className="text-[10px] font-semibold text-primary-brand mt-0.5 relative z-10">Upload</span>
           </button>
         )}
 
