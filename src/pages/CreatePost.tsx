@@ -26,6 +26,53 @@ export function CreatePost() {
     return null;
   }
 
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const result = reader.result as string;
+        if (postType === 'image') {
+          setImageUrl(result);
+          setImagePreview(result);
+        } else {
+          setVideoUrl(result);
+          setVideoPreview(result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const result = reader.result as string;
+        if (postType === 'image' && file.type.startsWith('image/')) {
+          setImageUrl(result);
+          setImagePreview(result);
+        } else if (postType === 'video' && file.type.startsWith('video/')) {
+          setVideoUrl(result);
+          setVideoPreview(result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleAddTag = () => {
     if (tagInput.trim() && !tags.includes(tagInput.trim())) {
       setTags([...tags, tagInput.trim()]);
@@ -35,6 +82,16 @@ export function CreatePost() {
 
   const handleRemoveTag = (tagToRemove: string) => {
     setTags(tags.filter(tag => tag !== tagToRemove));
+  };
+
+  const removeMedia = () => {
+    if (postType === 'image') {
+      setImageUrl('');
+      setImagePreview('');
+    } else {
+      setVideoUrl('');
+      setVideoPreview('');
+    }
   };
 
   const handleSubmit = async () => {
