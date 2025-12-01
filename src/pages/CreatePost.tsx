@@ -168,23 +168,20 @@ export function CreatePost() {
         </div>
       </div>
 
-      {/* Content */}
-      <div className="max-w-2xl mx-auto p-4 pb-24">
-        <div className="space-y-4">
-          {/* Author Info */}
-          <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200">
-            <div className="flex items-center gap-3">
-              <img
-                src={currentUser?.profileImage}
-                alt={currentUser?.name}
-                className="w-12 h-12 rounded-full object-cover"
-              />
-              <div>
-                <p className="font-semibold text-gray-900">{currentUser?.name}</p>
-                <p className="text-sm text-gray-500">@{currentUser?.username}</p>
-              </div>
-            </div>
+      {/* Clean Content Container */}
+      <div className="max-w-2xl mx-auto px-4 py-4 pb-24">
+        {/* Minimal User Info Row */}
+        <div className="flex items-center gap-3 mb-4">
+          <img
+            src={currentUser?.profileImage}
+            alt={currentUser?.name}
+            className="w-11 h-11 rounded-full object-cover"
+          />
+          <div>
+            <p className="font-semibold text-gray-900 text-sm">{currentUser?.name}</p>
+            <p className="text-xs text-gray-500">@{currentUser?.username}</p>
           </div>
+        </div>
 
           {/* Caption */}
           <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200">
