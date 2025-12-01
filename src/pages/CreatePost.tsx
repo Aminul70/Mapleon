@@ -139,19 +139,13 @@ export function CreatePost() {
     setTags(tags.filter(tag => tag !== tagToRemove));
   };
 
-  const removeMedia = () => {
-    if (postType === 'image') {
-      setImageUrl('');
-      setImagePreview('');
-    } else {
-      setVideoUrl('');
-      setVideoPreview('');
-    }
+  const removeVideo = () => {
+    setVideoUrl('');
   };
 
   const handleSubmit = async () => {
-    if (!imageUrl && !videoUrl) {
-      alert('Please upload an image or video');
+    if (!images.length && !videoUrl) {
+      alert('Please upload at least one image or video');
       return;
     }
 
@@ -171,7 +165,7 @@ export function CreatePost() {
   };
 
   const handleClose = () => {
-    if (imageUrl || videoUrl || caption) {
+    if (images.length || videoUrl || caption) {
       if (window.confirm('Discard this post?')) {
         navigate(-1);
       }
@@ -179,6 +173,8 @@ export function CreatePost() {
       navigate(-1);
     }
   };
+
+  const hasMedia = images.length > 0 || !!videoUrl;
 
   return (
     <div className="min-h-screen bg-gray-50">
