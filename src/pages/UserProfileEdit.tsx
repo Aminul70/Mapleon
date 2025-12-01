@@ -413,6 +413,35 @@ export function UserProfileEdit() {
           </div>
         </div>
       </div>
+
+      {/* Photo Action Modals */}
+      <PhotoActionModal
+        isOpen={showProfileModal}
+        onClose={() => setShowProfileModal(false)}
+        hasPhoto={!!formData.profileImage}
+        onAddPhoto={() => handleFileUpload('profileImage')}
+        onChangePhoto={() => handleFileUpload('profileImage')}
+        onRemovePhoto={() => {
+          if (window.confirm('Are you sure you want to remove your profile photo?')) {
+            updateField('profileImage', '');
+          }
+        }}
+        photoType="profile"
+      />
+
+      <PhotoActionModal
+        isOpen={showCoverModal}
+        onClose={() => setShowCoverModal(false)}
+        hasPhoto={!!formData.coverImage}
+        onAddPhoto={() => handleFileUpload('coverImage')}
+        onChangePhoto={() => handleFileUpload('coverImage')}
+        onRemovePhoto={() => {
+          if (window.confirm('Are you sure you want to remove your cover photo?')) {
+            updateField('coverImage', '');
+          }
+        }}
+        photoType="cover"
+      />
     </div>
   );
 }
