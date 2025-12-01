@@ -212,8 +212,8 @@ export function Login() {
         {currentScreen === 'account-type' && (
           <div className="space-y-4 animate-slide-up">
             <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-white mb-2">Choose Account Type</h2>
-              <p className="text-white/60 text-sm">Select the option that best describes you</p>
+              <h2 className="text-2xl font-bold text-mapleon-slate mb-2">Choose Account Type</h2>
+              <p className="text-mapleon-slate/60 text-sm">Select the option that best describes you</p>
             </div>
 
             {/* Personal Account */}
@@ -222,7 +222,7 @@ export function Login() {
                 setAccountType('personal');
                 setCurrentScreen('login');
               }}
-              className="w-full bg-neutral-800/50 backdrop-blur-lg border border-neutral-700 hover:border-primary-brand rounded-2xl p-6 text-left transition-all hover:shadow-glow-primary active:scale-95"
+              className="w-full bg-white/70 backdrop-blur-lg border-2 border-white/40 hover:border-secondary-teal rounded-2xl p-6 text-left transition-all hover:shadow-lg active:scale-95"
               data-testid="personal-account-button"
             >
               <div className="flex items-start gap-4">
@@ -230,8 +230,8 @@ export function Login() {
                   <User size={24} className="text-white" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-white mb-1">Personal Account</h3>
-                  <p className="text-sm text-white/60">For regular users who want to explore, follow businesses, and book services.</p>
+                  <h3 className="text-lg font-semibold text-mapleon-slate mb-1">Personal Account</h3>
+                  <p className="text-sm text-mapleon-slate/60">For regular users who want to explore, follow businesses, and book services.</p>
                 </div>
               </div>
             </button>
@@ -242,7 +242,7 @@ export function Login() {
                 setAccountType('business');
                 setCurrentScreen('login');
               }}
-              className="w-full bg-neutral-800/50 backdrop-blur-lg border border-neutral-700 hover:border-business-badge rounded-2xl p-6 text-left transition-all hover:shadow-glow active:scale-95"
+              className="w-full bg-white/70 backdrop-blur-lg border-2 border-white/40 hover:border-business-badge rounded-2xl p-6 text-left transition-all hover:shadow-lg active:scale-95"
               data-testid="business-account-button"
             >
               <div className="flex items-start gap-4">
@@ -250,8 +250,8 @@ export function Login() {
                   <Store size={24} className="text-white" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-white mb-1">Business Account</h3>
-                  <p className="text-sm text-white/60">For salons, gyms, cafés, restaurants, boutiques, and service providers.</p>
+                  <h3 className="text-lg font-semibold text-mapleon-slate mb-1">Business Account</h3>
+                  <p className="text-sm text-mapleon-slate/60">For salons, gyms, cafés, restaurants, boutiques, and service providers.</p>
                 </div>
               </div>
             </button>
