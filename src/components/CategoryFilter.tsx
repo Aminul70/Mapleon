@@ -80,19 +80,12 @@ export function CategoryFilter({ onSelectCategory, selectedCategory }: CategoryF
                   <button
                     key={category.id}
                     onClick={() => handleSelect(category.id)}
-                    className={`w-full text-left px-4 py-3 rounded-xl transition-colors flex items-center gap-3 ${
+                    className={`w-full text-left px-4 py-3 rounded-xl transition-colors ${
                       selectedCategory === category.id
                         ? 'bg-primary-brand text-white'
                         : 'hover:bg-gray-100 text-gray-700'
                     }`}
                   >
-                    <span className="text-xl">
-                      {category.id === 'restaurant' && '🍽️'}
-                      {category.id === 'cafe' && '☕'}
-                      {category.id === 'gym' && '💪'}
-                      {category.id === 'salon' && '✂️'}
-                      {category.id === 'service' && '✨'}
-                    </span>
                     <span className="font-medium">{category.name}</span>
                   </button>
                 ))}
