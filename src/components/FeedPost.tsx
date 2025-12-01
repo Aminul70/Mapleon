@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HeartIcon, MessageCircleIcon, Share2Icon, MapPinIcon, MoreVerticalIcon, PlayIcon, PauseIcon, BookmarkIcon, Star } from 'lucide-react';
+import { HeartIcon, MessageCircleIcon, Share2Icon, MapPinIcon, PlayIcon, PauseIcon, BookmarkIcon, Star } from 'lucide-react';
 import { Post } from '../utils/mockData';
 import { CommentsModal } from './CommentsModal';
 import { ShareSheet } from './ShareSheet';
