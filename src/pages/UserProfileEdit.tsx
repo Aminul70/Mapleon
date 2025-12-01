@@ -91,6 +91,22 @@ export function UserProfileEdit() {
 
   const interestOptions = ['restaurant', 'cafe', 'gym', 'salon', 'service'];
 
+  // File upload handler
+  const handleFileUpload = (field: 'profileImage' | 'coverImage') => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e: any) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => updateField(field, reader.result);
+        reader.readAsDataURL(file);
+      }
+    };
+    input.click();
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-neutral-50 to-primary-brand/5 pb-24">
       {/* Header with Gradient */}
