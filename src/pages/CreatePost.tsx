@@ -280,21 +280,9 @@ export function CreatePost() {
                     <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-primary-brand/10 to-secondary-teal/10 rounded-full flex items-center justify-center">
                       <Upload size={40} className="text-primary-brand" />
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    <h3 className="text-lg font-semibold text-gray-900">
                       {postType === 'image' ? 'Upload an image' : 'Upload a video'}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-4">
-                      Drag and drop or click to browse
-                    </p>
-                    <button className="px-6 py-2.5 bg-primary-brand text-white rounded-full font-medium hover:bg-primary-dark transition-all">
-                      Select File
-                    </button>
-                    <p className="text-xs text-gray-500 mt-4">
-                      {postType === 'image' 
-                        ? 'Recommended: 1080x1080px or higher, JPG, PNG'
-                        : 'Recommended: MP4, MOV, max 100MB'
-                      }
-                    </p>
                   </div>
                 </div>
               )}
