@@ -75,29 +75,30 @@ export function Explore() {
     <div className="min-h-screen bg-neutral-50 pb-24">
       {/* Header with Search */}
       <div className="sticky top-0 z-20 bg-gradient-to-br from-primary-brand to-primary-dark shadow-lg">
-        <div className="px-4 pt-12 pb-4">
-          <h1 className="text-2xl font-bold text-white mb-4">
+        <div className="px-3 sm:px-4 pt-10 sm:pt-12 pb-3 sm:pb-4">
+          <h1 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
             Explore Businesses
           </h1>
 
           {/* Search Bar */}
-          <div className="relative mb-3">
+          <div className="relative mb-2 sm:mb-3">
             <SearchIcon
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-              size={20}
+              className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400"
+              size={18}
             />
             <input
               type="text"
-              placeholder="Search businesses, locations..."
+              placeholder="Search on map..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              className="w-full pl-12 pr-12 py-3.5 rounded-xl bg-white border-none focus:outline-none focus:ring-2 focus:ring-white/50 transition-all text-sm"
+              className="w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-2.5 sm:py-3.5 rounded-xl bg-white border-none focus:outline-none focus:ring-2 focus:ring-white/50 transition-all text-sm"
+              data-testid="search-input"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 hover:bg-gray-100 rounded-full transition-colors"
+                className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 p-1.5 hover:bg-gray-100 rounded-full transition-colors"
               >
                 <X size={16} className="text-gray-500" />
               </button>
@@ -107,11 +108,11 @@ export function Explore() {
           {/* Filter Button */}
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-md rounded-lg text-white text-sm font-medium hover:bg-white/30 transition-colors"
+            className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/20 backdrop-blur-md rounded-lg text-white text-xs sm:text-sm font-medium hover:bg-white/30 transition-colors"
           >
-            <Filter size={16} />
+            <Filter size={14} className="sm:w-4 sm:h-4" />
             <span>Filters</span>
-            {selectedCategory && <span className="bg-white/30 px-2 py-0.5 rounded-full text-xs">1</span>}
+            {selectedCategory && <span className="bg-white/30 px-1.5 sm:px-2 py-0.5 rounded-full text-xs">1</span>}
           </button>
         </div>
       </div>
