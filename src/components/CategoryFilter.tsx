@@ -96,16 +96,13 @@ export function CategoryFilter({ onSelectCategory, selectedCategory }: CategoryF
 
               {/* Quick Filters */}
               <div className="space-y-1">
-                <button className="w-full text-left px-4 py-3 rounded-xl hover:bg-gray-100 text-gray-700 flex items-center gap-3">
-                  <span>📍</span>
+                <button className="w-full text-left px-4 py-3 rounded-xl hover:bg-gray-100 text-gray-700">
                   <span className="font-medium">Near Me</span>
                 </button>
-                <button className="w-full text-left px-4 py-3 rounded-xl hover:bg-gray-100 text-gray-700 flex items-center gap-3">
-                  <span>🔥</span>
+                <button className="w-full text-left px-4 py-3 rounded-xl hover:bg-gray-100 text-gray-700">
                   <span className="font-medium">Trending Now</span>
                 </button>
-                <button className="w-full text-left px-4 py-3 rounded-xl hover:bg-gray-100 text-gray-700 flex items-center gap-3">
-                  <span>⭐</span>
+                <button className="w-full text-left px-4 py-3 rounded-xl hover:bg-gray-100 text-gray-700">
                   <span className="font-medium">Top Rated</span>
                 </button>
               </div>
