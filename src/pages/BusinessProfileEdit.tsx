@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Save, Eye, X, Plus, Trash2, MapPin as MapPinIcon, Image as ImageIcon } from 'lucide-react';
+import { ArrowLeft, Save, Eye, X, Plus, Trash2, MapPin as MapPinIcon, Image as ImageIcon, Camera } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import { LatLng } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
