@@ -413,10 +413,6 @@ export function FeedPost({
                   </p>
                 </div>
               </div>
-
-              <button className="text-white p-2 -mr-2 active:scale-95 transition-transform flex-shrink-0">
-                <MoreVerticalIcon size={22} />
-              </button>
             </div>
 
             {/* Book Button */}
