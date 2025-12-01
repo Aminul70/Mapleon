@@ -195,7 +195,7 @@ export function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-mapleon-teal via-mapleon-gray to-mapleon-teal-tint flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo/Header */}
         <div className="text-center mb-8">
@@ -204,8 +204,8 @@ export function Login() {
             alt="Mapleon" 
             className="w-20 h-20 mx-auto mb-4 rounded-full shadow-glow"
           />
-          <h1 className="text-3xl font-bold text-white mb-2">Mapleon</h1>
-          <p className="text-white/60">Discover what's nearby</p>
+          <h1 className="text-3xl font-bold text-mapleon-slate mb-2">Mapleon</h1>
+          <p className="text-mapleon-slate/60">Discover what's nearby</p>
         </div>
 
         {/* Screen 1: Account Type Selection */}
