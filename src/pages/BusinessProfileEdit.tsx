@@ -362,38 +362,119 @@ export function BusinessProfileEdit() {
 
         {/* Images Tab */}
         {activeTab === 'images' && (
-          <div className="space-y-6 bg-white rounded-2xl p-6 shadow-sm">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-secondary-purple to-secondary-blue rounded-xl flex items-center justify-center shadow-md">
-                <ImageIcon size={24} className="text-white" />
+          <div className="space-y-6">
+            {/* Profile & Cover Photos - Facebook Style Layout */}
+            <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+              {/* Cover Photo Section */}
+              <div className="relative h-48 bg-gradient-to-r from-primary-brand/20 via-secondary-teal/20 to-secondary-purple/20">
+                {(formData.coverImage || formData.image) ? (
+                  <>
+                    <img
+                      src={formData.coverImage || formData.image}
+                      alt="Cover"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/20"></div>
+                  </>
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <div className="text-center">
+                      <Camera size={32} className="text-gray-400 mx-auto mb-2" />
+                      <p className="text-sm text-gray-500">Add Cover Photo</p>
+                    </div>
+                  </div>
+                )}
+                {/* Cover Photo Actions */}
+                <div className="absolute bottom-3 right-3 flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const input = document.createElement('input');
+                      input.type = 'file';
+                      input.accept = 'image/*';
+                      input.onchange = (e: any) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onloadend = () => updateField('coverImage', reader.result);
+                          reader.readAsDataURL(file);
+                        }
+                      };
+                      input.click();
+                    }}
+                    className="px-3 py-1.5 bg-white/95 backdrop-blur-sm text-gray-700 rounded-lg text-sm font-medium hover:bg-white shadow-md flex items-center gap-1.5 transition-all"
+                  >
+                    <Camera size={16} />
+                    <span>{(formData.coverImage || formData.image) ? 'Change' : 'Upload'} Cover</span>
+                  </button>
+                  {(formData.coverImage || formData.image) && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (window.confirm('Remove cover photo?')) {
+                          updateField('coverImage', '');
+                        }
+                      }}
+                      className="px-3 py-1.5 bg-white/95 backdrop-blur-sm text-red-600 rounded-lg text-sm font-medium hover:bg-white shadow-md transition-all"
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
               </div>
-              <div>
-                <h2 className="text-lg font-bold text-neutral-900">Visual Content</h2>
-                <p className="text-sm text-gray-600">Showcase your business beautifully</p>
+
+              {/* Profile Picture Section - Overlaying */}
+              <div className="px-6 pb-6">
+                <div className="relative -mt-16 mb-4">
+                  <div className="inline-block">
+                    {formData.profileImage ? (
+                      <img
+                        src={formData.profileImage}
+                        alt="Profile"
+                        className="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg"
+                      />
+                    ) : (
+                      <div className="w-32 h-32 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 border-4 border-white shadow-lg flex items-center justify-center">
+                        <ImageIcon size={48} className="text-gray-500" />
+                      </div>
+                    )}
+                    {/* Edit Button on Profile Picture */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const input = document.createElement('input');
+                        input.type = 'file';
+                        input.accept = 'image/*';
+                        input.onchange = (e: any) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onloadend = () => updateField('profileImage', reader.result);
+                            reader.readAsDataURL(file);
+                          }
+                        };
+                        input.click();
+                      }}
+                      className="absolute bottom-1 right-1 w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center border-2 border-white shadow-md transition-all"
+                    >
+                      <Camera size={18} className="text-gray-700" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Info */}
+                <div className="flex items-start gap-3 bg-orange-50 border border-orange-200 rounded-lg p-3">
+                  <div className="flex-shrink-0 w-5 h-5 bg-business-badge rounded-full flex items-center justify-center text-white text-xs font-bold mt-0.5">i</div>
+                  <div className="text-xs text-orange-800">
+                    <p><strong>Profile Picture:</strong> Your business logo - Square format, 400x400px or larger</p>
+                    <p className="mt-1"><strong>Cover Photo:</strong> Main banner - 1200x400px recommended</p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <ImageUploadField
-              label="Profile Picture"
-              value={formData.profileImage || ''}
-              onChange={(value) => updateField('profileImage', value)}
-              aspectRatio="square"
-              maxSizeMB={5}
-              helperText="Your business logo - Square format recommended"
-            />
-
-            <div className="border-t border-gray-100 pt-6">
-              <ImageUploadField
-                label="Cover Image"
-                value={formData.coverImage || formData.image}
-                onChange={(value) => updateField('coverImage', value)}
-                aspectRatio="cover"
-                maxSizeMB={10}
-                helperText="Main banner image - 1200x400px recommended"
-              />
-            </div>
-
-            <div className="border-t border-gray-100 pt-6">
+            {/* Photo Gallery */}
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <label className="block text-sm font-semibold text-gray-800">
