@@ -5,6 +5,7 @@ import { NavBarProvider } from './contexts/NavBarContext';
 import { Onboarding } from './pages/Onboarding';
 import { Login } from './pages/Login';
 import { InterestSelection } from './pages/InterestSelection';
+import { BusinessOnboarding } from './pages/BusinessOnboarding';
 import { HomeFeed } from './pages/HomeFeed';
 import { Explore } from './pages/Explore';
 import { MapView } from './pages/MapView';
@@ -38,6 +39,7 @@ export function App() {
           <Route path="/" element={<Onboarding />} />
           <Route path="/login" element={<Login />} />
           <Route path="/interests" element={<InterestSelection />} />
+          <Route path="/business-onboarding" element={<BusinessOnboarding />} />
           <Route path="/home" element={<HomeFeed />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/map" element={<MapView />} />
