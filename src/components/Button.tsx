@@ -9,6 +9,7 @@ interface ButtonProps {
   disabled?: boolean;
   icon?: React.ReactNode;
   className?: string;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 export function Button({
@@ -19,7 +20,8 @@ export function Button({
   fullWidth = false,
   disabled = false,
   icon,
-  className = ''
+  className = '',
+  type = 'button'
 }: ButtonProps) {
   const baseStyles = 'font-semibold transition-all duration-250 active:scale-98 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2';
   
