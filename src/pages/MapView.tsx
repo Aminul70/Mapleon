@@ -145,12 +145,12 @@ export function MapView() {
       {/* "Near Me" Floating Button */}
       <button 
         onClick={handleNearMe}
-        className="absolute bottom-32 right-4 sm:right-6 z-[1000] bg-gradient-to-br from-mapleon-teal to-mapleon-aqua text-white p-4 sm:p-5 rounded-full shadow-xl active:scale-95 transition-transform"
+        className="absolute bottom-28 sm:bottom-32 right-3 sm:right-6 z-[1000] bg-gradient-to-br from-mapleon-teal to-mapleon-aqua text-white p-3 sm:p-5 rounded-full shadow-xl active:scale-95 transition-transform"
       >
-        <NavigationIcon size={24} className="sm:w-7 sm:h-7" />
+        <NavigationIcon size={20} className="sm:w-6 sm:h-6" />
       </button>
       {/* Selected Business Card */}
-      {selectedBusiness && <div className="absolute bottom-28 left-4 right-4 sm:left-6 sm:right-6 z-[1000] animate-slide-up">
+      {selectedBusiness && <div className="absolute bottom-24 sm:bottom-28 left-3 right-3 sm:left-6 sm:right-6 z-[1000] animate-slide-up">
           <BusinessCard 
             business={mockBusinesses.find(b => b.id === selectedBusiness)!} 
             onViewDetails={() => navigate(`/business/${selectedBusiness}`)} 
