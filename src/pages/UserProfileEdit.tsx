@@ -125,38 +125,112 @@ export function UserProfileEdit() {
 
       {/* Content - Single Scrollable Page */}
       <div className="p-4 max-w-3xl mx-auto space-y-5">
-        {/* Profile Images Card with Modern Design */}
+        {/* Profile Images Card - Facebook Style Layout */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
-          <div className="bg-gradient-to-r from-primary-brand/10 via-secondary-teal/10 to-secondary-purple/10 px-6 py-5 border-b border-gray-100">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary-brand to-secondary-teal rounded-xl flex items-center justify-center shadow-md">
-                <Camera size={24} className="text-white" />
+          {/* Cover Photo Section */}
+          <div className="relative h-48 bg-gradient-to-r from-primary-brand/20 via-secondary-teal/20 to-secondary-purple/20">
+            {formData.coverImage ? (
+              <>
+                <img
+                  src={formData.coverImage}
+                  alt="Cover"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/20"></div>
+              </>
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <div className="text-center">
+                  <Camera size={32} className="text-gray-400 mx-auto mb-2" />
+                  <p className="text-sm text-gray-500">Add Cover Photo</p>
+                </div>
               </div>
-              <div>
-                <h2 className="text-lg font-bold text-neutral-900">Profile Images</h2>
-                <p className="text-sm text-gray-600">Make a great first impression</p>
-              </div>
+            )}
+            {/* Cover Photo Actions */}
+            <div className="absolute bottom-3 right-3 flex gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  const input = document.createElement('input');
+                  input.type = 'file';
+                  input.accept = 'image/*';
+                  input.onchange = (e: any) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onloadend = () => updateField('coverImage', reader.result);
+                      reader.readAsDataURL(file);
+                    }
+                  };
+                  input.click();
+                }}
+                className="px-3 py-1.5 bg-white/95 backdrop-blur-sm text-gray-700 rounded-lg text-sm font-medium hover:bg-white shadow-md flex items-center gap-1.5 transition-all"
+              >
+                <Camera size={16} />
+                <span>{formData.coverImage ? 'Change' : 'Upload'} Cover</span>
+              </button>
+              {formData.coverImage && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (window.confirm('Remove cover photo?')) {
+                      updateField('coverImage', '');
+                    }
+                  }}
+                  className="px-3 py-1.5 bg-white/95 backdrop-blur-sm text-red-600 rounded-lg text-sm font-medium hover:bg-white shadow-md transition-all"
+                >
+                  Remove
+                </button>
+              )}
             </div>
           </div>
-          <div className="p-6 space-y-6">
-            <ImageUploadField
-              label="Profile Picture"
-              value={formData.profileImage}
-              onChange={(value) => updateField('profileImage', value)}
-              aspectRatio="square"
-              maxSizeMB={5}
-              helperText="Recommended: Square image, 400x400px or larger"
-            />
 
-            <div className="border-t border-gray-100 pt-6">
-              <ImageUploadField
-                label="Cover Photo"
-                value={formData.coverImage || ''}
-                onChange={(value) => updateField('coverImage', value)}
-                aspectRatio="cover"
-                maxSizeMB={5}
-                helperText="Recommended: 1200x400px for best results"
-              />
+          {/* Profile Picture Section - Overlaying */}
+          <div className="px-6 pb-6">
+            <div className="relative -mt-16 mb-4">
+              <div className="inline-block">
+                {formData.profileImage ? (
+                  <img
+                    src={formData.profileImage}
+                    alt="Profile"
+                    className="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg"
+                  />
+                ) : (
+                  <div className="w-32 h-32 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 border-4 border-white shadow-lg flex items-center justify-center">
+                    <UserIcon size={48} className="text-gray-500" />
+                  </div>
+                )}
+                {/* Edit Button on Profile Picture */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.accept = 'image/*';
+                    input.onchange = (e: any) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onloadend = () => updateField('profileImage', reader.result);
+                        reader.readAsDataURL(file);
+                      }
+                    };
+                    input.click();
+                  }}
+                  className="absolute bottom-1 right-1 w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center border-2 border-white shadow-md transition-all"
+                >
+                  <Camera size={18} className="text-gray-700" />
+                </button>
+              </div>
+            </div>
+
+            {/* Info */}
+            <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-lg p-3">
+              <div className="flex-shrink-0 w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold mt-0.5">i</div>
+              <div className="text-xs text-blue-800">
+                <p><strong>Profile Picture:</strong> Recommended 400x400px or larger</p>
+                <p className="mt-1"><strong>Cover Photo:</strong> Recommended 1200x400px for best results</p>
+              </div>
             </div>
           </div>
         </div>
