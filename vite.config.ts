@@ -9,7 +9,7 @@ export default defineConfig({
     port: 3000,
     strictPort: true,
     allowedHosts: [
-      'dinetime-preview.preview.emergentagent.com',
+      'no-explore.preview.emergentagent.com',
       '.preview.emergentagent.com',
       'localhost'
     ]
@@ -19,7 +19,7 @@ export default defineConfig({
     port: 3000,
     strictPort: true,
     allowedHosts: [
-      'dinetime-preview.preview.emergentagent.com',
+      'no-explore.preview.emergentagent.com',
       '.preview.emergentagent.com',
       'localhost'
     ]
