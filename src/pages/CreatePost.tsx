@@ -83,32 +83,32 @@ export function CreatePost() {
       </div>
 
       {/* Content */}
-      <div className="p-4 space-y-6 pb-24 max-w-2xl mx-auto">
+      <div className="p-4 space-y-5 pb-24 max-w-2xl mx-auto">
         {/* Business Info */}
-        <div className="flex items-center gap-3 bg-white rounded-xl p-4 border border-gray-200">
+        <div className="flex items-center gap-3 bg-gradient-to-r from-white to-primary-brand/5 rounded-2xl p-4 border border-gray-200 shadow-sm">
           <img
             src={currentUser?.profileImage}
             alt={currentUser?.name}
-            className="w-12 h-12 rounded-full object-cover"
+            className="w-14 h-14 rounded-full object-cover border-2 border-primary-brand/20 shadow-md"
           />
           <div>
-            <p className="font-semibold text-neutral-900">{currentUser?.name}</p>
+            <p className="font-bold text-neutral-900">{currentUser?.name}</p>
             <p className="text-sm text-neutral-600">@{currentUser?.username}</p>
           </div>
         </div>
 
         {/* Post Type Selector */}
-        <div className="bg-white rounded-xl p-4 border border-gray-200">
-          <label className="block text-sm font-medium text-gray-700 mb-3">
+        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+          <label className="block text-sm font-semibold text-gray-800 mb-3">
             Post Type
           </label>
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <button
               onClick={() => setPostType('image')}
-              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg font-medium transition-all ${
+              className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold transition-all duration-200 ${
                 postType === 'image'
-                  ? 'bg-primary-brand text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  ? 'bg-gradient-to-r from-primary-brand to-primary-dark text-white shadow-lg scale-[1.02]'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:scale-[1.01]'
               }`}
               data-testid="image-post-type-btn"
             >
@@ -117,10 +117,10 @@ export function CreatePost() {
             </button>
             <button
               onClick={() => setPostType('video')}
-              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg font-medium transition-all ${
+              className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold transition-all duration-200 ${
                 postType === 'video'
-                  ? 'bg-primary-brand text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  ? 'bg-gradient-to-r from-primary-brand to-primary-dark text-white shadow-lg scale-[1.02]'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:scale-[1.01]'
               }`}
               data-testid="video-post-type-btn"
             >
