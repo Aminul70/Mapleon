@@ -362,8 +362,16 @@ export function BusinessProfileEdit() {
 
         {/* Images Tab */}
         {activeTab === 'images' && (
-          <div className="space-y-6 bg-white rounded-xl p-6 shadow-sm">
-            <h2 className="text-lg font-bold text-neutral-900 mb-4">Visual Content</h2>
+          <div className="space-y-6 bg-white rounded-2xl p-6 shadow-sm">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 bg-gradient-to-br from-secondary-purple to-secondary-blue rounded-xl flex items-center justify-center shadow-md">
+                <ImageIcon size={24} className="text-white" />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-neutral-900">Visual Content</h2>
+                <p className="text-sm text-gray-600">Showcase your business beautifully</p>
+              </div>
+            </div>
 
             <ImageUploadField
               label="Profile Picture"
@@ -371,39 +379,55 @@ export function BusinessProfileEdit() {
               onChange={(value) => updateField('profileImage', value)}
               aspectRatio="square"
               maxSizeMB={5}
+              helperText="Your business logo - Square format recommended"
             />
 
-            <ImageUploadField
-              label="Cover Image"
-              value={formData.coverImage || formData.image}
-              onChange={(value) => updateField('coverImage', value)}
-              aspectRatio="cover"
-              maxSizeMB={10}
-            />
+            <div className="border-t border-gray-100 pt-6">
+              <ImageUploadField
+                label="Cover Image"
+                value={formData.coverImage || formData.image}
+                onChange={(value) => updateField('coverImage', value)}
+                aspectRatio="cover"
+                maxSizeMB={10}
+                helperText="Main banner image - 1200x400px recommended"
+              />
+            </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Photo Gallery (Up to 20 photos)
-              </label>
+            <div className="border-t border-gray-100 pt-6">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-800">
+                    Photo Gallery
+                  </label>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Up to 20 photos - Showcase your products, services, or ambiance
+                  </p>
+                </div>
+                <span className="text-xs font-medium text-primary-brand bg-primary-brand/10 px-3 py-1 rounded-full">
+                  {(formData.photos || []).length}/20
+                </span>
+              </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {(formData.photos || []).map((photo: string, index: number) => (
                   <div key={index} className="relative group">
                     <img
                       src={photo}
                       alt={`Gallery ${index + 1}`}
-                      className="w-full aspect-square object-cover rounded-xl"
+                      className="w-full aspect-square object-cover rounded-xl border-2 border-gray-200 shadow-sm"
                     />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const photos = [...(formData.photos || [])];
-                        photos.splice(index, 1);
-                        updateField('photos', photos);
-                      }}
-                      className="absolute top-2 right-2 p-2 bg-red-600 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                    >
-                      <Trash2 size={16} />
-                    </button>
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-200 rounded-xl flex items-center justify-center">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const photos = [...(formData.photos || [])];
+                          photos.splice(index, 1);
+                          updateField('photos', photos);
+                        }}
+                        className="p-3 bg-red-600 text-white rounded-full hover:bg-red-700 hover:scale-110 transition-all shadow-lg"
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    </div>
                   </div>
                 ))}
                 {(!formData.photos || formData.photos.length < 20) && (
@@ -415,10 +439,12 @@ export function BusinessProfileEdit() {
                         updateField('photos', [...(formData.photos || []), newPhoto]);
                       }
                     }}
-                    className="aspect-square border-2 border-dashed border-gray-300 rounded-xl hover:border-primary-brand hover:bg-gray-50 transition-colors flex flex-col items-center justify-center gap-2"
+                    className="aspect-square border-2 border-dashed border-gray-300 rounded-xl hover:border-primary-brand hover:bg-gradient-to-br hover:from-primary-brand/5 hover:to-secondary-teal/5 transition-all duration-300 flex flex-col items-center justify-center gap-2 group"
                   >
-                    <Plus size={24} className="text-gray-400" />
-                    <span className="text-xs text-gray-500">Add Photo</span>
+                    <div className="w-12 h-12 bg-gray-100 group-hover:bg-primary-brand/10 rounded-full flex items-center justify-center transition-colors">
+                      <Plus size={24} className="text-gray-400 group-hover:text-primary-brand transition-colors" />
+                    </div>
+                    <span className="text-xs text-gray-500 group-hover:text-primary-brand font-medium transition-colors">Add Photo</span>
                   </button>
                 )}
               </div>
