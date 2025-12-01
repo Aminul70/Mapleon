@@ -7,6 +7,7 @@ import { TextareaField } from '../components/form/TextareaField';
 import { ToggleSwitchField } from '../components/form/ToggleSwitchField';
 import { MultiSelectField } from '../components/form/MultiSelectField';
 import { Button } from '../components/Button';
+import { PhotoActionModal } from '../components/PhotoActionModal';
 import { saveUserProfile, loadUserProfile } from '../utils/localStorage';
 import { mockUsers } from '../utils/mockData';
 
