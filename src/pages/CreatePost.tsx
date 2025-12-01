@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { X, Image as ImageIcon, Video, MapPin, Tag, Smile, AtSign, Hash, Upload, Plus } from 'lucide-react';
+import { X, Image as ImageIcon, Video, MapPin, Smile, Hash } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { Button } from '../components/Button';
 
 export function CreatePost() {
   const navigate = useNavigate();
@@ -14,10 +13,10 @@ export function CreatePost() {
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoInputRef = useRef<HTMLInputElement>(null);
+  const captionRef = useRef<HTMLTextAreaElement>(null);
 
   // Auto-populate location from business profile
   useEffect(() => {
@@ -25,6 +24,14 @@ export function CreatePost() {
       setLocation(currentUser.location);
     }
   }, [currentUser]);
+
+  // Auto-expand textarea
+  useEffect(() => {
+    if (captionRef.current) {
+      captionRef.current.style.height = 'auto';
+      captionRef.current.style.height = captionRef.current.scrollHeight + 'px';
+    }
+  }, [caption]);
 
   // Redirect if not a business account
   if (!isBusinessAccount) {
