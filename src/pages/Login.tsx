@@ -619,7 +619,7 @@ export function Login() {
                       {cat.name}
                     </option>
                   ))}
-                  <option value="Other">➕ Other (Please specify your business)</option>
+                  <option value="Other">Other (Please specify your business)</option>
                 </select>
               </div>
 
