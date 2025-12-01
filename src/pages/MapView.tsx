@@ -118,27 +118,27 @@ export function MapView() {
       })}
       </MapContainer>
       {/* Search Bar */}
-      <div className="absolute top-6 left-4 right-4 sm:left-6 sm:right-6 z-[1000]">
+      <div className="absolute top-4 sm:top-6 left-3 right-3 sm:left-6 sm:right-6 z-[1000]">
         <div className="relative">
-          <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+          <SearchIcon className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
           <input 
             type="text" 
             placeholder="Search on map..." 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-            className="w-full pl-12 pr-4 py-3.5 sm:py-4 rounded-2xl bg-white shadow-lg border-none focus:outline-none focus:ring-2 focus:ring-mapleon-coral/30 transition-all" 
+            className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-4 rounded-2xl bg-white shadow-lg border-none focus:outline-none focus:ring-2 focus:ring-mapleon-coral/30 transition-all text-sm sm:text-base" 
           />
         </div>
       </div>
       {/* Category Filter Pills */}
-      <div className="absolute top-20 sm:top-24 left-4 right-4 sm:left-6 sm:right-6 z-[1000]">
-        <div className="flex gap-2 overflow-x-auto pb-2">
-          {categories.map(category => <button key={category.id} onClick={() => setSelectedCategory(category.id)} className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full whitespace-nowrap transition-all font-medium shadow-md active:scale-95 ${selectedCategory === category.id ? 'bg-white scale-105' : 'bg-white/80'}`} style={{
+      <div className="absolute top-16 sm:top-24 left-3 right-3 sm:left-6 sm:right-6 z-[1000]">
+        <div className="flex gap-2 overflow-x-auto pb-2 hide-scrollbar">
+          {categories.map(category => <button key={category.id} onClick={() => setSelectedCategory(category.id)} className={`px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full whitespace-nowrap transition-all font-medium shadow-md active:scale-95 flex-shrink-0 ${selectedCategory === category.id ? 'bg-white scale-105' : 'bg-white/80'}`} style={{
           color: selectedCategory === category.id ? category.color : '#0D1A20'
         }}>
-              <span className="mr-2">{category.icon}</span>
-              <span className="text-sm sm:text-base">{category.name}</span>
+              <span className="mr-1 sm:mr-2 text-sm sm:text-base">{category.icon}</span>
+              <span className="text-xs sm:text-base">{category.name}</span>
             </button>)}
         </div>
       </div>
