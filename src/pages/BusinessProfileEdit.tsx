@@ -12,6 +12,7 @@ import { TimePickerField } from '../components/form/TimePickerField';
 import { ToggleSwitchField } from '../components/form/ToggleSwitchField';
 import { MultiSelectField } from '../components/form/MultiSelectField';
 import { Button } from '../components/Button';
+import { PhotoActionModal } from '../components/PhotoActionModal';
 import { saveBusinessProfile, loadBusinessProfile } from '../utils/localStorage';
 import { mockBusinesses } from '../utils/mockData';
 import { Phone, Globe, Mail } from 'lucide-react';
