@@ -1,24 +1,30 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { X, Image as ImageIcon, Video, MapPin, Tag, Smile, AtSign, Hash, Upload } from 'lucide-react';
+import { X, Image as ImageIcon, Video, MapPin, Tag, Smile, AtSign, Hash, Upload, Plus } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { Button } from '../components/Button';
 
 export function CreatePost() {
   const navigate = useNavigate();
   const { currentUser, isBusinessAccount } = useAuth();
-  const [postType, setPostType] = useState<'image' | 'video'>('image');
-  const [imageUrl, setImageUrl] = useState('');
+  const [images, setImages] = useState<string[]>([]);
   const [videoUrl, setVideoUrl] = useState('');
-  const [imagePreview, setImagePreview] = useState('');
-  const [videoPreview, setVideoPreview] = useState('');
   const [caption, setCaption] = useState('');
   const [location, setLocation] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const videoInputRef = useRef<HTMLInputElement>(null);
+
+  // Auto-populate location from business profile
+  useEffect(() => {
+    if (currentUser?.location) {
+      setLocation(currentUser.location);
+    }
+  }, [currentUser]);
 
   // Redirect if not a business account
   if (!isBusinessAccount) {
