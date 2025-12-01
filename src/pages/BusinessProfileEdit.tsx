@@ -34,6 +34,8 @@ export function BusinessProfileEdit() {
   const [showPreview, setShowPreview] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showCoverModal, setShowCoverModal] = useState(false);
 
   // Load saved data or use mock data
   const [formData, setFormData] = useState(() => {
