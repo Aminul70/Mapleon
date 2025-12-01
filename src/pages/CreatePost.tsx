@@ -150,195 +150,219 @@ export function CreatePost() {
       </div>
 
       {/* Content */}
-      <div className="p-4 space-y-5 pb-24 max-w-2xl mx-auto">
-        {/* Business Info */}
-        <div className="flex items-center gap-3 bg-gradient-to-r from-white to-primary-brand/5 rounded-2xl p-4 border border-gray-200 shadow-sm">
-          <img
-            src={currentUser?.profileImage}
-            alt={currentUser?.name}
-            className="w-14 h-14 rounded-full object-cover border-2 border-primary-brand/20 shadow-md"
-          />
-          <div>
-            <p className="font-bold text-neutral-900">{currentUser?.name}</p>
-            <p className="text-sm text-neutral-600">@{currentUser?.username}</p>
-          </div>
-        </div>
+      <div className="max-w-4xl mx-auto p-4 pb-24">
+        <div className="grid lg:grid-cols-2 gap-4">
+          {/* Left Side - Media Upload */}
+          <div className="lg:sticky lg:top-20 lg:self-start">
+            <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200">
+              {/* Media Type Tabs */}
+              <div className="flex border-b border-gray-200">
+                <button
+                  onClick={() => setPostType('image')}
+                  className={`flex-1 flex items-center justify-center gap-2 py-3 font-medium transition-all ${
+                    postType === 'image'
+                      ? 'bg-primary-brand/5 text-primary-brand border-b-2 border-primary-brand'
+                      : 'text-gray-600 hover:bg-gray-50'
+                  }`}
+                  data-testid="image-post-type-btn"
+                >
+                  <ImageIcon size={18} />
+                  <span>Image</span>
+                </button>
+                <button
+                  onClick={() => setPostType('video')}
+                  className={`flex-1 flex items-center justify-center gap-2 py-3 font-medium transition-all ${
+                    postType === 'video'
+                      ? 'bg-primary-brand/5 text-primary-brand border-b-2 border-primary-brand'
+                      : 'text-gray-600 hover:bg-gray-50'
+                  }`}
+                  data-testid="video-post-type-btn"
+                >
+                  <Video size={18} />
+                  <span>Video</span>
+                </button>
+              </div>
 
-        {/* Post Type Selector */}
-        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
-          <label className="block text-sm font-semibold text-gray-800 mb-3">
-            Post Type
-          </label>
-          <div className="flex gap-3">
-            <button
-              onClick={() => setPostType('image')}
-              className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold transition-all duration-200 ${
-                postType === 'image'
-                  ? 'bg-gradient-to-r from-primary-brand to-primary-dark text-white shadow-lg scale-[1.02]'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:scale-[1.01]'
-              }`}
-              data-testid="image-post-type-btn"
-            >
-              <ImageIcon size={20} />
-              <span>Image</span>
-            </button>
-            <button
-              onClick={() => setPostType('video')}
-              className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold transition-all duration-200 ${
-                postType === 'video'
-                  ? 'bg-gradient-to-r from-primary-brand to-primary-dark text-white shadow-lg scale-[1.02]'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:scale-[1.01]'
-              }`}
-              data-testid="video-post-type-btn"
-            >
-              <Video size={20} />
-              <span>Video</span>
-            </button>
-          </div>
-        </div>
+              {/* Upload Area */}
+              <div className="p-6">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept={postType === 'image' ? 'image/*' : 'video/*'}
+                  onChange={handleFileSelect}
+                  className="hidden"
+                />
 
-        {/* Media Upload */}
-        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
-          {postType === 'image' ? (
-            <ImageUploadField
-              label="Post Image"
-              value={imageUrl}
-              onChange={setImageUrl}
-              aspectRatio="square"
-              maxSizeMB={10}
-              helperText="High-quality images get more engagement"
-            />
-          ) : (
-            <div>
-              <label className="block text-sm font-semibold text-gray-800 mb-3">
-                Video URL or Upload
-              </label>
-              <input
-                type="text"
-                value={videoUrl}
-                onChange={(e) => setVideoUrl(e.target.value)}
-                placeholder="Paste video URL or upload file"
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-brand/30 focus:border-primary-brand transition-all"
-                data-testid="video-url-input"
-              />
-              <div className="mt-3 flex items-start gap-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                <div className="flex-shrink-0 w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold mt-0.5">i</div>
-                <p className="text-xs text-blue-800">
-                  <strong>Note:</strong> Video upload feature coming soon. You can paste a video URL for now.
-                </p>
+                {(postType === 'image' && imagePreview) || (postType === 'video' && videoPreview) ? (
+                  <div className="relative group">
+                    {postType === 'image' ? (
+                      <img
+                        src={imagePreview}
+                        alt="Preview"
+                        className="w-full aspect-square object-cover rounded-xl"
+                      />
+                    ) : (
+                      <video
+                        src={videoPreview}
+                        controls
+                        className="w-full aspect-square object-cover rounded-xl bg-black"
+                      />
+                    )}
+                    <button
+                      onClick={removeMedia}
+                      className="absolute top-3 right-3 p-2 bg-black/60 hover:bg-black/80 text-white rounded-full backdrop-blur-sm transition-all"
+                    >
+                      <X size={20} />
+                    </button>
+                    <button
+                      onClick={() => fileInputRef.current?.click()}
+                      className="absolute bottom-3 right-3 px-4 py-2 bg-white/90 hover:bg-white text-gray-800 rounded-full backdrop-blur-sm transition-all font-medium text-sm shadow-lg"
+                    >
+                      Change
+                    </button>
+                  </div>
+                ) : (
+                  <div
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
+                    onClick={() => fileInputRef.current?.click()}
+                    className={`relative aspect-square border-2 border-dashed rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all ${
+                      isDragging
+                        ? 'border-primary-brand bg-primary-brand/5 scale-[1.02]'
+                        : 'border-gray-300 hover:border-primary-brand hover:bg-gray-50'
+                    }`}
+                  >
+                    <div className="text-center p-8">
+                      <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-primary-brand/10 to-secondary-teal/10 rounded-full flex items-center justify-center">
+                        <Upload size={40} className="text-primary-brand" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                        {postType === 'image' ? 'Upload an image' : 'Upload a video'}
+                      </h3>
+                      <p className="text-sm text-gray-600 mb-4">
+                        Drag and drop or click to browse
+                      </p>
+                      <button className="px-6 py-2.5 bg-primary-brand text-white rounded-full font-medium hover:bg-primary-dark transition-all">
+                        Select File
+                      </button>
+                      <p className="text-xs text-gray-500 mt-4">
+                        {postType === 'image' 
+                          ? 'Recommended: 1080x1080px or higher, JPG, PNG'
+                          : 'Recommended: MP4, MOV, max 100MB'
+                        }
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
-          )}
-        </div>
-
-        {/* Caption */}
-        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
-          <label className="block text-sm font-semibold text-gray-800 mb-3">
-            Caption
-          </label>
-          <textarea
-            value={caption}
-            onChange={(e) => setCaption(e.target.value)}
-            placeholder="Write a caption for your post..."
-            rows={4}
-            maxLength={500}
-            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-brand/30 focus:border-primary-brand resize-none transition-all"
-            data-testid="caption-input"
-          />
-          <div className="flex justify-between items-center mt-2">
-            <p className="text-xs text-gray-500">{caption.length}/500 characters</p>
-            {caption.length > 450 && (
-              <p className="text-xs text-orange-600 font-medium">Almost at limit!</p>
-            )}
           </div>
-        </div>
 
-        {/* Location */}
-        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
-          <label className="block text-sm font-semibold text-gray-800 mb-3">
-            Location (Optional)
-          </label>
-          <div className="relative">
-            <MapPin size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input
-              type="text"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder="Add location"
-              className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-brand/30 focus:border-primary-brand transition-all"
-              data-testid="location-input"
-            />
-          </div>
-        </div>
+          {/* Right Side - Details */}
+          <div className="space-y-4">
+            {/* Author Info */}
+            <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200">
+              <div className="flex items-center gap-3">
+                <img
+                  src={currentUser?.profileImage}
+                  alt={currentUser?.name}
+                  className="w-12 h-12 rounded-full object-cover"
+                />
+                <div>
+                  <p className="font-semibold text-gray-900">{currentUser?.name}</p>
+                  <p className="text-sm text-gray-500">@{currentUser?.username}</p>
+                </div>
+              </div>
+            </div>
 
-        {/* Tags */}
-        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
-          <label className="block text-sm font-semibold text-gray-800 mb-3">
-            Tags (Optional)
-          </label>
-          <div className="flex gap-2 mb-3">
-            <div className="relative flex-1">
-              <Tag size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-              <input
-                type="text"
-                value={tagInput}
-                onChange={(e) => setTagInput(e.target.value)}
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    handleAddTag();
-                  }
-                }}
-                placeholder="Add tag"
-                className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-brand/30 focus:border-primary-brand text-sm transition-all"
-                data-testid="tag-input"
+            {/* Caption */}
+            <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200">
+              <textarea
+                value={caption}
+                onChange={(e) => setCaption(e.target.value)}
+                placeholder="Write a caption..."
+                rows={5}
+                maxLength={500}
+                className="w-full px-0 py-0 text-gray-900 placeholder-gray-400 focus:outline-none resize-none"
+                data-testid="caption-input"
               />
-            </div>
-            <button
-              onClick={handleAddTag}
-              className="px-5 py-3 bg-gradient-to-r from-secondary-teal to-secondary-teal/90 text-white rounded-xl font-semibold hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all text-sm"
-              data-testid="add-tag-btn"
-            >
-              Add
-            </button>
-          </div>
-          {tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-primary-brand/10 to-secondary-teal/10 text-primary-brand rounded-full text-sm font-semibold border border-primary-brand/20"
-                >
-                  #{tag}
-                  <button
-                    onClick={() => handleRemoveTag(tag)}
-                    className="hover:bg-primary-brand/20 rounded-full p-0.5 transition-colors"
-                  >
-                    <X size={14} />
+              <div className="flex justify-between items-center mt-3 pt-3 border-t border-gray-100">
+                <div className="flex items-center gap-2">
+                  <button className="p-2 text-gray-400 hover:text-primary-brand hover:bg-gray-50 rounded-full transition-all">
+                    <Smile size={20} />
                   </button>
+                  <button className="p-2 text-gray-400 hover:text-primary-brand hover:bg-gray-50 rounded-full transition-all">
+                    <Hash size={20} />
+                  </button>
+                  <button className="p-2 text-gray-400 hover:text-primary-brand hover:bg-gray-50 rounded-full transition-all">
+                    <AtSign size={20} />
+                  </button>
+                </div>
+                <span className={`text-sm font-medium ${caption.length > 450 ? 'text-orange-600' : 'text-gray-400'}`}>
+                  {caption.length}/500
                 </span>
-              ))}
+              </div>
             </div>
-          )}
-        </div>
 
-        {/* Submit Button */}
-        <div className="sticky bottom-0 bg-neutral-50 pt-4 pb-8">
-          <button
-            onClick={handleSubmit}
-            disabled={isSubmitting}
-            className="w-full py-4 bg-gradient-to-r from-primary-brand via-primary-dark to-secondary-teal text-white rounded-2xl font-bold text-lg hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
-            data-testid="publish-post-btn"
-          >
-            {isSubmitting ? (
-              <span className="flex items-center justify-center gap-2">
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                Publishing...
-              </span>
-            ) : (
-              '✨ Publish Post'
-            )}
-          </button>
+            {/* Location */}
+            <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-primary-brand/10 rounded-full">
+                  <MapPin size={20} className="text-primary-brand" />
+                </div>
+                <input
+                  type="text"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  placeholder="Add location"
+                  className="flex-1 text-gray-900 placeholder-gray-400 focus:outline-none"
+                  data-testid="location-input"
+                />
+              </div>
+            </div>
+
+            {/* Tags */}
+            <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="p-2 bg-primary-brand/10 rounded-full">
+                  <Hash size={20} className="text-primary-brand" />
+                </div>
+                <input
+                  type="text"
+                  value={tagInput}
+                  onChange={(e) => setTagInput(e.target.value)}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      handleAddTag();
+                    }
+                  }}
+                  placeholder="Add tags (press Enter)"
+                  className="flex-1 text-gray-900 placeholder-gray-400 focus:outline-none"
+                  data-testid="tag-input"
+                />
+              </div>
+              {tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 pt-3 border-t border-gray-100">
+                  {tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="inline-flex items-center gap-1 px-3 py-1 bg-primary-brand/10 text-primary-brand rounded-full text-sm font-medium"
+                    >
+                      #{tag}
+                      <button
+                        onClick={() => handleRemoveTag(tag)}
+                        className="hover:bg-primary-brand/20 rounded-full p-0.5 transition-colors"
+                      >
+                        <X size={14} />
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
