@@ -75,21 +75,57 @@ export function CreatePost() {
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
-    const file = e.dataTransfer.files[0];
-    if (file) {
+    
+    const files = e.dataTransfer.files;
+    if (!videoUrl && images.length < 10) {
+      // Handle image drops
+      const remainingSlots = 10 - images.length;
+      const filesToProcess = Array.from(files).slice(0, remainingSlots);
+      
+      filesToProcess.forEach((file) => {
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const result = reader.result as string;
+            setImages(prev => [...prev, result]);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    } else if (!images.length && files[0]?.type.startsWith('video/')) {
+      // Handle video drop
       const reader = new FileReader();
       reader.onloadend = () => {
-        const result = reader.result as string;
-        if (postType === 'image' && file.type.startsWith('image/')) {
-          setImageUrl(result);
-          setImagePreview(result);
-        } else if (postType === 'video' && file.type.startsWith('video/')) {
-          setVideoUrl(result);
-          setVideoPreview(result);
-        }
+        setVideoUrl(reader.result as string);
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(files[0]);
     }
+  };
+
+  // Image reordering handlers
+  const handleImageDragStart = (index: number) => {
+    setDraggedIndex(index);
+  };
+
+  const handleImageDragOver = (e: React.DragEvent, index: number) => {
+    e.preventDefault();
+    if (draggedIndex === null || draggedIndex === index) return;
+
+    const newImages = [...images];
+    const draggedImage = newImages[draggedIndex];
+    newImages.splice(draggedIndex, 1);
+    newImages.splice(index, 0, draggedImage);
+    
+    setImages(newImages);
+    setDraggedIndex(index);
+  };
+
+  const handleImageDragEnd = () => {
+    setDraggedIndex(null);
+  };
+
+  const removeImage = (index: number) => {
+    setImages(prev => prev.filter((_, i) => i !== index));
   };
 
   const handleAddTag = () => {
