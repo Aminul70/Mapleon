@@ -394,23 +394,23 @@ export function Login() {
 
         {/* Screen 3: Personal Registration */}
         {currentScreen === 'register-personal' && (
-          <div className="bg-neutral-800/50 backdrop-blur-lg border border-neutral-700 rounded-3xl p-8 animate-slide-up">
+          <div className="bg-white/70 backdrop-blur-lg border-2 border-white/40 rounded-3xl p-8 animate-slide-up shadow-lg">
             <button
               onClick={() => setCurrentScreen('login')}
-              className="flex items-center gap-2 text-white/60 hover:text-white mb-6 transition-colors"
+              className="flex items-center gap-2 text-mapleon-slate/60 hover:text-mapleon-slate mb-6 transition-colors"
               data-testid="back-to-login"
             >
               <ArrowLeft size={20} />
               <span className="text-sm">Back to Login</span>
             </button>
 
-            <h2 className="text-2xl font-bold text-white mb-2">Create Personal Account</h2>
-            <p className="text-white/60 text-sm mb-6">Join and start exploring local businesses</p>
+            <h2 className="text-2xl font-bold text-mapleon-slate mb-2">Create Personal Account</h2>
+            <p className="text-mapleon-slate/60 text-sm mb-6">Join and start exploring local businesses</p>
 
             <form onSubmit={handlePersonalRegister} className="space-y-4">
               {/* Full Name */}
               <div>
-                <label className="block text-sm font-medium text-white/80 mb-2">
+                <label className="block text-sm font-medium text-mapleon-slate/80 mb-2">
                   <UserCircle size={16} className="inline mr-2" />
                   Full Name
                 </label>
@@ -418,7 +418,7 @@ export function Login() {
                   type="text"
                   value={personalName}
                   onChange={(e) => setPersonalName(e.target.value)}
-                  className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-brand focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 bg-white border-2 border-mapleon-gray rounded-xl text-mapleon-slate placeholder-mapleon-slate/40 focus:outline-none focus:ring-2 focus:ring-mapleon-teal focus:border-transparent transition-all"
                   placeholder="Enter your full name"
                   required
                   data-testid="personal-name-input"
@@ -427,7 +427,7 @@ export function Login() {
 
               {/* Email */}
               <div>
-                <label className="block text-sm font-medium text-white/80 mb-2">
+                <label className="block text-sm font-medium text-mapleon-slate/80 mb-2">
                   <Mail size={16} className="inline mr-2" />
                   Email
                 </label>
@@ -435,7 +435,7 @@ export function Login() {
                   type="email"
                   value={personalEmail}
                   onChange={(e) => setPersonalEmail(e.target.value)}
-                  className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-brand focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 bg-white border-2 border-mapleon-gray rounded-xl text-mapleon-slate placeholder-mapleon-slate/40 focus:outline-none focus:ring-2 focus:ring-mapleon-teal focus:border-transparent transition-all"
                   placeholder="Enter your email"
                   required
                   data-testid="personal-email-input"
@@ -444,7 +444,7 @@ export function Login() {
 
               {/* Password */}
               <div>
-                <label className="block text-sm font-medium text-white/80 mb-2">
+                <label className="block text-sm font-medium text-mapleon-slate/80 mb-2">
                   <Lock size={16} className="inline mr-2" />
                   Password
                 </label>
@@ -453,7 +453,7 @@ export function Login() {
                     type={showPersonalPassword ? 'text' : 'password'}
                     value={personalPassword}
                     onChange={(e) => setPersonalPassword(e.target.value)}
-                    className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-brand focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 bg-white border-2 border-mapleon-gray rounded-xl text-mapleon-slate placeholder-mapleon-slate/40 focus:outline-none focus:ring-2 focus:ring-mapleon-teal focus:border-transparent transition-all"
                     placeholder="Create a password (min 6 characters)"
                     required
                     data-testid="personal-password-input"
@@ -461,7 +461,7 @@ export function Login() {
                   <button
                     type="button"
                     onClick={() => setShowPersonalPassword(!showPersonalPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-mapleon-slate/60 hover:text-mapleon-slate transition-colors"
                   >
                     {showPersonalPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
@@ -491,10 +491,10 @@ export function Login() {
             {/* Divider */}
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-neutral-700" />
+                <div className="w-full border-t border-mapleon-slate/20" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-neutral-800/50 text-neutral-400">or register with</span>
+                <span className="px-4 bg-white/70 text-mapleon-slate/60">or register with</span>
               </div>
             </div>
 
@@ -503,7 +503,7 @@ export function Login() {
               <button
                 type="button"
                 onClick={() => handleSocialLogin('google')}
-                className="w-full px-4 py-3 bg-white hover:bg-neutral-100 text-neutral-900 rounded-xl text-sm font-medium transition-all active:scale-95 flex items-center justify-center gap-3"
+                className="w-full px-4 py-3 bg-white hover:bg-gray-50 text-neutral-900 rounded-xl text-sm font-medium transition-all active:scale-95 flex items-center justify-center gap-3 border-2 border-gray-200"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -528,11 +528,11 @@ export function Login() {
 
             {/* Login Link */}
             <div className="text-center mt-6">
-              <p className="text-neutral-400 text-sm">
+              <p className="text-mapleon-slate/60 text-sm">
                 Already have an account?{' '}
                 <button
                   onClick={() => setCurrentScreen('login')}
-                  className="text-primary-brand font-semibold hover:underline"
+                  className="text-mapleon-teal font-semibold hover:underline"
                 >
                   Login
                 </button>
