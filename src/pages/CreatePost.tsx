@@ -146,21 +146,21 @@ export function CreatePost() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-20 shadow-sm">
-        <div className="flex items-center justify-between px-4 py-3 max-w-4xl mx-auto">
+      {/* Minimal Fixed Header */}
+      <div className="bg-white border-b border-gray-100 sticky top-0 z-20">
+        <div className="flex items-center justify-between px-4 py-3 max-w-2xl mx-auto">
           <button
             onClick={handleClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            className="p-1.5 hover:bg-gray-100 rounded-full transition-colors"
             data-testid="close-create-post-btn"
           >
-            <X size={24} className="text-gray-700" />
+            <X size={22} className="text-gray-700" />
           </button>
-          <h1 className="text-lg font-bold text-neutral-900">Create Post</h1>
+          <h1 className="text-base font-semibold text-gray-900">Create Post</h1>
           <button
             onClick={handleSubmit}
-            disabled={isSubmitting || (!hasMedia) || !caption.trim()}
-            className="px-6 py-2 bg-primary-brand text-white rounded-full font-semibold hover:bg-primary-dark disabled:opacity-40 disabled:cursor-not-allowed transition-all text-sm"
+            disabled={isSubmitting || (!hasMedia && !caption.trim())}
+            className="px-5 py-1.5 bg-primary-brand text-white rounded-lg font-medium hover:bg-primary-dark disabled:opacity-40 disabled:cursor-not-allowed transition-all text-sm"
             data-testid="publish-post-btn"
           >
             {isSubmitting ? 'Publishing...' : 'Publish'}
