@@ -50,6 +50,7 @@ export function Button({
 
   return (
     <button
+      type={type}
       onClick={onClick}
       disabled={disabled}
       className={`${baseStyles} ${variants[variant]} ${appliedSize} ${fullWidth ? 'w-full' : ''} ${className}`}
