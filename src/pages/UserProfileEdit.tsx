@@ -15,6 +15,8 @@ export function UserProfileEdit() {
   const navigate = useNavigate();
   const [isSaving, setIsSaving] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showCoverModal, setShowCoverModal] = useState(false);
 
   // Load saved data or use mock data
   const [formData, setFormData] = useState(() => {
