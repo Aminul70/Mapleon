@@ -32,19 +32,32 @@ export function CreatePost() {
     return null;
   }
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files) {
+      const remainingSlots = 10 - images.length;
+      const filesToProcess = Array.from(files).slice(0, remainingSlots);
+      
+      filesToProcess.forEach((file) => {
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const result = reader.result as string;
+            setImages(prev => [...prev, result]);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+  };
+
+  const handleVideoSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
+    if (file && file.type.startsWith('video/')) {
       const reader = new FileReader();
       reader.onloadend = () => {
         const result = reader.result as string;
-        if (postType === 'image') {
-          setImageUrl(result);
-          setImagePreview(result);
-        } else {
-          setVideoUrl(result);
-          setVideoPreview(result);
-        }
+        setVideoUrl(result);
       };
       reader.readAsDataURL(file);
     }
