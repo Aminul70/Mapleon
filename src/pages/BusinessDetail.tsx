@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { ArrowLeftIcon, HeartIcon, Share2Icon, StarIcon, MapPinIcon, ClockIcon, PhoneIcon } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { BottomNav } from '../components/BottomNav';
+import { ArrowLeft, Share2, Phone, MapPin, Globe, Star, ChevronRight, Clock, Heart, MessageCircle, Bookmark } from 'lucide-react';
+import { mockBusinesses, mockReviews, mockPosts } from '../utils/mockData';
 import { Button } from '../components/Button';
-import { mockBusinesses } from '../utils/mockData';
+import { Badge } from '../components/Badge';
+import { ReviewCard } from '../components/ReviewCard';
+import { BottomNav } from '../components/BottomNav';
 
 export function BusinessDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [activeTab, setActiveTab] = useState('info');
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isLiked, setIsLiked] = useState(false);
+  const [activeTab, setActiveTab] = useState<'posts' | 'about' | 'photos' | 'reviews'>('posts');
+  const [showHours, setShowHours] = useState(false);
   
   // Find the business by ID
   const business = mockBusinesses.find(b => b.id === id);
@@ -21,51 +22,13 @@ export function BusinessDetail() {
     return null;
   }
 
-  const images = business.photos || [business.image];
-
-  const reviews = [
-    {
-      id: '1',
-      name: 'FoodieFanatic',
-      rating: 5,
-      comment: 'Amazing pasta, cozy atmosphere!',
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200'
-    },
-    {
-      id: '2',
-      name: 'PastaLover',
-      rating: 4,
-      comment: 'Amazing pasta and cozy atmosphere! Highly recommend.',
-      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200'
-    },
-    {
-      id: '3',
-      name: 'LocalFoodie',
-      rating: 5,
-      comment: 'Best Italian food in the city! The tiramisu is to die for.',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200'
-    },
-    {
-      id: '4',
-      name: 'TravelEater',
-      rating: 4,
-      comment: 'Authentic Italian cuisine. Service was excellent!',
-      image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200'
-    }
-  ];
-
-  const handleBookTable = () => {
-    navigate('/bookings');
-  };
-
-  const handleCallNow = () => {
-    window.location.href = 'tel:+1234567890';
-  };
+  const reviews = mockReviews.filter(r => r.businessId === business.id);
+  const posts = mockPosts.filter(p => p.businessId === business.id);
 
   const handleShare = async () => {
     const shareData = {
-      title: 'The Golden Spoon Restaurant',
-      text: 'Check out this amazing restaurant!',
+      title: business.name,
+      text: `Check out ${business.name}!`,
       url: window.location.href
     };
 
@@ -82,219 +45,316 @@ export function BusinessDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-mapleon-gray pb-24">
-      {/* Image Carousel */}
-      <div className="relative h-80 bg-gray-200">
-        <button
-          onClick={() => navigate(-1)}
-          className="absolute top-6 left-6 z-10 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg active:scale-95 transition-transform"
-        >
-          <ArrowLeftIcon size={20} className="text-mapleon-slate" />
-        </button>
-
-        <img
-          src={images[currentImageIndex]}
-          alt="Business"
-          className="w-full h-full object-cover"
-        />
-
-        {/* Image Dots */}
-        <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
-          {images.map((_, index) => (
+    <div className="min-h-screen bg-neutral-50 pb-24">
+      {/* Header */}
+      <div className="relative">
+        {/* Cover Photo */}
+        <div className="relative h-48 sm:h-56 bg-gray-200">
+          <img
+            src={business.coverImage || business.image}
+            alt={business.name}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent" />
+          
+          {/* Header Actions */}
+          <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
             <button
-              key={index}
-              onClick={() => setCurrentImageIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all ${
-                index === currentImageIndex ? 'bg-white w-6' : 'bg-white/50'
-              }`}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Business Info Card */}
-      <div className="bg-white rounded-t-3xl -mt-6 relative z-10 px-6 pt-6 pb-4">
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex-1">
-            <h1 className="text-2xl font-bold text-mapleon-slate mb-1">
-              The Golden Spoon Restaurant
-            </h1>
-            <p className="text-gray-500 mb-3">Italian & Mediterranean Cuisine</p>
-
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1">
-                <span className="text-3xl font-bold text-mapleon-slate">
-                  4.7
-                </span>
-                <div className="flex">
-                  {[1, 2, 3, 4].map(star => (
-                    <StarIcon
-                      key={star}
-                      size={16}
-                      className="fill-mapleon-warning text-mapleon-warning"
-                    />
-                  ))}
-                  <StarIcon
-                    size={16}
-                    className="fill-mapleon-warning text-mapleon-warning opacity-50"
-                  />
-                </div>
-              </div>
-              <span className="text-sm text-gray-400">(350 Reviews)</span>
-            </div>
-          </div>
-
-          <div className="flex gap-2">
-            <button
-              onClick={() => setIsLiked(!isLiked)}
-              className="w-10 h-10 rounded-full bg-mapleon-gray flex items-center justify-center active:scale-95 transition-transform"
+              onClick={() => navigate(-1)}
+              className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors"
+              data-testid="back-button"
             >
-              <HeartIcon
-                size={20}
-                className={isLiked ? 'fill-red-500 text-red-500' : 'text-gray-600'}
-              />
+              <ArrowLeft size={20} />
             </button>
             <button
               onClick={handleShare}
-              className="w-10 h-10 rounded-full bg-mapleon-gray flex items-center justify-center active:scale-95 transition-transform"
+              className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors"
             >
-              <Share2Icon size={20} className="text-gray-600" />
+              <Share2 size={20} />
             </button>
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="flex gap-6 border-b border-gray-200 mb-4">
-          {['Info', 'Photos/Videos', 'Reviews'].map(tab => (
+        {/* Profile Info */}
+        <div className="px-4 pb-4">
+          {/* Avatar */}
+          <div className="relative -mt-12 mb-3">
+            <img
+              src={business.profileImage || business.image}
+              alt={business.name}
+              className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white object-cover"
+            />
+          </div>
+
+          {/* Name and Badge */}
+          <div className="flex items-center gap-2 mb-1 flex-wrap">
+            <h1 className="text-xl sm:text-2xl font-bold text-neutral-900 break-words">{business.name}</h1>
+            {business.verified && (
+              <Badge type="business" icon="crown" size="md">
+                Business
+              </Badge>
+            )}
+          </div>
+
+          {/* Category and Location */}
+          <div className="flex items-center gap-2 text-neutral-600 mb-2 flex-wrap">
+            <span className="text-xs sm:text-sm font-medium capitalize">{business.category}</span>
+            <span className="text-neutral-400">•</span>
+            <span className="text-xs sm:text-sm truncate max-w-[200px]">{business.address?.split(',')[0] || 'Location'}</span>
+          </div>
+
+          {/* Rating */}
+          <div className="flex items-center gap-2 mb-4 flex-wrap">
+            <div className="flex items-center gap-1">
+              <Star size={16} className="fill-yellow-400 text-yellow-400" />
+              <span className="font-semibold text-neutral-900">{business.rating}</span>
+            </div>
+            <span className="text-xs sm:text-sm text-neutral-600">({business.reviews} reviews)</span>
+            <span className="text-neutral-400">•</span>
+            <span className="text-xs sm:text-sm text-neutral-600">{business.distance}km away</span>
+          </div>
+
+          {/* Description */}
+          <p className="text-sm sm:text-base text-neutral-700 mb-4 break-words">{business.description}</p>
+
+          {/* Book Button - For Users Viewing Business Profile */}
+          <div className="mb-4">
+            <Button 
+              variant="primary" 
+              size="md" 
+              fullWidth 
+              onClick={() => navigate(`/bookings?business=${business.id}`)}
+              data-testid="book-button"
+            >
+              Book Now
+            </Button>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-2 mb-6 overflow-x-auto">
+            {business.phone && (
+              <a href={`tel:${business.phone}`} className="flex-1 min-w-[90px] sm:min-w-[100px]">
+                <Button variant="secondary" size="md" fullWidth>
+                  <Phone size={16} className="sm:w-[18px] sm:h-[18px]" />
+                  <span className="text-xs sm:text-sm">Call</span>
+                </Button>
+              </a>
+            )}
+            <button onClick={() => navigate('/map', { state: { targetLocation: business.location, businessName: business.name } })} className="flex-1 min-w-[90px] sm:min-w-[100px]">
+              <Button variant="secondary" size="md" fullWidth>
+                <MapPin size={16} className="sm:w-[18px] sm:h-[18px]" />
+                <span className="text-xs sm:text-sm">Directions</span>
+              </Button>
+            </button>
+            {business.website && (
+              <a href={business.website.startsWith('http') ? business.website : `https://${business.website}`} target="_blank" rel="noopener noreferrer" className="flex-1 min-w-[90px] sm:min-w-[100px]">
+                <Button variant="secondary" size="md" fullWidth>
+                  <Globe size={16} className="sm:w-[18px] sm:h-[18px]" />
+                  <span className="text-xs sm:text-sm">Website</span>
+                </Button>
+              </a>
+            )}
+          </div>
+
+          {/* Business Info Section */}
+          <div className="bg-white rounded-xl border border-gray-200 p-4 mb-4">
+            <h3 className="font-semibold text-neutral-900 mb-3 text-sm sm:text-base">Business Info</h3>
+            
+            {/* Hours */}
+            <button
+              onClick={() => setShowHours(!showHours)}
+              className="w-full flex items-center justify-between py-2 hover:bg-gray-50 rounded-lg px-2 transition-colors"
+            >
+              <div className="flex items-center gap-3">
+                <Clock size={18} className="sm:w-5 sm:h-5 text-neutral-600 flex-shrink-0" />
+                <div className="text-left">
+                  <p className="text-xs sm:text-sm font-medium text-neutral-900">Hours</p>
+                  <p className="text-xs text-neutral-500">
+                    {business.openNow ? 'Open now' : 'Closed'}
+                  </p>
+                </div>
+              </div>
+              <ChevronRight size={18} className={`sm:w-5 sm:h-5 text-neutral-400 transition-transform ${
+                showHours ? 'rotate-90' : ''
+              }`} />
+            </button>
+
+            {showHours && business.hours && (
+              <div className="ml-7 sm:ml-9 mt-2 space-y-2">
+                {Object.entries(business.hours).map(([day, hours]) => (
+                  <div key={day} className="flex justify-between text-xs sm:text-sm">
+                    <span className="text-neutral-700">{day}</span>
+                    <span className="text-neutral-900 font-medium">{hours}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="border-t border-gray-100 my-3" />
+
+            {/* Contact Info */}
+            <div className="space-y-3">
+              {business.phone && (
+                <div className="flex items-center gap-3 text-xs sm:text-sm">
+                  <Phone size={16} className="sm:w-[18px] sm:h-[18px] text-neutral-600 flex-shrink-0" />
+                  <span className="text-neutral-900 break-all">{business.phone}</span>
+                </div>
+              )}
+              {business.email && (
+                <div className="flex items-center gap-3 text-xs sm:text-sm">
+                  <Globe size={16} className="sm:w-[18px] sm:h-[18px] text-neutral-600 flex-shrink-0" />
+                  <span className="text-neutral-900 break-all">{business.email}</span>
+                </div>
+              )}
+              {business.address && (
+                <div className="flex items-start gap-3 text-xs sm:text-sm">
+                  <MapPin size={16} className="sm:w-[18px] sm:h-[18px] text-neutral-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-neutral-900 break-words">{business.address}</span>
+                </div>
+              )}
+            </div>
+
+            {business.amenities && business.amenities.length > 0 && (
+              <>
+                <div className="border-t border-gray-100 my-3" />
+                <div>
+                  <p className="text-xs sm:text-sm font-medium text-neutral-900 mb-2">Amenities</p>
+                  <div className="flex flex-wrap gap-2">
+                    {business.amenities.map((amenity, index) => (
+                      <span
+                        key={index}
+                        className="px-2 sm:px-3 py-1 bg-neutral-100 text-neutral-700 text-xs rounded-full"
+                      >
+                        {amenity}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div className="sticky top-0 bg-white border-b border-gray-200 z-10">
+        <div className="flex overflow-x-auto">
+          {(['posts', 'about', 'photos', 'reviews'] as const).map((tab) => (
             <button
               key={tab}
-              onClick={() => setActiveTab(tab.toLowerCase().replace('/', ''))}
-              className={`pb-3 font-medium transition-colors relative ${
-                activeTab === tab.toLowerCase().replace('/', '')
-                  ? 'text-mapleon-slate'
-                  : 'text-gray-400'
+              onClick={() => setActiveTab(tab)}
+              className={`flex-1 min-w-[80px] py-3 text-xs sm:text-sm font-medium transition-colors relative whitespace-nowrap ${
+                activeTab === tab
+                  ? 'text-primary-brand'
+                  : 'text-neutral-600 hover:text-neutral-900'
               }`}
             >
-              {tab}
-              {activeTab === tab.toLowerCase().replace('/', '') && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-mapleon-slate" />
+              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              {activeTab === tab && (
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-brand" />
               )}
             </button>
           ))}
         </div>
+      </div>
 
-        {/* Info Content */}
-        {activeTab === 'info' && (
+      {/* Tab Content */}
+      <div className="p-4">
+        {activeTab === 'posts' && (
           <div className="space-y-4">
-            <div className="flex items-start gap-3">
-              <MapPinIcon size={20} className="text-gray-400 mt-0.5" />
-              <div>
-                <p className="text-mapleon-slate">123 Oak St, Anytown</p>
-                <p className="text-sm text-gray-500">0.5 miles</p>
-              </div>
-            </div>
-
-            {/* Mini Map */}
-            <button
-              onClick={() => navigate('/map')}
-              className="w-full h-24 bg-gradient-to-br from-mapleon-teal-tint to-mapleon-gray rounded-2xl flex items-center justify-center active:scale-95 transition-transform"
-            >
-              <MapPinIcon size={32} className="text-mapleon-coral" />
-            </button>
-
-            <div className="flex items-start gap-3">
-              <ClockIcon size={20} className="text-gray-400 mt-0.5" />
-              <div>
-                <p className="text-mapleon-slate">Mon-Fri: 11 AM - 10 PM</p>
-                <p className="text-mapleon-slate">Sat-Sun: 10 AM - 11 PM</p>
-              </div>
-            </div>
-
-            <div className="flex gap-3 pt-2">
-              <Button
-                variant="primary"
-                fullWidth
-                onClick={handleBookTable}
-                className="bg-gradient-to-r from-mapleon-coral to-mapleon-pink"
-              >
-                Book a Table
-              </Button>
-              <Button
-                variant="primary"
-                fullWidth
-                onClick={handleCallNow}
-                className="bg-gradient-to-r from-blue-500 to-blue-600"
-              >
-                <PhoneIcon size={18} className="inline mr-2" />
-                Call Now
-              </Button>
-            </div>
-          </div>
-        )}
-
-        {/* Photos/Videos Tab */}
-        {activeTab === 'photosvideos' && (
-          <div className="space-y-4">
-            <div className="grid grid-cols-3 gap-2">
-              {images.map((image, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    setCurrentImageIndex(index);
-                    setActiveTab('info');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  }}
-                  className="aspect-square rounded-xl overflow-hidden active:opacity-80 transition-opacity"
-                >
-                  <img
-                    src={image}
-                    alt={`Photo ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Reviews Tab */}
-        {activeTab === 'reviews' && (
-          <div className="space-y-4">
-            {reviews.map(review => (
-              <div key={review.id} className="bg-white rounded-2xl p-4 border border-gray-100">
-                <div className="flex items-start gap-3">
-                  <img
-                    src={review.image}
-                    alt={review.name}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="font-bold text-mapleon-slate">
-                        {review.name}
-                      </h3>
+            {posts.length > 0 ? (
+              posts.map((post) => (
+                <div key={post.id} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                  {/* Post Header */}
+                  <div className="p-3 sm:p-4 flex items-center gap-3">
+                    <img
+                      src={post.profileImage}
+                      alt={post.businessName}
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-sm sm:text-base text-neutral-900 truncate">{post.businessName}</h4>
+                      <p className="text-xs text-neutral-500">2 hours ago</p>
                     </div>
-                    <div className="flex mb-2">
-                      {[...Array(review.rating)].map((_, i) => (
-                        <StarIcon
-                          key={i}
-                          size={14}
-                          className="fill-mapleon-warning text-mapleon-warning"
-                        />
-                      ))}
-                      {[...Array(5 - review.rating)].map((_, i) => (
-                        <StarIcon
-                          key={i + review.rating}
-                          size={14}
-                          className="fill-gray-300 text-gray-300"
-                        />
-                      ))}
+                  </div>
+
+                  {/* Post Media */}
+                  {post.video ? (
+                    <video
+                      src={post.video}
+                      className="w-full aspect-video object-cover"
+                      controls
+                      playsInline
+                    />
+                  ) : (
+                    <img
+                      src={post.image}
+                      alt="Post"
+                      className="w-full aspect-video object-cover"
+                    />
+                  )}
+
+                  {/* Post Actions */}
+                  <div className="p-3 sm:p-4">
+                    <div className="flex items-center gap-4 mb-3">
+                      <button className="flex items-center gap-2 text-neutral-600 hover:text-red-500 transition-colors">
+                        <Heart size={20} className="sm:w-6 sm:h-6" />
+                        <span className="text-sm sm:text-base font-semibold">{(post.likes / 1000).toFixed(1)}K</span>
+                      </button>
+                      <button className="flex items-center gap-2 text-neutral-600 hover:text-blue-500 transition-colors">
+                        <MessageCircle size={20} className="sm:w-6 sm:h-6" />
+                        <span className="text-sm sm:text-base font-semibold">{post.comments}</span>
+                      </button>
+                      <button className="ml-auto text-neutral-600 hover:text-yellow-500 transition-colors">
+                        <Bookmark size={20} className="sm:w-6 sm:h-6" />
+                      </button>
                     </div>
-                    <p className="text-sm text-gray-600">{review.comment}</p>
+
+                    {/* Post Caption */}
+                    <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed">
+                      <span className="font-semibold">{post.businessName}</span> {post.caption}
+                    </p>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-neutral-500 text-sm sm:text-base">No posts yet</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {activeTab === 'about' && (
+          <div className="space-y-4">
+            <div className="bg-white rounded-xl border border-gray-200 p-4">
+              <h3 className="font-semibold text-neutral-900 mb-2 text-sm sm:text-base">About</h3>
+              <p className="text-neutral-700 text-xs sm:text-sm leading-relaxed">{business.description}</p>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'photos' && business.photos && (
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {business.photos.map((photo, index) => (
+              <div key={index} className="relative aspect-square bg-gray-200 rounded-lg overflow-hidden">
+                <img src={photo} alt={`Photo ${index + 1}`} className="w-full h-full object-cover" />
               </div>
             ))}
+          </div>
+        )}
+
+        {activeTab === 'reviews' && (
+          <div className="space-y-3">
+            {reviews.length > 0 ? (
+              reviews.map((review) => (
+                <ReviewCard key={review.id} review={review} />
+              ))
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-neutral-500 text-sm sm:text-base">No reviews yet</p>
+              </div>
+            )}
           </div>
         )}
       </div>
