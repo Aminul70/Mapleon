@@ -131,18 +131,19 @@ export function CreatePost() {
         </div>
 
         {/* Media Upload */}
-        <div className="bg-white rounded-xl p-4 border border-gray-200">
+        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
           {postType === 'image' ? (
             <ImageUploadField
-              label="Upload Image"
+              label="Post Image"
               value={imageUrl}
               onChange={setImageUrl}
               aspectRatio="square"
               maxSizeMB={10}
+              helperText="High-quality images get more engagement"
             />
           ) : (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-800 mb-3">
                 Video URL or Upload
               </label>
               <input
@@ -150,12 +151,15 @@ export function CreatePost() {
                 value={videoUrl}
                 onChange={(e) => setVideoUrl(e.target.value)}
                 placeholder="Paste video URL or upload file"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-brand/30"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-brand/30 focus:border-primary-brand transition-all"
                 data-testid="video-url-input"
               />
-              <p className="text-xs text-gray-500 mt-2">
-                Note: Video upload feature coming soon. You can paste a video URL for now.
-              </p>
+              <div className="mt-3 flex items-start gap-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                <div className="flex-shrink-0 w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold mt-0.5">i</div>
+                <p className="text-xs text-blue-800">
+                  <strong>Note:</strong> Video upload feature coming soon. You can paste a video URL for now.
+                </p>
+              </div>
             </div>
           )}
         </div>
