@@ -183,34 +183,23 @@ export function CreatePost() {
           </div>
         </div>
 
-          {/* Caption */}
-          <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200">
-            <textarea
-              value={caption}
-              onChange={(e) => setCaption(e.target.value)}
-              placeholder="Write a caption..."
-              rows={5}
-              maxLength={500}
-              className="w-full px-0 py-0 text-gray-900 placeholder-gray-400 focus:outline-none resize-none"
-              data-testid="caption-input"
-            />
-            <div className="flex justify-between items-center mt-3 pt-3 border-t border-gray-100">
-              <div className="flex items-center gap-2">
-                <button className="p-2 text-gray-400 hover:text-primary-brand hover:bg-gray-50 rounded-full transition-all">
-                  <Smile size={20} />
-                </button>
-                <button className="p-2 text-gray-400 hover:text-primary-brand hover:bg-gray-50 rounded-full transition-all">
-                  <Hash size={20} />
-                </button>
-                <button className="p-2 text-gray-400 hover:text-primary-brand hover:bg-gray-50 rounded-full transition-all">
-                  <AtSign size={20} />
-                </button>
-              </div>
-              <span className={`text-sm font-medium ${caption.length > 450 ? 'text-orange-600' : 'text-gray-400'}`}>
-                {caption.length}/500
-              </span>
-            </div>
+        {/* Large Auto-Expanding Caption */}
+        <div className="mb-4">
+          <textarea
+            ref={captionRef}
+            value={caption}
+            onChange={(e) => setCaption(e.target.value)}
+            placeholder="Write a caption..."
+            maxLength={2000}
+            className="w-full px-3 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary-brand/30 rounded-xl resize-none min-h-[100px] transition-all bg-white"
+            data-testid="caption-input"
+          />
+          <div className="flex justify-end mt-1">
+            <span className={`text-xs font-medium ${caption.length > 1800 ? 'text-orange-600' : 'text-gray-400'}`}>
+              {caption.length}/2000
+            </span>
           </div>
+        </div>
 
           {/* Media Upload */}
           <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200">
