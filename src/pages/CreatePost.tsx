@@ -201,159 +201,119 @@ export function CreatePost() {
           </div>
         </div>
 
-          {/* Media Upload */}
-          <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200">
-            <div className="p-6">
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleImageSelect}
-                className="hidden"
-              />
-              <input
-                ref={videoInputRef}
-                type="file"
-                accept="video/*"
-                onChange={handleVideoSelect}
-                className="hidden"
-              />
+        {/* Hidden File Inputs */}
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={handleImageSelect}
+          className="hidden"
+        />
+        <input
+          ref={videoInputRef}
+          type="file"
+          accept="video/*"
+          onChange={handleVideoSelect}
+          className="hidden"
+        />
 
-              {/* Video Preview */}
-              {videoUrl ? (
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
-                      <Video size={18} className="text-primary-brand" />
-                      Video Post
-                    </h3>
-                    <span className="text-xs text-gray-500">Video posts can only contain one video</span>
-                  </div>
-                  <div className="relative group">
-                    <video
-                      src={videoUrl}
-                      controls
-                      className="w-full aspect-video object-cover rounded-xl bg-black"
-                      data-testid="video-preview"
-                    />
-                    <button
-                      onClick={removeVideo}
-                      className="absolute top-3 right-3 p-2 bg-black/60 hover:bg-black/80 text-white rounded-full backdrop-blur-sm transition-all"
-                      data-testid="remove-video-btn"
-                    >
-                      <X size={20} />
-                    </button>
-                  </div>
-                </div>
-              ) : images.length > 0 ? (
-                /* Image Grid */
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
-                      <ImageIcon size={18} className="text-primary-brand" />
-                      Photos ({images.length}/10)
-                    </h3>
-                    {images.length < 10 && (
-                      <button
-                        onClick={() => fileInputRef.current?.click()}
-                        className="text-sm font-medium text-primary-brand hover:text-primary-dark transition-colors"
-                        data-testid="add-more-photos-btn"
-                      >
-                        + Add more
-                      </button>
-                    )}
-                  </div>
-                  <div className="grid grid-cols-3 gap-3">
-                    {images.map((image, index) => (
-                      <div
-                        key={index}
-                        draggable
-                        onDragStart={() => handleImageDragStart(index)}
-                        onDragOver={(e) => handleImageDragOver(e, index)}
-                        onDragEnd={handleImageDragEnd}
-                        className={`relative group aspect-square rounded-lg overflow-hidden cursor-move border-2 transition-all ${
-                          draggedIndex === index ? 'border-primary-brand scale-95 opacity-50' : 'border-transparent'
-                        }`}
-                        data-testid={`image-thumbnail-${index}`}
-                      >
-                        <img
-                          src={image}
-                          alt={`Upload ${index + 1}`}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all" />
-                        <button
-                          onClick={() => removeImage(index)}
-                          className="absolute top-2 right-2 p-1.5 bg-black/60 hover:bg-black/80 text-white rounded-full backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100"
-                          data-testid={`remove-image-${index}-btn`}
-                        >
-                          <X size={16} />
-                        </button>
-                        {index === 0 && (
-                          <div className="absolute bottom-2 left-2 px-2 py-1 bg-black/60 text-white text-xs font-medium rounded backdrop-blur-sm">
-                            Cover
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                    {images.length < 10 && (
-                      <button
-                        onClick={() => fileInputRef.current?.click()}
-                        className="aspect-square rounded-lg border-2 border-dashed border-gray-300 hover:border-primary-brand hover:bg-primary-brand/5 flex items-center justify-center transition-all group"
-                        data-testid="add-photo-btn"
-                      >
-                        <Plus size={32} className="text-gray-400 group-hover:text-primary-brand transition-colors" />
-                      </button>
-                    )}
-                  </div>
-                  <p className="text-xs text-gray-500 text-center mt-2">
-                    Drag to reorder • First photo is the cover
-                  </p>
-                </div>
-              ) : (
-                /* Upload Options */
-                <div
-                  onDragOver={handleDragOver}
-                  onDragLeave={handleDragLeave}
-                  onDrop={handleDrop}
-                  className={`space-y-3 ${isDragging ? 'scale-[1.02]' : ''}`}
-                >
-                  <button
-                    onClick={() => fileInputRef.current?.click()}
-                    className={`w-full p-8 border-2 border-dashed rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all ${
-                      isDragging
-                        ? 'border-primary-brand bg-primary-brand/5'
-                        : 'border-gray-300 hover:border-primary-brand hover:bg-gray-50'
-                    }`}
-                    data-testid="upload-photos-btn"
-                  >
-                    <div className="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-primary-brand/10 to-secondary-teal/10 rounded-full flex items-center justify-center">
-                      <ImageIcon size={32} className="text-primary-brand" />
-                    </div>
-                    <h3 className="text-base font-semibold text-gray-900 mb-1">Add Photos</h3>
-                    <p className="text-sm text-gray-500">Upload up to 10 photos</p>
-                  </button>
-                  
-                  <button
-                    onClick={() => videoInputRef.current?.click()}
-                    className="w-full p-8 border-2 border-dashed border-gray-300 hover:border-primary-brand rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-gray-50"
-                    data-testid="upload-video-btn"
-                  >
-                    <div className="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-full flex items-center justify-center">
-                      <Video size={32} className="text-purple-600" />
-                    </div>
-                    <h3 className="text-base font-semibold text-gray-900 mb-1">Add Video</h3>
-                    <p className="text-sm text-gray-500">Upload one video</p>
-                  </button>
-                  
-                  <p className="text-xs text-gray-400 text-center pt-2">
-                    Or drag and drop files here
-                  </p>
-                </div>
-              )}
-            </div>
+        {/* Simple Media Action Icons (shown when no media added) */}
+        {!videoUrl && images.length === 0 && (
+          <div className="flex items-center gap-3 mb-4 px-2">
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              className="flex items-center gap-2 px-3 py-2 text-primary-brand hover:bg-primary-brand/10 rounded-lg transition-all"
+              data-testid="add-photo-icon-btn"
+            >
+              <ImageIcon size={20} />
+              <span className="text-sm font-medium">Photo</span>
+            </button>
+            <button
+              onClick={() => videoInputRef.current?.click()}
+              className="flex items-center gap-2 px-3 py-2 text-purple-600 hover:bg-purple-50 rounded-lg transition-all"
+              data-testid="add-video-icon-btn"
+            >
+              <Video size={20} />
+              <span className="text-sm font-medium">Video</span>
+            </button>
+            <button
+              className="p-2 text-gray-400 hover:bg-gray-100 rounded-lg transition-all"
+            >
+              <Smile size={20} />
+            </button>
           </div>
+        )}
+
+        {/* Video Preview - Edge to Edge */}
+        {videoUrl && (
+          <div className="mb-4 relative group">
+            <video
+              src={videoUrl}
+              controls
+              className="w-full rounded-2xl bg-black"
+              data-testid="video-preview"
+            />
+            <button
+              onClick={removeVideo}
+              className="absolute top-3 right-3 p-2 bg-black/70 hover:bg-black/90 text-white rounded-full transition-all"
+              data-testid="remove-video-btn"
+            >
+              <X size={18} />
+            </button>
+          </div>
+        )}
+
+        {/* Image Grid - Clean and Minimal */}
+        {images.length > 0 && (
+          <div className="mb-4">
+            <div className={`grid gap-2 rounded-2xl overflow-hidden ${
+              images.length === 1 ? 'grid-cols-1' : 
+              images.length === 2 ? 'grid-cols-2' : 
+              images.length === 3 ? 'grid-cols-3' : 
+              'grid-cols-2'
+            }`}>
+              {images.map((image, index) => (
+                <div
+                  key={index}
+                  draggable
+                  onDragStart={() => handleImageDragStart(index)}
+                  onDragOver={(e) => handleImageDragOver(e, index)}
+                  onDragEnd={handleImageDragEnd}
+                  className={`relative group cursor-move ${
+                    images.length === 1 ? 'aspect-[4/3]' : 
+                    images.length <= 3 ? 'aspect-square' : 
+                    'aspect-square'
+                  } ${draggedIndex === index ? 'opacity-50 scale-95' : ''}`}
+                  data-testid={`image-thumbnail-${index}`}
+                >
+                  <img
+                    src={image}
+                    alt={`Upload ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all" />
+                  <button
+                    onClick={() => removeImage(index)}
+                    className="absolute top-2 right-2 p-1.5 bg-black/70 hover:bg-black/90 text-white rounded-full transition-all opacity-0 group-hover:opacity-100"
+                    data-testid={`remove-image-${index}-btn`}
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              ))}
+            </div>
+            {images.length < 10 && (
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                className="w-full mt-2 py-2 text-sm font-medium text-primary-brand hover:bg-primary-brand/5 rounded-lg transition-all"
+                data-testid="add-more-photos-btn"
+              >
+                + Add more photos ({images.length}/10)
+              </button>
+            )}
+          </div>
+        )}
 
           {/* Location */}
           <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200">
