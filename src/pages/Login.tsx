@@ -184,10 +184,32 @@ export function Login() {
     }
   };
 
+  // ⚠️ TEMPORARY MOCK SOCIAL LOGIN - REMOVE WHEN OAUTH IS INTEGRATED ⚠️
   const handleSocialLogin = (provider: string) => {
-    console.log(`Social login with ${provider} - Mock implementation`);
-    // Mock implementation - would integrate with OAuth in production
+    // Generate a random mock user based on provider and account type
+    const timestamp = Date.now();
+    const providerName = provider.charAt(0).toUpperCase() + provider.slice(1);
+    
+    const mockUserData = {
+      name: `${providerName} User ${Math.floor(Math.random() * 1000)}`,
+      email: `${provider}user${timestamp}@temp.demo`,
+      password: 'temp123', // Not actually used for social login
+      accountType: accountType || 'personal' as 'personal' | 'business',
+    };
+
+    // Register the mock user
+    const success = register(mockUserData);
+    
+    if (success) {
+      // Navigate based on account type
+      if (mockUserData.accountType === 'business') {
+        navigate('/business-onboarding');
+      } else {
+        navigate('/interests');
+      }
+    }
   };
+  // ⚠️ END OF TEMPORARY MOCK CODE ⚠️
 
   const getSubcategories = () => {
     const category = businessCategories.find(cat => cat.name === businessCategory);
