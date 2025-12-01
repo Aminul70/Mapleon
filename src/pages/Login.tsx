@@ -559,7 +559,7 @@ export function Login() {
             <form onSubmit={handleBusinessRegister} className="space-y-4">
               {/* Business Name */}
               <div>
-                <label className="block text-sm font-medium text-white/80 mb-2">
+                <label className="block text-sm font-medium text-mapleon-slate/80 mb-2">
                   <Building2 size={16} className="inline mr-2" />
                   Business Name
                 </label>
@@ -567,7 +567,7 @@ export function Login() {
                   type="text"
                   value={businessName}
                   onChange={(e) => setBusinessName(e.target.value)}
-                  className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-brand focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 bg-white border-2 border-mapleon-gray rounded-xl text-mapleon-slate placeholder-mapleon-slate/40 focus:outline-none focus:ring-2 focus:ring-mapleon-teal focus:border-transparent transition-all"
                   placeholder="Enter your business name"
                   required
                   data-testid="business-name-input"
@@ -576,7 +576,7 @@ export function Login() {
 
               {/* Category */}
               <div>
-                <label className="block text-sm font-medium text-white/80 mb-2">
+                <label className="block text-sm font-medium text-mapleon-slate/80 mb-2">
                   <Store size={16} className="inline mr-2" />
                   Category
                 </label>
@@ -587,7 +587,7 @@ export function Login() {
                     setBusinessSubcategory('');
                     setBusinessCustomCategory('');
                   }}
-                  className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary-brand focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 bg-white border-2 border-mapleon-gray rounded-xl text-mapleon-slate focus:outline-none focus:ring-2 focus:ring-mapleon-teal focus:border-transparent transition-all"
                   required
                   data-testid="business-category-select"
                 >
@@ -604,13 +604,13 @@ export function Login() {
               {/* Subcategory (Optional) */}
               {businessCategory && businessCategory !== 'Other' && (
                 <div>
-                  <label className="block text-sm font-medium text-white/80 mb-2">
-                    Subcategory <span className="text-white/40">(Optional)</span>
+                  <label className="block text-sm font-medium text-mapleon-slate/80 mb-2">
+                    Subcategory <span className="text-mapleon-slate/40">(Optional)</span>
                   </label>
                   <select
                     value={businessSubcategory}
                     onChange={(e) => setBusinessSubcategory(e.target.value)}
-                    className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary-brand focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 bg-white border-2 border-mapleon-gray rounded-xl text-mapleon-slate focus:outline-none focus:ring-2 focus:ring-mapleon-teal focus:border-transparent transition-all"
                     data-testid="business-subcategory-select"
                   >
                     <option value="">Select a subcategory (optional)</option>
@@ -626,14 +626,14 @@ export function Login() {
               {/* Custom Category */}
               {businessCategory === 'Other' && (
                 <div>
-                  <label className="block text-sm font-medium text-white/80 mb-2">
+                  <label className="block text-sm font-medium text-mapleon-slate/80 mb-2">
                     Specify Your Business Type
                   </label>
                   <input
                     type="text"
                     value={businessCustomCategory}
                     onChange={(e) => setBusinessCustomCategory(e.target.value)}
-                    className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-brand focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 bg-white border-2 border-mapleon-gray rounded-xl text-mapleon-slate placeholder-mapleon-slate/40 focus:outline-none focus:ring-2 focus:ring-mapleon-teal focus:border-transparent transition-all"
                     placeholder="E.g., Pet Grooming, Car Wash, etc."
                     required
                     data-testid="business-custom-category-input"
@@ -643,7 +643,7 @@ export function Login() {
 
               {/* Address */}
               <div>
-                <label className="block text-sm font-medium text-white/80 mb-2">
+                <label className="block text-sm font-medium text-mapleon-slate/80 mb-2">
                   <MapPin size={16} className="inline mr-2" />
                   Address
                 </label>
@@ -651,7 +651,7 @@ export function Login() {
                   type="text"
                   value={businessAddress}
                   onChange={(e) => setBusinessAddress(e.target.value)}
-                  className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-brand focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 bg-white border-2 border-mapleon-gray rounded-xl text-mapleon-slate placeholder-mapleon-slate/40 focus:outline-none focus:ring-2 focus:ring-mapleon-teal focus:border-transparent transition-all"
                   placeholder="Enter your business address"
                   required
                   data-testid="business-address-input"
@@ -660,7 +660,7 @@ export function Login() {
 
               {/* Email */}
               <div>
-                <label className="block text-sm font-medium text-white/80 mb-2">
+                <label className="block text-sm font-medium text-mapleon-slate/80 mb-2">
                   <Mail size={16} className="inline mr-2" />
                   Email
                 </label>
@@ -668,7 +668,7 @@ export function Login() {
                   type="email"
                   value={businessEmail}
                   onChange={(e) => setBusinessEmail(e.target.value)}
-                  className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-brand focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 bg-white border-2 border-mapleon-gray rounded-xl text-mapleon-slate placeholder-mapleon-slate/40 focus:outline-none focus:ring-2 focus:ring-mapleon-teal focus:border-transparent transition-all"
                   placeholder="Enter your business email"
                   required
                   data-testid="business-email-input"
@@ -677,7 +677,7 @@ export function Login() {
 
               {/* Password */}
               <div>
-                <label className="block text-sm font-medium text-white/80 mb-2">
+                <label className="block text-sm font-medium text-mapleon-slate/80 mb-2">
                   <Lock size={16} className="inline mr-2" />
                   Password
                 </label>
@@ -686,7 +686,7 @@ export function Login() {
                     type={showBusinessPassword ? 'text' : 'password'}
                     value={businessPassword}
                     onChange={(e) => setBusinessPassword(e.target.value)}
-                    className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-brand focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 bg-white border-2 border-mapleon-gray rounded-xl text-mapleon-slate placeholder-mapleon-slate/40 focus:outline-none focus:ring-2 focus:ring-mapleon-teal focus:border-transparent transition-all"
                     placeholder="Create a password (min 6 characters)"
                     required
                     data-testid="business-password-input"
@@ -694,7 +694,7 @@ export function Login() {
                   <button
                     type="button"
                     onClick={() => setShowBusinessPassword(!showBusinessPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-mapleon-slate/60 hover:text-mapleon-slate transition-colors"
                   >
                     {showBusinessPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
