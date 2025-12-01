@@ -165,8 +165,8 @@ export function CreatePost() {
         </div>
 
         {/* Caption */}
-        <div className="bg-white rounded-xl p-4 border border-gray-200">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+          <label className="block text-sm font-semibold text-gray-800 mb-3">
             Caption
           </label>
           <textarea
@@ -175,40 +175,43 @@ export function CreatePost() {
             placeholder="Write a caption for your post..."
             rows={4}
             maxLength={500}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-brand/30 resize-none"
+            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-brand/30 focus:border-primary-brand resize-none transition-all"
             data-testid="caption-input"
           />
           <div className="flex justify-between items-center mt-2">
             <p className="text-xs text-gray-500">{caption.length}/500 characters</p>
+            {caption.length > 450 && (
+              <p className="text-xs text-orange-600 font-medium">Almost at limit!</p>
+            )}
           </div>
         </div>
 
         {/* Location */}
-        <div className="bg-white rounded-xl p-4 border border-gray-200">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+          <label className="block text-sm font-semibold text-gray-800 mb-3">
             Location (Optional)
           </label>
           <div className="relative">
-            <MapPin size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <MapPin size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
             <input
               type="text"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               placeholder="Add location"
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-brand/30"
+              className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-brand/30 focus:border-primary-brand transition-all"
               data-testid="location-input"
             />
           </div>
         </div>
 
         {/* Tags */}
-        <div className="bg-white rounded-xl p-4 border border-gray-200">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+          <label className="block text-sm font-semibold text-gray-800 mb-3">
             Tags (Optional)
           </label>
           <div className="flex gap-2 mb-3">
             <div className="relative flex-1">
-              <Tag size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+              <Tag size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
                 value={tagInput}
@@ -220,13 +223,13 @@ export function CreatePost() {
                   }
                 }}
                 placeholder="Add tag"
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-brand/30 text-sm"
+                className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-brand/30 focus:border-primary-brand text-sm transition-all"
                 data-testid="tag-input"
               />
             </div>
             <button
               onClick={handleAddTag}
-              className="px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors text-sm"
+              className="px-5 py-3 bg-gradient-to-r from-secondary-teal to-secondary-teal/90 text-white rounded-xl font-semibold hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all text-sm"
               data-testid="add-tag-btn"
             >
               Add
@@ -237,7 +240,7 @@ export function CreatePost() {
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center gap-1 px-3 py-1 bg-primary-brand/10 text-primary-brand rounded-full text-sm font-medium"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-primary-brand/10 to-secondary-teal/10 text-primary-brand rounded-full text-sm font-semibold border border-primary-brand/20"
                 >
                   #{tag}
                   <button
