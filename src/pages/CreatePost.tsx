@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { X, Image as ImageIcon, Video, MapPin, Tag } from 'lucide-react';
+import { X, Image as ImageIcon, Video, MapPin, Tag, Smile, AtSign, Hash, Upload } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { ImageUploadField } from '../components/form/ImageUploadField';
 import { Button } from '../components/Button';
 
 export function CreatePost() {
@@ -11,11 +10,15 @@ export function CreatePost() {
   const [postType, setPostType] = useState<'image' | 'video'>('image');
   const [imageUrl, setImageUrl] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
+  const [imagePreview, setImagePreview] = useState('');
+  const [videoPreview, setVideoPreview] = useState('');
   const [caption, setCaption] = useState('');
   const [location, setLocation] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Redirect if not a business account
   if (!isBusinessAccount) {
