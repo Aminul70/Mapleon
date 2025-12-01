@@ -724,10 +724,10 @@ export function Login() {
             {/* Divider */}
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-neutral-700" />
+                <div className="w-full border-t border-mapleon-slate/20" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-neutral-800/50 text-neutral-400">or register with</span>
+                <span className="px-4 bg-white/70 text-mapleon-slate/60">or register with</span>
               </div>
             </div>
 
@@ -736,7 +736,7 @@ export function Login() {
               <button
                 type="button"
                 onClick={() => handleSocialLogin('google')}
-                className="w-full px-4 py-3 bg-white hover:bg-neutral-100 text-neutral-900 rounded-xl text-sm font-medium transition-all active:scale-95 flex items-center justify-center gap-3"
+                className="w-full px-4 py-3 bg-white hover:bg-gray-50 text-neutral-900 rounded-xl text-sm font-medium transition-all active:scale-95 flex items-center justify-center gap-3 border-2 border-gray-200"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -761,11 +761,11 @@ export function Login() {
 
             {/* Login Link */}
             <div className="text-center mt-6">
-              <p className="text-neutral-400 text-sm">
+              <p className="text-mapleon-slate/60 text-sm">
                 Already have an account?{' '}
                 <button
                   onClick={() => setCurrentScreen('login')}
-                  className="text-primary-brand font-semibold hover:underline"
+                  className="text-mapleon-teal font-semibold hover:underline"
                 >
                   Login
                 </button>
