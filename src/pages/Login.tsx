@@ -260,22 +260,22 @@ export function Login() {
 
         {/* Screen 2: Login */}
         {currentScreen === 'login' && (
-          <div className="bg-neutral-800/50 backdrop-blur-lg border border-neutral-700 rounded-3xl p-8 animate-slide-up">
+          <div className="bg-white/70 backdrop-blur-lg border-2 border-white/40 rounded-3xl p-8 animate-slide-up shadow-lg">
             <button
               onClick={() => setCurrentScreen('account-type')}
-              className="flex items-center gap-2 text-white/60 hover:text-white mb-6 transition-colors"
+              className="flex items-center gap-2 text-mapleon-slate/60 hover:text-mapleon-slate mb-6 transition-colors"
               data-testid="back-to-account-type"
             >
               <ArrowLeft size={20} />
               <span className="text-sm">Back</span>
             </button>
 
-            <h2 className="text-2xl font-bold text-white mb-6">Login</h2>
+            <h2 className="text-2xl font-bold text-mapleon-slate mb-6">Login</h2>
 
             <form onSubmit={handleLogin} className="space-y-4">
               {/* Email */}
               <div>
-                <label className="block text-sm font-medium text-white/80 mb-2">
+                <label className="block text-sm font-medium text-mapleon-slate/80 mb-2">
                   <Mail size={16} className="inline mr-2" />
                   Email
                 </label>
@@ -283,7 +283,7 @@ export function Login() {
                   type="email"
                   value={loginEmail}
                   onChange={(e) => setLoginEmail(e.target.value)}
-                  className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-brand focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 bg-white border-2 border-mapleon-gray rounded-xl text-mapleon-slate placeholder-mapleon-slate/40 focus:outline-none focus:ring-2 focus:ring-mapleon-teal focus:border-transparent transition-all"
                   placeholder="Enter your email"
                   required
                   data-testid="login-email-input"
@@ -292,7 +292,7 @@ export function Login() {
 
               {/* Password */}
               <div>
-                <label className="block text-sm font-medium text-white/80 mb-2">
+                <label className="block text-sm font-medium text-mapleon-slate/80 mb-2">
                   <Lock size={16} className="inline mr-2" />
                   Password
                 </label>
@@ -301,7 +301,7 @@ export function Login() {
                     type={showLoginPassword ? 'text' : 'password'}
                     value={loginPassword}
                     onChange={(e) => setLoginPassword(e.target.value)}
-                    className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-brand focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 bg-white border-2 border-mapleon-gray rounded-xl text-mapleon-slate placeholder-mapleon-slate/40 focus:outline-none focus:ring-2 focus:ring-mapleon-teal focus:border-transparent transition-all"
                     placeholder="Enter your password"
                     required
                     data-testid="login-password-input"
@@ -309,7 +309,7 @@ export function Login() {
                   <button
                     type="button"
                     onClick={() => setShowLoginPassword(!showLoginPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-mapleon-slate/60 hover:text-mapleon-slate transition-colors"
                   >
                     {showLoginPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
@@ -339,10 +339,10 @@ export function Login() {
             {/* Divider */}
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-neutral-700" />
+                <div className="w-full border-t border-mapleon-slate/20" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-neutral-800/50 text-neutral-400">or continue with</span>
+                <span className="px-4 bg-white/70 text-mapleon-slate/60">or continue with</span>
               </div>
             </div>
 
@@ -351,7 +351,7 @@ export function Login() {
               <button
                 type="button"
                 onClick={() => handleSocialLogin('google')}
-                className="w-full px-4 py-3 bg-white hover:bg-neutral-100 text-neutral-900 rounded-xl text-sm font-medium transition-all active:scale-95 flex items-center justify-center gap-3"
+                className="w-full px-4 py-3 bg-white hover:bg-gray-50 text-neutral-900 rounded-xl text-sm font-medium transition-all active:scale-95 flex items-center justify-center gap-3 border-2 border-gray-200"
                 data-testid="google-login-button"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24">
@@ -378,11 +378,11 @@ export function Login() {
 
             {/* Register Link */}
             <div className="text-center mt-6">
-              <p className="text-neutral-400 text-sm">
+              <p className="text-mapleon-slate/60 text-sm">
                 Don't have an account?{' '}
                 <button
                   onClick={() => setCurrentScreen(accountType === 'business' ? 'register-business' : 'register-personal')}
-                  className="text-primary-brand font-semibold hover:underline"
+                  className="text-mapleon-teal font-semibold hover:underline"
                   data-testid="register-instead-button"
                 >
                   Register Instead
